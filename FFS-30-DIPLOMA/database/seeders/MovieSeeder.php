@@ -15,18 +15,18 @@ class MovieSeeder extends Seeder
     public function run()
     {
         DB::table('movies')->insert([
-            'title' => 'Звёздные войны XXIII: Атака клонированных клонов',
-            'duration' => 130,
+            'title' => 'Гарри Поттер и философский камень ',
+            'duration' => 152,
         ]);
 
         DB::table('movies')->insert([
-            'title' => 'Миссия выполнима',
-            'duration' => 120,
+            'title' => 'Гарри Поттер и Тайная комната',
+            'duration' => 174,
         ]);
 
         DB::table('movies')->insert([
-            'title' => 'Серая пантера',
-            'duration' => 90,
+            'title' => 'Гарри Поттер и узник Азкабана',
+            'duration' => 142,
         ]);
     }
 }

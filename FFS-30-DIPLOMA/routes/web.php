@@ -27,7 +27,7 @@ Route::get('/', function () {
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/index', function () {
         return view('client.index');
-    });
+    })->name('index');
     
         Route::get('/admin',  [HallController::class, 'index'])->name('admin');
     
