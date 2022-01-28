@@ -6,6 +6,7 @@ use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -18,5 +19,16 @@ class UserController extends Controller
         }
 
         return $user;
+    }
+
+    public function index()
+    {
+        if (Auth::check()) {
+            /**
+             * После проверки уже можешь получать любое свойство модели
+             * пользователя через фасад Auth, например id
+             */
+            $user = Auth::user()->is_admin;
+        }
     }
 }

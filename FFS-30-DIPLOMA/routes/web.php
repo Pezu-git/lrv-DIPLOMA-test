@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HallController;
+
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -26,7 +28,12 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/index', function () {
         return view('client.index');
     });
-    Route::get('/admin',  [HallController::class, 'index'])->name('admin');
+    
+        Route::get('/admin',  [HallController::class, 'index'])->name('admin');
+    
+    
+    
+    
 });
 
 

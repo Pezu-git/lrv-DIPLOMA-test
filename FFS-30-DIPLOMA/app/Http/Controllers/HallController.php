@@ -6,6 +6,7 @@ use App\Http\Requests\HallRequest;
 use App\Models\Hall;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\Auth;
 
 class HallController extends Controller
 {
@@ -17,6 +18,9 @@ class HallController extends Controller
     public function index()
     {
         $halls = Hall::all();
+        if(Auth::user()->is_admin !== '1') {
+            return redirect('/index');
+        }
         return view('admin.admin', ['halls' => $halls]);
     }
 

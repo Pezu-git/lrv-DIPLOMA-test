@@ -8,8 +8,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Авторизация | ИдёмВКино</title>
-  <link rel="stylesheet" href="/css/normalizemoonbase.css">
-  <link rel="stylesheet" href="/css/moonbase.css">
+  <!-- <link rel="stylesheet" href="/css/admin_normalizemoonbase.css"> -->
+  <link rel="stylesheet" href="/css/admin_moonbase.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
 </head>
 
@@ -53,7 +53,7 @@
     </section>
   </main>
 
-  <script src="js/accordeon.js"></script>
+  <script src="js/admin_moonbase.js"></script>
 </body>
 </html>
     </x-auth-card>
