@@ -21,12 +21,13 @@ Route::get('/', function () {
 
 
 
-// Route::get('/index', function () {
-//     return view('index');
-// })->middleware(['auth'])->name('index');
 
-Route::get('/admin',  [HallController::class, 'index'])->name('admin');
-
+Route::group(['middleware' => 'auth:sanctum'], function () {
+    Route::get('/index', function () {
+        return view('client.index');
+    });
+    Route::get('/admin',  [HallController::class, 'index'])->name('admin');
+});
 
 
 require __DIR__.'/auth.php';

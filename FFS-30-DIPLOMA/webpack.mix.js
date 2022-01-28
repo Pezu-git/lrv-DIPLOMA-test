@@ -18,13 +18,12 @@ mix.js('resources/js/app.js', 'public/js').postCss('resources/css/app.css', 'pub
 ]);
 
 mix.styles([
-    'resources/css/normalize.css',
-    'resources/css/styles.css',
-], 'public/css/moonbase.css');
+    'resources/admin/css/normalize.css',
+    'resources/admin/css/styles.css',
+], 'public/css/admin_moonbase.css');
 
 
 
-mix.js(['resources/js/app.js',
-    'resources/js/bootstrap.js',
-    'resources/js/accordeon.js',
-], 'public/js/moonbase.js');
+mix.js(
+    'resources/admin/js/accordeon.js',
+ 'public/js/admin_moonbase.js');

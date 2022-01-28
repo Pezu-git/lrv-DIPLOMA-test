@@ -1,59 +1,60 @@
 <x-guest-layout>
     <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+    <!DOCTYPE html>
+<html lang="ru">
 
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Авторизация | ИдёмВКино</title>
+  <link rel="stylesheet" href="/css/normalizemoonbase.css">
+  <link rel="stylesheet" href="/css/moonbase.css">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
+</head>
 
-        <form method="POST" action="{{ route('register') }}">
-            @csrf
+<body>
 
-            <!-- Name -->
-            <div>
-                <x-label for="name" :value="__('Name')" />
-
-                <x-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus />
-            </div>
-
-            <!-- Email Address -->
-            <div class="mt-4">
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
-            </div>
-
-            <!-- Password -->
-            <div class="mt-4">
-                <x-label for="password" :value="__('Password')" />
-
-                <x-input id="password" class="block mt-1 w-full"
-                                type="password"
-                                name="password"
-                                required autocomplete="new-password" />
-            </div>
-
-            <!-- Confirm Password -->
-            <div class="mt-4">
-                <x-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                <x-input id="password_confirmation" class="block mt-1 w-full"
-                                type="password"
-                                name="password_confirmation" required />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('login') }}">
-                    {{ __('Already registered?') }}
-                </a>
-
-                <x-button class="ml-4">
-                    {{ __('Register') }}
-                </x-button>
-            </div>
+  <header class="page-header">
+    <h1 class="page-header__title">Идём<span>в</span>кино</h1>
+    <span class="page-header__subtitle">Администраторррская</span>
+  </header>
+  
+  <main>
+    <section class="login">
+      <header class="login__header">
+        <h2 class="login__title">Авторизация</h2>
+      </header>
+      <div class="login__wrapper">
+        <form class="login__form" method="POST" action="{{ route('register') }}" accept-charset="utf-8">
+        @csrf
+            <label class="login__label" for="name">
+                Имя
+                <input id="name" class="login__input" type="text" name="name" :value="old('name')" required autofocus>
+            </label>
+          <label class="login__label" for="mail">
+            E-mail
+            <input id="email" class="login__input" type="email" name="email" :value="old('email')" required autofocus>
+          </label>
+          <label class="login__label" for="pwd">
+            Пароль
+            <input id="password" class="login__input" type="password" placeholder="" name="password" required>
+          </label>
+            <!--Подтверждение регистрации-->
+          <label class="login__label" for="password_confirmation">
+            Пдтвердите пароль
+            <input id="password_confirmation" class="login__input" type="password" placeholder="" name="password_confirmation" required>
+          </label>
+          <div class="text-center">
+            <input value="Регистрация" type="submit" class="login__button">
+          </div>
         </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/accordeon.js"></script>
+</body>
+</html>
     </x-auth-card>
 </x-guest-layout>

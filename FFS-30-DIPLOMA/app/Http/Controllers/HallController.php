@@ -17,7 +17,7 @@ class HallController extends Controller
     public function index()
     {
         $halls = Hall::all();
-        return view('admin', ['halls' => $halls]);
+        return view('admin.admin', ['halls' => $halls]);
     }
 
     /**
