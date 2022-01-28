@@ -22,6 +22,13 @@ mix.styles([
     'resources/admin/css/styles.css',
 ], 'public/css/admin_moonbase.css');
 
+mix.styles([
+    'resources/client/css/styles.css',
+], 'public/css/client_moonbase.css');
+mix.styles([
+    'resources/client/css/normalize.css',
+], 'public/css/client_normolize_moonbase.css');
+
 
 
 mix.js(

@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>ИдёмВКино</title>
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/client_normolize_moonbase.css">
+  <link rel="stylesheet" href="css/client_moonbase.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
 </head>
 
@@ -43,7 +43,7 @@
     <section class="movie">
       <div class="movie__info">
         <div class="movie__poster">
-          <img class="movie__poster-image" alt="Звёздные войны постер" src="i/poster1.jpg">
+          <img class="movie__poster-image" alt="Звёздные войны постер" src="{{asset('assets/i/client_img/poster1.jpg')}}">
         </div>
         <div class="movie__description">
           <h2 class="movie__title">Звёздные войны XXIII: Атака клонированных клонов</h2>
@@ -80,7 +80,7 @@
     <section class="movie">
       <div class="movie__info">      
         <div class="movie__poster">
-          <img class="movie__poster-image" alt="Альфа постер" src="i/poster2.jpg">
+          <img class="movie__poster-image" alt="Альфа постер" src="{{asset('assets/i/client_img/poster2.jpg')}}">
         </div>
         <div class="movie__description">        
           <h2 class="movie__title">Альфа</h2>
@@ -116,7 +116,7 @@
     <section class="movie">
       <div class="movie__info">      
         <div class="movie__poster">
-          <img class="movie__poster-image" alt="Хищник постер" src="i/poster2.jpg">
+          <img class="movie__poster-image" alt="Хищник постер" src="{{asset('assets/i/client_img/poster2.jpg')}}">
         </div>
         <div class="movie__description">        
           <h2 class="movie__title">Хищник</h2>
