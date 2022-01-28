@@ -25,7 +25,7 @@ Route::get('/', function () {
 //     return view('index');
 // })->middleware(['auth'])->name('index');
 
-Route::get('/index',  [HallController::class, 'index'])->name('index');
+Route::get('/admin',  [HallController::class, 'index'])->name('admin');
 
 
 
