@@ -20,6 +20,8 @@ var deleteDismiss = document.getElementById('delModalDissmis');
 var addDismiss = document.getElementById('addModalDissmis');
 var addHallInput = document.getElementsByName('name');
 var addHallButton = document.getElementsByName('addHall');
+var cancelBtn = Array.from(document.querySelectorAll('.conf-step__button-regular'));
+console.log(cancelBtn);
 
 
 var ul = Array.from(document.querySelectorAll('.hallDeleteList'));
@@ -47,4 +49,10 @@ accent.addEventListener('click', function() {
 addDismiss.addEventListener('click', function() {
   addModal.classList.toggle('active');
 })
-
+//Cancel-Buttons
+for (let i = 0; i < cancelBtn.length; i++) {
+  cancelBtn[i].addEventListener('click', (e) => {
+    e.preventDefault();
+    location.reload(true)
+  })
+}
