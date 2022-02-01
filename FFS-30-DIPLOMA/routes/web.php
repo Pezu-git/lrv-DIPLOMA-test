@@ -19,19 +19,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-
-
-
-
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/index', function () {
         return view('client.index');
     })->name('index');
+
+    Route::get('/admin',  [HallController::class, 'index'])->name('admin');
     
-        Route::get('/admin',  [HallController::class, 'index'])->name('admin');
-    
-    
+    Route::post('/admin/delete_hall/{id}',  [HallController::class, 'hallDelete'])->name('delete_hall');
+
+    Route::get('/hall_add',  [HallController::class, 'store']);
     
     
 });

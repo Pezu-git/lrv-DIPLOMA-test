@@ -7,6 +7,7 @@ use App\Models\Hall;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Orchid\Screen\Actions\ModalToggle;
 
 class HallController extends Controller
 {
@@ -21,6 +22,7 @@ class HallController extends Controller
         if(Auth::user()->is_admin !== '1') {
             return redirect('/index');
         }
+        
         return view('admin.admin', ['halls' => $halls]);
     }
 
@@ -32,8 +34,11 @@ class HallController extends Controller
      */
     public function store(HallRequest $request)
     {
-        return Hall::create($request->validated());
+         Hall::create($request->validated());
+         return redirect()->route('admin');
     }
+
+    
 
     /**
      * Display the specified resource.
@@ -72,6 +77,14 @@ class HallController extends Controller
         }
         return null;
     }
+
+    public function hallDelete(int $id)
+    {
+        Hall::find($id)->delete();
+        return redirect()->route('admin');
+    }
+
+  
 
     /**
      * Set hall active status

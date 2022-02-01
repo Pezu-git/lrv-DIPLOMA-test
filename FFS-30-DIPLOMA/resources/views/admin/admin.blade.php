@@ -13,28 +13,89 @@
 </head>
 
 <body>
+
+<!--HallDelete-popup-->
+<div class="popup" id="deletePopup">
+  <div class="popup__container">
+    <div class="popup__content">
+      <div class="popup__header">
+        <h2 class="popup__title">
+          Удаление зала
+          <a class="popup__dismiss" href="#"><img src={{asset('assets/i/close.png')}} alt="Закрыть" id="delModalDissmis"></a>
+        </h2>
+      </div>
+      <div class="popup__wrapper">
+        <form action="admin" method="post" accept-charset="utf-8" id="deleteForm">
+        @csrf
+          <p class="conf-step__paragraph">Вы действительно хотите удалить зал: <span class="popupHallName"></span>?</p>
+          <!-- В span будет подставляться название зала -->
+          <div class="conf-step__buttons text-center">
+            <input type="submit" value="Удалить" class="conf-step__button conf-step__button-accent">
+            <button class="conf-step__button conf-step__button-regular">Отменить</button>            
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--HallAdd-popup-->
+<div class="popup" id="addPopup">
+  <div class="popup__container">
+    <div class="popup__content">
+      <div class="popup__header">
+        <h2 class="popup__title">
+          Добавление зала
+          <a class="popup__dismiss" href="#"><img src="i/close.png" alt="Закрыть" id="addModalDissmis"></a>
+        </h2>
+
+      </div>
+      <div class="popup__wrapper">
+        <form action="hall_add" method="get" accept-charset="utf-8" name="hallAddForm">
+        @csrf
+          <label class="conf-step__label conf-step__label-fullsize" for="name">
+            Название зала
+            <input class="conf-step__input" type="text" placeholder="Например, &laquo;Зал 1&raquo;" name="name" required>
+          </label>
+          <div class="conf-step__buttons text-center">
+            <input type="submit" value="Добавить зал" class="conf-step__button conf-step__button-accent" name="addHall">
+            <button class="conf-step__button conf-step__button-regular">Отменить</button>            
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
   <header class="page-header">
     <h1 class="page-header__title">Идём<span>в</span>кино</h1>
     <span class="page-header__subtitle">Администраторррская</span>
   </header>
   
   <main class="conf-steps">
+    
     <section class="conf-step">
+      
       <header class="conf-step__header conf-step__header_opened">
         <h2 class="conf-step__title">Управление залами</h2>
+        
       </header>
+      
       <div class="conf-step__wrapper">
         
         <p class="conf-step__paragraph">Доступные залы:</p>
-        @foreach($halls as $hall)
+        
         <ul class="conf-step__list">
-          <li>{{ $hall->name }}
-            <button class="conf-step__button conf-step__button-trash" type="button" onclick="window.location=`{{ route('index') }}`"></button>
+        @foreach($halls as $hall)
+          <li class="hallDeleteList">{{ $hall->name }}
+            <button class="conf-step__button conf-step__button-trash" type="button" id="{{ $hall->id }}"></button>
           </li>
+          @endforeach
         </ul>
-        @endforeach
+        
         <button class="conf-step__button conf-step__button-accent">Создать зал</button>
       </div>
+     
     </section>
     
     <section class="conf-step">
@@ -43,12 +104,11 @@
       </header>
       <div class="conf-step__wrapper">
         <p class="conf-step__paragraph">Выберите зал для конфигурации:</p>
-        @foreach($halls as $hall)
-        <ul class="conf-step__selectors-box">
-          <li><input type="radio" class="conf-step__radio" name="chairs-hall" value="Зал 1" checked><span class="conf-step__selector">{{ $hall->name }}</span></li>
-          
+          <ul class="conf-step__selectors-box">
+          @foreach($halls as $hall)
+          <li><input type="radio" class="conf-step__radio" name="chairs-hall" value="{{ $hall->name }}" checked><span class="conf-step__selector">{{ $hall->name }}</span></li>
+          @endforeach
         </ul>
-        @endforeach
         <p class="conf-step__paragraph">Укажите количество рядов и максимальное количество кресел в ряду:</p>
         <div class="conf-step__legend">
           <label class="conf-step__label">Рядов, шт<input type="text" class="conf-step__input" placeholder="10" ></label>
@@ -151,8 +211,9 @@
       <div class="conf-step__wrapper">
         <p class="conf-step__paragraph">Выберите зал для конфигурации:</p>
         <ul class="conf-step__selectors-box">
-          <li><input type="radio" class="conf-step__radio" name="prices-hall" value="Зал 1"><span class="conf-step__selector">Зал 1</span></li>
-          <li><input type="radio" class="conf-step__radio" name="prices-hall" value="Зал 2" checked><span class="conf-step__selector">Зал 2</span></li>
+        @foreach($halls as $hall)
+          <li><input type="radio" class="conf-step__radio" name="prices-hall" value="Зал 1"><span class="conf-step__selector">{{ $hall->name }}</span></li>
+        @endforeach  
         </ul>
           
         <p class="conf-step__paragraph">Установите цены для типов кресел:</p>
@@ -260,7 +321,8 @@
         <p class="conf-step__paragraph">Всё готово, теперь можно:</p>
         <button class="conf-step__button conf-step__button-accent">Открыть продажу билетов</button>
       </div>
-    </section>    
+    </section>  
+      
   </main>
 
 
