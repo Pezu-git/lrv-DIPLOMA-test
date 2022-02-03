@@ -1,6 +1,16 @@
 <?php
-use App\Models\Hall;
+use App\Models\Movie;
+$movies = Movie::all();
 
+function movieTit($m) {
+  return Movie::where('id', $m->movie_id)->first()->title;
+}
+function movieDuration($m) {
+  return (int)(Movie::where('id', $m->movie_id)->first()->duration)/2;
+}
+function movieStyleLeft($m) {
+  return (int)($m->start_time)*30;
+}
 
 ?>
 
@@ -34,7 +44,7 @@ use App\Models\Hall;
       <div class="popup__wrapper">
         <form action="admin" method="post" accept-charset="utf-8" id="deleteForm">
         @csrf
-          <p class="conf-step__paragraph">Вы действительно хотите удалить зал: {{$halls}}<span class="popupHallName"></span>?</p>
+          <p class="conf-step__paragraph">Вы действительно хотите удалить зал: <span class="popupHallName"></span>?</p>
           <!-- В span будет подставляться название зала -->
           <div class="conf-step__buttons text-center">
             <input type="submit" value="Удалить" class="conf-step__button conf-step__button-accent">
@@ -275,59 +285,32 @@ use App\Models\Hall;
         <p class="conf-step__paragraph">
           <button class="conf-step__button conf-step__button-accent" id ="addMovie" name="addMovie">Добавить фильм</button>
         </p>
+        <!--Все фильмы кинотеатара-->
         <div class="conf-step__movies">
+          @foreach($movies as $movie)
           <div class="conf-step__movie">
             <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
-            <h3 class="conf-step__movie-title">Звёздные войны XXIII: Атака клонированных клонов</h3>
+            <h3 class="conf-step__movie-title">{{$movie->title}}</h3>
             <p class="conf-step__movie-duration">130 минут</p>
           </div>
-          
-          <div class="conf-step__movie">
-            <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
-            <h3 class="conf-step__movie-title">Миссия выполнима</h3>
-            <p class="conf-step__movie-duration">120 минут</p>
-          </div>
-          
-          <div class="conf-step__movie">
-            <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
-            <h3 class="conf-step__movie-title">Серая пантера</h3>
-            <p class="conf-step__movie-duration">90 минут</p>
-          </div>
-          
-          <div class="conf-step__movie">
-            <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
-            <h3 class="conf-step__movie-title">Движение вбок</h3>
-            <p class="conf-step__movie-duration">95 минут</p>
-          </div>   
-          
-          <div class="conf-step__movie">
-            <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
-            <h3 class="conf-step__movie-title">Кот Да Винчи</h3>
-            <p class="conf-step__movie-duration">100 минут</p>
-          </div>            
-        </div>
-        
-        <div class="conf-step__seances">
-          @foreach($halls as $hall)
-          <div class="conf-step__seances-hall">
-            <h3 class="conf-step__seances-title">{{ $hall->name }}</h3>
-            <div class="conf-step__seances-timeline">
-              <div class="conf-step__seances-movie" style="width: 60px; background-color: rgb(133, 255, 137); left: 0;">
-                <p class="conf-step__seances-movie-title">Миссия выполнима</p>
-                <p class="conf-step__seances-movie-start">00:00</p>
-              </div>
-              <div class="conf-step__seances-movie" style="width: 60px; background-color: rgb(133, 255, 137); left: 360px;">
-                <p class="conf-step__seances-movie-title">Миссия выполнима</p>
-                <p class="conf-step__seances-movie-start">12:00</p>
-              </div>
-              <div class="conf-step__seances-movie" style="width: 65px; background-color: rgb(202, 255, 133); left: 420px;">
-                <p class="conf-step__seances-movie-title">Звёздные войны XXIII: Атака клонированных клонов</p>
-                <p class="conf-step__seances-movie-start">14:00</p>
-              </div>              
-            </div>
-          </div>
           @endforeach
-        
+        </div>
+         <!--Сеансы-->
+        <div class="conf-step__seances">
+          @for($i = 0; $i < $halls->count(); $i++)
+          <div class="conf-step__seances-hall">
+            <h3 class="conf-step__seances-title">{{$halls[$i]->name}}</h3>
+            <div class="conf-step__seances-timeline">
+              @for($j = 0; $j < $halls[$i]->seances->count(); $j++)
+              <div class="conf-step__seances-movie" style="width: {{movieDuration($halls[$i]->seances[$j])}}px; background-color: rgb(133, 255, 137); left: {{movieStyleLeft($halls[$i]->seances[$j])}}px;">
+                <p class="conf-step__seances-movie-title">{{movieTit($halls[$i]->seances[$j])}}</p>
+                <p class="conf-step__seances-movie-start">{{$halls[$i]->seances[$j]->start_time}}</p>
+              </div>
+              @endfor
+            </div>  
+          </div>
+          @endfor 
+          
         <fieldset class="conf-step__buttons text-center">
           <button class="conf-step__button conf-step__button-regular">Отмена</button>
           <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent">
