@@ -15,8 +15,5 @@ class Movie extends Model
         'title', 'duration'
     ];
 
-    public function seances()
-    {
-        return $this->hasMany(\App\Models\MovieSchedule::class);
-    }
+    
 }

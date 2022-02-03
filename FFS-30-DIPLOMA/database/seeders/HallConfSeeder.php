@@ -15,13 +15,11 @@ class HallConfSeeder extends Seeder
     public function run()
     {
         DB::table('hall_confs')->insert([
-            'hall_id' => 1,
             'rows' => 5,
             'cols' => 7
         ]);
 
         DB::table('hall_confs')->insert([
-            'hall_id' => 2,
             'rows' => 6,
             'cols' => 7
         ]);

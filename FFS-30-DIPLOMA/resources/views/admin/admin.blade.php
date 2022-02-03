@@ -1,3 +1,10 @@
+<?php
+use App\Models\Hall;
+
+
+?>
+
+
 <x-app-layout>
 <!DOCTYPE html>
 <html lang="ru">
@@ -27,7 +34,7 @@
       <div class="popup__wrapper">
         <form action="admin" method="post" accept-charset="utf-8" id="deleteForm">
         @csrf
-          <p class="conf-step__paragraph">Вы действительно хотите удалить зал: <span class="popupHallName"></span>?</p>
+          <p class="conf-step__paragraph">Вы действительно хотите удалить зал: {{$halls}}<span class="popupHallName"></span>?</p>
           <!-- В span будет подставляться название зала -->
           <div class="conf-step__buttons text-center">
             <input type="submit" value="Удалить" class="conf-step__button conf-step__button-accent">
@@ -67,6 +74,33 @@
   </div>
 </div>
 
+<!-- MovieAdd-Popup-->
+<div class="popup" id="addMoviePopup">
+  <div class="popup__container">
+    <div class="popup__content">
+      <div class="popup__header">
+        <h2 class="popup__title">
+          Добавление фильма
+          <a class="popup__dismiss" href="#"><img src="i/close.png" alt="Закрыть" id="movieModalDissmis"></a>
+        </h2>
+
+      </div>
+      <div class="popup__wrapper">
+        <form action="add_movie" method="post" accept-charset="utf-8">
+          <label class="conf-step__label conf-step__label-fullsize" for="name">
+            Название фильма
+            <input class="conf-step__input" type="text" placeholder="Например, &laquo;Гражданин Кейн&raquo;" name="name" required>
+          </label>
+          <div class="conf-step__buttons text-center">
+            <input type="submit" value="Добавить фильм" class="conf-step__button conf-step__button-accent" >
+            <button class="conf-step__button conf-step__button-regular">Отменить</button>            
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
   <header class="page-header">
     <h1 class="page-header__title">Идём<span>в</span>кино</h1>
     <span class="page-header__subtitle">Администраторррская</span>
@@ -93,7 +127,7 @@
           @endforeach
         </ul>
         
-        <button class="conf-step__button conf-step__button-accent">Создать зал</button>
+        <button class="conf-step__button conf-step__button-accent" id="hallAddPopupShow">Создать зал</button>
       </div>
      
     </section>
@@ -106,14 +140,14 @@
         <p class="conf-step__paragraph">Выберите зал для конфигурации:</p>
           <ul class="conf-step__selectors-box">
           @foreach($halls as $hall)
-          <li><input type="radio" class="conf-step__radio" name="chairs-hall" value="{{ $hall->name }}" checked><span class="conf-step__selector">{{ $hall->name }}</span></li>
+          <li><input type="radio" class="conf-step__radio" name="chairs-hall" value="{{ $hall->name }}" id="{{ $hall->id }}" checked><span class="conf-step__selector">{{ $hall->name }}</span></li>
           @endforeach
         </ul>
         <p class="conf-step__paragraph">Укажите количество рядов и максимальное количество кресел в ряду:</p>
         <div class="conf-step__legend">
-          <label class="conf-step__label">Рядов, шт<input type="text" class="conf-step__input" placeholder="10" ></label>
+          <label class="conf-step__label">Рядов, шт<input type="text" class="conf-step__input" placeholder="10" id="input_rows_count"></label>
           <span class="multiplier">x</span>
-          <label class="conf-step__label">Мест, шт<input type="text" class="conf-step__input" placeholder="8" ></label>
+          <label class="conf-step__label">Мест, шт<input type="text" class="conf-step__input" placeholder="8" id="input_places_count"></label>
         </div>
         <p class="conf-step__paragraph">Теперь вы можете указать типы кресел на схеме зала:</p>
         <div class="conf-step__legend">
@@ -239,7 +273,7 @@
       </header>
       <div class="conf-step__wrapper">
         <p class="conf-step__paragraph">
-          <button class="conf-step__button conf-step__button-accent">Добавить фильм</button>
+          <button class="conf-step__button conf-step__button-accent" id ="addMovie" name="addMovie">Добавить фильм</button>
         </p>
         <div class="conf-step__movies">
           <div class="conf-step__movie">
@@ -274,8 +308,9 @@
         </div>
         
         <div class="conf-step__seances">
+          @foreach($halls as $hall)
           <div class="conf-step__seances-hall">
-            <h3 class="conf-step__seances-title">Зал 1</h3>
+            <h3 class="conf-step__seances-title">{{ $hall->name }}</h3>
             <div class="conf-step__seances-timeline">
               <div class="conf-step__seances-movie" style="width: 60px; background-color: rgb(133, 255, 137); left: 0;">
                 <p class="conf-step__seances-movie-title">Миссия выполнима</p>
@@ -291,20 +326,7 @@
               </div>              
             </div>
           </div>
-          <div class="conf-step__seances-hall">
-            <h3 class="conf-step__seances-title">Зал 2</h3>
-            <div class="conf-step__seances-timeline">
-              <div class="conf-step__seances-movie" style="width: 65px; background-color: rgb(202, 255, 133); left: 595px;">
-                <p class="conf-step__seances-movie-title">Звёздные войны XXIII: Атака клонированных клонов</p>
-                <p class="conf-step__seances-movie-start">19:50</p>
-              </div>
-              <div class="conf-step__seances-movie" style="width: 60px; background-color: rgb(133, 255, 137); left: 660px;">
-                <p class="conf-step__seances-movie-title">Миссия выполнима</p>
-                <p class="conf-step__seances-movie-start">22:00</p>
-              </div>              
-            </div>
-          </div>
-        </div>
+          @endforeach
         
         <fieldset class="conf-step__buttons text-center">
           <button class="conf-step__button conf-step__button-regular">Отмена</button>

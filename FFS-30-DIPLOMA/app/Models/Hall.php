@@ -17,5 +17,9 @@ class Hall extends Model
     protected $casts = [
         'is_active' => 'boolean',
     ];
+    public function seances()
+    {
+        return $this->hasMany(\App\Models\MovieSchedule::class);
+    }
 
 }

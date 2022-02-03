@@ -27,9 +27,8 @@ class HallConfRequest extends FormRequest
     public function rules()
     {
         return [
-            'hall_id' => ['required', 'int', 'unique:hall_confs'],
-            'rows' => ['required', 'int'],
-            'cols' => ['required', 'int'],
+            // 'rows' => ['required', 'int'],
+            // 'cols' => ['required', 'int'],
         ];
     }
 

@@ -14,9 +14,9 @@ class CreateHallConfsTable extends Migration
     public function up()
     {
         Schema::create('hall_confs', function (Blueprint $table) {
-            $table->integer('hall_id');
-            $table->integer('rows');
-            $table->integer('cols');
+            $table->id();
+            $table->integer('rows')->default(8);
+            $table->integer('cols')->default(10);
         });
     }
 

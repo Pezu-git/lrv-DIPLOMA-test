@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Orchid\Screen\Actions\ModalToggle;
+use App\Models\HallConf;
 
 class HallController extends Controller
 {
@@ -35,7 +36,8 @@ class HallController extends Controller
     public function store(HallRequest $request)
     {
          Hall::create($request->validated());
-         return redirect()->route('admin');
+         
+         return redirect()->route('hall_conf');
     }
 
     
@@ -81,6 +83,7 @@ class HallController extends Controller
     public function hallDelete(int $id)
     {
         Hall::find($id)->delete();
+        HallConf::find($id)->delete();
         return redirect()->route('admin');
     }
 

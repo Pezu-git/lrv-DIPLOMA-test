@@ -17,6 +17,6 @@ class MovieSchedule extends Model
 
     public function movie()
     {
-        return $this->belongsTo(Movie::class);
+        return $this->belongsTo(Hall::class);
     }
 }

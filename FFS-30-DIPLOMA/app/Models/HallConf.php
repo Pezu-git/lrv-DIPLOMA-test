@@ -9,10 +9,13 @@ class HallConf extends Model
 {
     use HasFactory;
     public $timestamps = false;
-    protected $primaryKey = 'hall_id';
-    public $incrementing = false;
 
-    protected $fillable = [
-        'hall_id', 'rows', 'cols'
+    // protected $fillable = [
+    //     'rows', 'cols'
+    // ];
+    protected $casts = [
+        'rows' => 'int', 
+        'cols' => 'int',
     ];
+    
 }

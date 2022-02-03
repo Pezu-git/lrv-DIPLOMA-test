@@ -13,21 +13,26 @@ headers.forEach(function (header) {
 /******/ })();
 
 var trashs = Array.from(document.querySelectorAll('.conf-step__button-trash'));
-var accent = document.querySelector('button.conf-step__button-accent');
+var hallAddPopupShowBtn = document.getElementById('hallAddPopupShow');
+
 var delModal = document.getElementById('deletePopup');
 var addModal = document.getElementById('addPopup');
+var addMovieModal = document.getElementById('addMoviePopup');
+
 var deleteDismiss = document.getElementById('delModalDissmis');
 var addDismiss = document.getElementById('addModalDissmis');
-var addHallInput = document.getElementsByName('name');
-var addHallButton = document.getElementsByName('addHall');
+var movieDismiss = document.getElementById('movieModalDissmis');
 var cancelBtn = Array.from(document.querySelectorAll('.conf-step__button-regular'));
-console.log(cancelBtn);
+var addMovieBtn = document.getElementById('addMovie');
 
 
 var ul = Array.from(document.querySelectorAll('.hallDeleteList'));
 var popupSpan = document.querySelector('.popupHallName');
 var myForm = document.getElementById("deleteForm");
-var addForm = document.getElementsByName('hallAddForm');
+// var addForm = document.getElementsByName('hallAddForm');
+
+var chairsHallConfInput = document.getElementsByName("chairs-hall");
+console.log(chairsHallConfInput);
 
 //Delete-Popup show
 for (let i = 0; i < trashs.length; i++) {
@@ -38,15 +43,17 @@ for (let i = 0; i < trashs.length; i++) {
   })
 }
 //Delete-Popup close
-deleteDismiss.addEventListener('click', function() {
+deleteDismiss.addEventListener('click', function(e) {
+  e.preventDefault();
   delModal.classList.toggle('active');
 })
 //Add-Popup show
-accent.addEventListener('click', function() {
+hallAddPopupShowBtn.addEventListener('click', function() {
   addModal.classList.toggle('active');
 })
 //Add-Popup close
-addDismiss.addEventListener('click', function() {
+addDismiss.addEventListener('click', function(e) {
+  e.preventDefault();
   addModal.classList.toggle('active');
 })
 //Cancel-Buttons
@@ -56,3 +63,51 @@ for (let i = 0; i < cancelBtn.length; i++) {
     location.reload(true)
   })
 }
+//Movie-Popup show
+addMovieBtn.addEventListener('click', function() {
+  addMovieModal.classList.toggle('active');
+})
+//Movie-Popup close
+movieDismiss.addEventListener('click', function(e) {
+  e.preventDefault();
+  addMovieModal.classList.toggle('active');
+})
+
+for (let i = 0; i<chairsHallConfInput.length; i++) {
+  chairsHallConfInput[i].addEventListener('click', function(e) {
+    console.log('das')
+    // addMovieModal.classList.toggle('active');
+  })
+}
+
+
+const chairChecked = () => {
+  const chairs = Array.from(document.querySelectorAll('.conf-step__row  .conf-step__chair'));
+  chairs.forEach(chair => chair.addEventListener('click', () => {
+      // Переключение типов кресел
+      if (chair.classList.contains('conf-step__chair_standart')) {
+          chair.classList.toggle('conf-step__chair_standart');
+          chair.classList.toggle('conf-step__chair_vip');
+      } else if (chair.classList.contains('conf-step__chair_vip')) {
+          chair.classList.toggle('conf-step__chair_vip');
+          chair.classList.toggle('conf-step__chair_disabled');
+      } else if (chair.classList.contains('conf-step__chair_disabled')) {
+          chair.classList.toggle('conf-step__chair_disabled');
+          chair.classList.toggle('conf-step__chair_standart')
+      };
+  }));
+}
+// Поля ввода кол-ва рядов и мест в ряду
+const inputRowsCount = document.getElementById('input_rows_count');
+const inputPlacesCount = document.getElementById('input_places_count');
+
+// Кол-во мест в ряду не может быть больше 20
+if (inputPlacesCount.value > 20) {inputPlacesCount.value = "20"};
+
+// Получаем кол-во рядов и мест в ряду в числовом виде
+const rows = Number(inputRowsCount.value);
+const places = Number(inputPlacesCount.value);
+
+console.log(rows)
+
+chairChecked();
