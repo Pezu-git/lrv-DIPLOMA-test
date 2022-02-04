@@ -29,7 +29,10 @@ var addMovieBtn = document.getElementById('addMovie');
 var ul = Array.from(document.querySelectorAll('.hallDeleteList'));
 var popupSpan = document.querySelector('.popupHallName');
 var myForm = document.getElementById("deleteForm");
-// var addForm = document.getElementsByName('hallAddForm');
+var addMivieForm = document.getElementById("addMivieForm");
+
+var addMovieToDbBtn = document.getElementById('addMovieToDbBtn');
+var addMovieInput = document.getElementById('addMovieInput')
 
 var chairsHallConfInput = document.getElementsByName("chairs-hall");
 console.log(chairsHallConfInput);
@@ -108,6 +111,12 @@ if (inputPlacesCount.value > 20) {inputPlacesCount.value = "20"};
 const rows = Number(inputRowsCount.value);
 const places = Number(inputPlacesCount.value);
 
-console.log(rows)
-
 chairChecked();
+
+console.log(addMovieInput.value);
+
+// addMovieToDbBtn.addEventListener('click', function() {
+//   addMovieModal.classList.toggle('active');
+//   console.log(addMovieInput.value);
+//     addMivieForm.action = `/admin/add_movie/${addMovieInput.value}`
+//   })

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HallController;
 use App\Http\Controllers\HallConfController;
-use App\Http\Controllers\MovieScheduleController;
+use App\Http\Controllers\MovieController;
 
 
 /*
@@ -29,10 +29,13 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     
     Route::post('/admin/delete_hall/{id}',  [HallController::class, 'hallDelete'])->name('delete_hall');
 
+    Route::post('/addd_movie',  [MovieController::class, 'store']);
+    // Route::post('add_movie',  [MovieController::class, 'store'])->name('add_movie');
+
     Route::get('/hall_add',  [HallController::class, 'store']);
     Route::get('/hall_add/conf',  [HallConfController::class, 'store'])->name('hall_conf');
+
     
-    Route::get('/admin/{$hall_id}/{$movie_id}',  [MovieScheduleController::class, 'show']);
     
 });
 

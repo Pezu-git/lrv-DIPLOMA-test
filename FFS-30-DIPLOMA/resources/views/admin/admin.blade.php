@@ -1,5 +1,6 @@
-<?php
+@php
 use App\Models\Movie;
+use App\Models\Hall;
 $movies = Movie::all();
 
 function movieTit($m) {
@@ -11,8 +12,7 @@ function movieDuration($m) {
 function movieStyleLeft($m) {
   return (int)($m->start_time)*30;
 }
-
-?>
+@endphp
 
 
 <x-app-layout>
@@ -96,13 +96,18 @@ function movieStyleLeft($m) {
 
       </div>
       <div class="popup__wrapper">
-        <form action="add_movie" method="post" accept-charset="utf-8">
+        <form action="add_movie" method="post" accept-charset="utf-8" id="addMivieForm">
+        @csrf
           <label class="conf-step__label conf-step__label-fullsize" for="name">
             Название фильма
-            <input class="conf-step__input" type="text" placeholder="Например, &laquo;Гражданин Кейн&raquo;" name="name" required>
+            <input class="conf-step__input" type="text" placeholder="Например, &laquo;Гражданин Кейн&raquo;" name="name" id="addMovieInput" required>
+          </label>
+          <label class="conf-step__label conf-step__label-fullsize" for="name">
+            Продолжительность
+            <input class="conf-step__input" type="text" placeholder="Например, &laquo;120&raquo;" name="name" id="addMovieDurationInput" required>
           </label>
           <div class="conf-step__buttons text-center">
-            <input type="submit" value="Добавить фильм" class="conf-step__button conf-step__button-accent" >
+            <input type="submit" value="Добавить фильм" class="conf-step__button conf-step__button-accent" id="addMovieToDbBtn">
             <button class="conf-step__button conf-step__button-regular">Отменить</button>            
           </div>
         </form>
