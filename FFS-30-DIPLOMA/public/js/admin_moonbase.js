@@ -35,7 +35,11 @@ var addMovieToDbBtn = document.getElementById('addMovieToDbBtn');
 var addMovieInput = document.getElementById('addMovieInput')
 
 var chairsHallConfInput = document.getElementsByName("chairs-hall");
-console.log(chairsHallConfInput);
+var chairsPrice = Array.from(document.getElementsByName("prices-hall"));
+var standartPriceInput = document.getElementById('standartPrice');
+var vipPriceInput = document.getElementById('vipPrice');
+var savePriceBtn = document.getElementById('savePrice')
+
 
 //Delete-Popup show
 for (let i = 0; i < trashs.length; i++) {
@@ -82,6 +86,25 @@ for (let i = 0; i<chairsHallConfInput.length; i++) {
     // addMovieModal.classList.toggle('active');
   })
 }
+
+// for (let i = 0; i<chairsHallConfInput.length; i++) {
+//   chairsPrice[i].addEventListener('click', function(e) {
+//     console.log(chairsPrice[i].checked)
+//     // addMovieModal.classList.toggle('active');
+//   })
+// }
+//Конфигурация цен
+
+  chairsPrice.forEach(hall => hall.addEventListener('click', function() {
+    savePriceBtn.addEventListener('click', () => {
+      location = `/admin/save_price/${hall.value}/${standartPriceInput.value}/${vipPriceInput.value}`
+    
+    })
+  }))
+
+
+
+
 
 
 const chairChecked = () => {

@@ -29,7 +29,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     
     Route::post('/admin/delete_hall/{id}',  [HallController::class, 'hallDelete'])->name('delete_hall');
 
-    Route::post('/addd_movie',  [MovieController::class, 'store']);
+    Route::post('/add_movie',  [MovieController::class, 'store']);
     // Route::post('add_movie',  [MovieController::class, 'store'])->name('add_movie');
 
     Route::get('/hall_add',  [HallController::class, 'store']);

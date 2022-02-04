@@ -100,11 +100,11 @@ function movieStyleLeft($m) {
         @csrf
           <label class="conf-step__label conf-step__label-fullsize" for="name">
             Название фильма
-            <input class="conf-step__input" type="text" placeholder="Например, &laquo;Гражданин Кейн&raquo;" name="name" id="addMovieInput" required>
+            <input class="conf-step__input" type="text" placeholder="Например, &laquo;Гражданин Кейн&raquo;" name="title" id="addMovieInput" required>
           </label>
           <label class="conf-step__label conf-step__label-fullsize" for="name">
             Продолжительность
-            <input class="conf-step__input" type="text" placeholder="Например, &laquo;120&raquo;" name="name" id="addMovieDurationInput" required>
+            <input class="conf-step__input" type="text" placeholder="Например, &laquo;120&raquo;" name="duration" id="addMovieDurationInput" required>
           </label>
           <div class="conf-step__buttons text-center">
             <input type="submit" value="Добавить фильм" class="conf-step__button conf-step__button-accent" id="addMovieToDbBtn">
@@ -261,23 +261,23 @@ function movieStyleLeft($m) {
         <p class="conf-step__paragraph">Выберите зал для конфигурации:</p>
         <ul class="conf-step__selectors-box">
         @foreach($halls as $hall)
-          <li><input type="radio" class="conf-step__radio" name="prices-hall" value="Зал 1"><span class="conf-step__selector">{{ $hall->name }}</span></li>
+          <li><input type="radio" class="conf-step__radio" name="prices-hall" value="{{ $hall->name }}"><span class="conf-step__selector" >{{ $hall->name }}</span></li>
         @endforeach  
         </ul>
           
         <p class="conf-step__paragraph">Установите цены для типов кресел:</p>
           <div class="conf-step__legend">
-            <label class="conf-step__label">Цена, рублей<input type="text" class="conf-step__input" placeholder="0" ></label>
+            <label class="conf-step__label">Цена, рублей<input type="text" class="conf-step__input" placeholder="0" id="standartPrice"></label>
             за <span class="conf-step__chair conf-step__chair_standart"></span> обычные кресла
           </div>  
           <div class="conf-step__legend">
-            <label class="conf-step__label">Цена, рублей<input type="text" class="conf-step__input" placeholder="0" value="350"></label>
+            <label class="conf-step__label">Цена, рублей<input type="text" class="conf-step__input" placeholder="0" value="350" id="vipPrice"></label>
             за <span class="conf-step__chair conf-step__chair_vip"></span> VIP кресла
           </div>  
         
         <fieldset class="conf-step__buttons text-center">
           <button class="conf-step__button conf-step__button-regular">Отмена</button>
-          <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent">
+          <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent" id="savePrice">
         </fieldset>  
       </div>
     </section>
