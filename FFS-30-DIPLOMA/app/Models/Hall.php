@@ -22,4 +22,9 @@ class Hall extends Model
         return $this->hasMany(\App\Models\MovieSchedule::class);
     }
 
+    public function seats()
+    {
+        return $this->hasMany(\App\Models\Seat::class);
+    }
+
 }

@@ -15,8 +15,8 @@ class CreateHallConfsTable extends Migration
     {
         Schema::create('hall_confs', function (Blueprint $table) {
             $table->id();
-            $table->integer('rows')->default(8);
-            $table->integer('cols')->default(10);
+            $table->integer('rows')->default(5);
+            $table->integer('cols')->default(5);
         });
     }
 

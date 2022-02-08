@@ -16,7 +16,7 @@ class CreatePriceListsTable extends Migration
         Schema::create('price_lists', function (Blueprint $table) {
             $table->id();
             $table->integer('hall_id');
-            $table->enum('status', ['standard', 'vip']);
+            $table->enum('status', ['standart', 'vip']);
             $table->integer('price');
         });
     }

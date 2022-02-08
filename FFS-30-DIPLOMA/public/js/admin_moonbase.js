@@ -39,6 +39,10 @@ var chairsPrice = Array.from(document.getElementsByName("prices-hall"));
 var standartPriceInput = document.getElementById('standartPrice');
 var vipPriceInput = document.getElementById('vipPrice');
 var savePriceBtn = document.getElementById('savePrice')
+var hallConfSaveBtn = document.getElementById('hallConfSaveBtn');
+var hallsSeats = Array.from(document.querySelectorAll('.conf-step__hall'));
+console.log(hallsSeats)
+
 
 
 //Delete-Popup show
@@ -81,24 +85,21 @@ movieDismiss.addEventListener('click', function(e) {
 })
 
 for (let i = 0; i<chairsHallConfInput.length; i++) {
-  chairsHallConfInput[i].addEventListener('click', function(e) {
-    console.log('das')
-    // addMovieModal.classList.toggle('active');
+  chairsHallConfInput[i].addEventListener('click', function() {
+    hallsSeats.forEach(tab => {
+        tab.style.display = 'none'
+      })
+      hallsSeats[i].style.display = "block";
   })
 }
 
-// for (let i = 0; i<chairsHallConfInput.length; i++) {
-//   chairsPrice[i].addEventListener('click', function(e) {
-//     console.log(chairsPrice[i].checked)
-//     // addMovieModal.classList.toggle('active');
-//   })
-// }
+
+
 //Конфигурация цен
 
   chairsPrice.forEach(hall => hall.addEventListener('click', function() {
     savePriceBtn.addEventListener('click', () => {
-      location = `/admin/save_price/${hall.value}/${standartPriceInput.value}/${vipPriceInput.value}`
-    
+      location = `/admin/save_price/${hall.value}/${standartPriceInput.value}/${vipPriceInput.value}`;
     })
   }))
 
@@ -128,15 +129,27 @@ const inputRowsCount = document.getElementById('input_rows_count');
 const inputPlacesCount = document.getElementById('input_places_count');
 
 // Кол-во мест в ряду не может быть больше 20
-if (inputPlacesCount.value > 20) {inputPlacesCount.value = "20"};
+
 
 // Получаем кол-во рядов и мест в ряду в числовом виде
-const rows = Number(inputRowsCount.value);
-const places = Number(inputPlacesCount.value);
+
+
+
+hallConfSaveBtn.addEventListener('click', () => {
+  if (inputRowsCount.value > 20) {inputRowsCount.value = "20"};
+  if (inputPlacesCount.value > 20) {inputPlacesCount.value = "20"};
+  const rows = Number(inputRowsCount.value);
+  const places = Number(inputPlacesCount.value);
+  
+  console.log(rows)
+  console.log(places)
+})
+
+
+    
+
 
 chairChecked();
-
-console.log(addMovieInput.value);
 
 // addMovieToDbBtn.addEventListener('click', function() {
 //   addMovieModal.classList.toggle('active');

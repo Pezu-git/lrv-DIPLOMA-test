@@ -16,12 +16,12 @@ class HallConfSeeder extends Seeder
     {
         DB::table('hall_confs')->insert([
             'rows' => 5,
-            'cols' => 7
+            'cols' => 5
         ]);
 
         DB::table('hall_confs')->insert([
             'rows' => 6,
-            'cols' => 7
+            'cols' => 6
         ]);
     }
 }

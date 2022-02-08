@@ -1,6 +1,10 @@
 @php
+
 use App\Models\Movie;
 use App\Models\Hall;
+use App\Models\Seat;
+use App\Models\HallConf;
+
 $movies = Movie::all();
 
 function movieTit($m) {
@@ -12,6 +16,24 @@ function movieDuration($m) {
 function movieStyleLeft($m) {
   return (int)($m->start_time)*30;
 }
+
+$hallConf = HallConf::all();
+
+function hallConfRow($hall) {
+  return (int)HallConf::where('id', $hall->id)->first()->rows;
+}
+function hallConfCol($hall) {
+  return HallConf::where('id', $hall->id)->first()->cols;
+}
+function hallSeats($m, $i, $l) {
+  if($m->is_active) {
+    return $m->seats->where('row_num', $i)->where('seat_num', $l)->first()->status;
+  }
+  return 'standart';
+  
+}
+
+
 @endphp
 
 
@@ -44,7 +66,7 @@ function movieStyleLeft($m) {
       <div class="popup__wrapper">
         <form action="admin" method="post" accept-charset="utf-8" id="deleteForm">
         @csrf
-          <p class="conf-step__paragraph">Вы действительно хотите удалить зал: <span class="popupHallName"></span>?</p>
+          <p class="conf-step__paragraph">Вы действительно хотите удалить зал: {{hallSeats($halls[0], 0, 0)}}<span class="popupHallName"></span>?</p>
           <!-- В span будет подставляться название зала -->
           <div class="conf-step__buttons text-center">
             <input type="submit" value="Удалить" class="conf-step__button conf-step__button-accent">
@@ -153,12 +175,14 @@ function movieStyleLeft($m) {
       </header>
       <div class="conf-step__wrapper">
         <p class="conf-step__paragraph">Выберите зал для конфигурации:</p>
-          <ul class="conf-step__selectors-box">
+          <ul class="conf-step__selectors-box tabs__caption">
           @foreach($halls as $hall)
-          <li><input type="radio" class="conf-step__radio" name="chairs-hall" value="{{ $hall->name }}" id="{{ $hall->id }}" checked><span class="conf-step__selector">{{ $hall->name }}</span></li>
+          <li><input type="radio" class="conf-step__radio hide" name="chairs-hall" value="{{ $hall->name }}" ><span class="conf-step__selector">{{ $hall->name }}</span></li>
           @endforeach
         </ul>
+        
         <p class="conf-step__paragraph">Укажите количество рядов и максимальное количество кресел в ряду:</p>
+        
         <div class="conf-step__legend">
           <label class="conf-step__label">Рядов, шт<input type="text" class="conf-step__input" placeholder="10" id="input_rows_count"></label>
           <span class="multiplier">x</span>
@@ -172,83 +196,25 @@ function movieStyleLeft($m) {
           <p class="conf-step__hint">Чтобы изменить вид кресла, нажмите по нему левой кнопкой мыши</p>
         </div>  
         
-        <div class="conf-step__hall">
-          <div class="conf-step__hall-wrapper">
-            <div class="conf-step__row">
-              <span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-              <span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-              <span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-            </div>  
-
-            <div class="conf-step__row">
-              <span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-              <span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-            </div>  
-
-            <div class="conf-step__row">
-              <span class="conf-step__chair conf-step__chair_disabled"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-            </div>  
-
-            <div class="conf-step__row">
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_vip"></span>
-              <span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-            </div>  
-
-            <div class="conf-step__row">
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-              <span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span>
-              <span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span>
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-            </div>  
-
-            <div class="conf-step__row">
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-              <span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span>
-              <span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span>
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-            </div>  
-
-            <div class="conf-step__row">
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-              <span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span>
-              <span class="conf-step__chair conf-step__chair_vip"></span><span class="conf-step__chair conf-step__chair_vip"></span>
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-            </div>  
-
-            <div class="conf-step__row">
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_disabled"></span>
-            </div>  
-
-            <div class="conf-step__row">
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-            </div>  
-
-            <div class="conf-step__row">
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>
-              <span class="conf-step__chair conf-step__chair_standart"></span><span class="conf-step__chair conf-step__chair_standart"></span>          
-            </div>
-          </div>  
-        </div>
         
+        @for($i = 0; $i < $halls->count(); $i++)
+        <div class="conf-step__hall" style="display: none">
+          <div class="conf-step__hall-wrapper">
+          @for($j = 0; $j < hallConfRow($halls[$i]); $j++)
+            <div class="conf-step__row">
+            @for($k = 0; $k < hallConfCol($halls[$i]); $k++)
+              <span class="conf-step__chair conf-step__chair_{{hallSeats($halls[$i], $j, $k)}}"></span>
+              @endfor
+            </div>  
+            @endfor  
+          </div> 
+        </div>
+        @endfor
+        
+       
         <fieldset class="conf-step__buttons text-center">
           <button class="conf-step__button conf-step__button-regular">Отмена</button>
-          <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent">
+          <input type="submit" value="Сохранить" class="conf-step__button conf-step__button-accent" id="hallConfSaveBtn">
         </fieldset>                 
       </div>
     </section>
@@ -261,7 +227,7 @@ function movieStyleLeft($m) {
         <p class="conf-step__paragraph">Выберите зал для конфигурации:</p>
         <ul class="conf-step__selectors-box">
         @foreach($halls as $hall)
-          <li><input type="radio" class="conf-step__radio" name="prices-hall" value="{{ $hall->name }}"><span class="conf-step__selector" >{{ $hall->name }}</span></li>
+          <li><input type="radio" class="conf-step__radio" name="prices-hall" value="{{ $hall->id }}"><span class="conf-step__selector">{{ $hall->name }}</span></li>
         @endforeach  
         </ul>
           
@@ -336,7 +302,7 @@ function movieStyleLeft($m) {
   </main>
 
 
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="/js/admin_moonbase.js"></script>
 </body>
 </html>

@@ -30,7 +30,7 @@ class SeatRequest extends FormRequest
             'hall_id' => ['required', 'int'],
             'row_num' => ['required', 'int'],
             'seat_num' => ['required', 'int'],
-            'status' => ['required', 'in:disabled,standard,vip']
+            'status' => ['required', 'in:disabled,standart,vip']
         ];
     }
 

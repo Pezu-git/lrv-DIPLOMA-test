@@ -16,7 +16,7 @@ class PriceListSeeder extends Seeder
     {
         DB::table('price_lists')->insert([
             'hall_id' => 1,
-            'status' => 'standard',
+            'status' => 'standart',
             'price' => 300
         ]);
 
@@ -28,7 +28,7 @@ class PriceListSeeder extends Seeder
 
         DB::table('price_lists')->insert([
             'hall_id' => 2,
-            'status' => 'standard',
+            'status' => 'standart',
             'price' => 350
         ]);
 

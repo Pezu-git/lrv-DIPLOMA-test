@@ -868,4 +868,11 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
         transform: scale(1.2);
         transition: .3s all ease; }
 
+        .tabs__content {
+          display: none; /* по умолчанию прячем все блоки */
+        }
+        .tabs__content.active {
+          display: block; /* по умолчанию показываем нужный блок */
+        }
+
 /*# sourceMappingURL=styles.css.map */

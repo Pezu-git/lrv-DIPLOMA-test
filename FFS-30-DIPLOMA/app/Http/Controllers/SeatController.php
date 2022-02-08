@@ -29,12 +29,13 @@ class SeatController extends Controller
         $this->destroy($request->json()->all()[0]["hall_id"]);
 
         foreach ($request->json() as $value) {
+            
             $newSeatRequest = new \Illuminate\Http\Request($value);
             $validator = Validator::make($newSeatRequest->all(), [
                 'hall_id' => ['required', 'int'],
                 'row_num' => ['required', 'int'],
                 'seat_num' => ['required', 'int'],
-                'status' => ['required', 'in:disabled,standard,vip'],
+                'status' => ['required', 'in:disabled,standart,vip'],
             ]);
             if ($validator->fails()) {
                 return redirect('admin')
@@ -43,7 +44,7 @@ class SeatController extends Controller
             }
             Seat::create($validator->validated());
         }
-        // return Seat::create($request->validated());
+        return Seat::create($request->validated());
     }
 
     /**

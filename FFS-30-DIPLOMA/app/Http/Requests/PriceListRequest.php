@@ -28,7 +28,7 @@ class PriceListRequest extends FormRequest
     {
        return [
            'hall_id' => ['required', 'int'],
-           'status' => ['required', 'in:standard,vip'],
+           'status' => ['required', 'in:standart,vip'],
            'price' => ['required', 'int'],
        ];
     }

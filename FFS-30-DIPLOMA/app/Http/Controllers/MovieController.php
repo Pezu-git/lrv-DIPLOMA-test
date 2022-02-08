@@ -27,7 +27,8 @@ class MovieController extends Controller
      */
     public function store(MovieRequest $request)
     {
-        return Movie::create($request->validated());
+         Movie::create($request->validated());
+        return redirect()->route('admin');
     }
 
     /**

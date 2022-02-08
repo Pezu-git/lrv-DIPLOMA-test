@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HallController;
 use App\Http\Controllers\HallConfController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\PriceListController;
 
 
 /*
@@ -30,7 +31,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/admin/delete_hall/{id}',  [HallController::class, 'hallDelete'])->name('delete_hall');
 
     Route::post('/add_movie',  [MovieController::class, 'store']);
-    // Route::post('add_movie',  [MovieController::class, 'store'])->name('add_movie');
+    Route::get('/admin/save_price/{hall_id}/{st_price}/{vip_price}',  [PriceListController::class, 'update']);
 
     Route::get('/hall_add',  [HallController::class, 'store']);
     Route::get('/hall_add/conf',  [HallConfController::class, 'store'])->name('hall_conf');

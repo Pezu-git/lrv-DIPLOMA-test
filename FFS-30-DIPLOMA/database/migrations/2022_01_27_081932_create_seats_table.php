@@ -15,10 +15,11 @@ class CreateSeatsTable extends Migration
     {
         Schema::create('seats', function (Blueprint $table) {
             $table->id();
-            $table->integer('hall_id');
+            $table->unsignedBigInteger('hall_id');
+            $table->foreign('hall_id')->references('id')->on('halls');
             $table->integer('row_num');
             $table->integer('seat_num');
-            $table->enum('status', ['disabled', 'standard', 'vip']);
+            $table->enum('status', ['disabled', 'standart', 'vip'])->default('standart');
         });
     }
 

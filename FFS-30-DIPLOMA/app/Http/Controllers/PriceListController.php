@@ -27,22 +27,22 @@ class PriceListController extends Controller
      */
     public function store(\Illuminate\Http\Request  $request)
     {
-        $this->destroy($request->json()->all()[0]["hall_id"]);
+        // $this->destroy($request->json()->all()[0]["hall_id"]);
 
-        foreach ($request->json() as $value) {
-            $newSeatRequest = new \Illuminate\Http\Request($value);
-            $validator = Validator::make($newSeatRequest->all(), [
-                'hall_id' => ['required', 'int'],
-                'price' => ['required', 'int'],
-                'status' => ['required', 'in:standard,vip'],
-            ]);
-            if ($validator->fails()) {
-                return redirect('/')
-                    ->withErrors($validator)
-                    ->withInput();
-            }
-            PriceList::create($validator->validated());
-        }
+        // foreach ($request->json() as $value) {
+        //     $newSeatRequest = new \Illuminate\Http\Request($value);
+        //     $validator = Validator::make($newSeatRequest->all(), [
+        //         'hall_id' => ['required', 'int'],
+        //         'price' => ['required', 'int'],
+        //         'status' => ['required', 'in:standard,vip'],
+        //     ]);
+        //     if ($validator->fails()) {
+        //         return redirect('/')
+        //             ->withErrors($validator)
+        //             ->withInput();
+        //     }
+        //     PriceList::create($validator->validated());
+        // }
 
     }
 
@@ -68,19 +68,23 @@ class PriceListController extends Controller
      * @param  \App\Models\PriceList  $priceList
      * @return \Illuminate\Http\Response
      */
-    public function update(\Illuminate\Http\Request $request, $hall_id)
+    public function update($hall_id, $st_price, $vip_price)
     {
-        foreach ($request->json() as $key => $value) {
-            try {
-                $seat = PriceList::where('hall_id','=',$hall_id)
-                    ->where('status', '=', $value['status'])->firstOrFail();
-                $seat->fill($request->validated());
-                $seat->save();
-            } catch (\Exception $exception) {
-                $this->store(json_encode($value));
-            }
+        // return $st_price;
+        // foreach ($request->json() as $key => $value) {
+        //     try {
+            $seat = PriceList::where('hall_id', $hall_id)
+            ->where('status', 'standart' )->firstOrFail();
+            $seat->update(['price' => $st_price]);
+            $seat = PriceList::where('hall_id', $hall_id)
+            ->where('status', 'vip' )->firstOrFail();
+            $seat->update(['price' => $vip_price]);
+            return redirect('/admin');
+        //     } catch (\Exception $exception) {
+        //         $this->store(json_encode($value));
+        //     }
 
-        };
+        // };
     }
 
     /**
