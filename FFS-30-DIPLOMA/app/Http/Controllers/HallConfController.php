@@ -27,8 +27,9 @@ class HallConfController extends Controller
      */
     public function store(HallConfRequest $request)
     {
-        HallConf::create($request->validated());
-        return redirect()->route('admin');
+        
+        $hall_id = HallConf::insertGetId($request->validated());
+        return redirect()->route('hall_chair_create', $hall_id);
     }
 
     /**

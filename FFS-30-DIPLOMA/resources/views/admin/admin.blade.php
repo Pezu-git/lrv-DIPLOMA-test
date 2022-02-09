@@ -26,11 +26,13 @@ function hallConfCol($hall) {
   return HallConf::where('id', $hall->id)->first()->cols;
 }
 function hallSeats($m, $i, $l) {
-  if($m->is_active) {
+  try{
     return $m->seats->where('row_num', $i)->where('seat_num', $l)->first()->status;
   }
-  return 'standart';
-  
+  catch(Exception $e) {
+    return 'standart';
+  }
+    
 }
 
 
@@ -66,7 +68,7 @@ function hallSeats($m, $i, $l) {
       <div class="popup__wrapper">
         <form action="admin" method="post" accept-charset="utf-8" id="deleteForm">
         @csrf
-          <p class="conf-step__paragraph">Вы действительно хотите удалить зал: {{hallSeats($halls[0], 0, 0)}}<span class="popupHallName"></span>?</p>
+          <p class="conf-step__paragraph">Вы действительно хотите удалить зал: <span class="popupHallName"></span>?</p>
           <!-- В span будет подставляться название зала -->
           <div class="conf-step__buttons text-center">
             <input type="submit" value="Удалить" class="conf-step__button conf-step__button-accent">
@@ -177,7 +179,7 @@ function hallSeats($m, $i, $l) {
         <p class="conf-step__paragraph">Выберите зал для конфигурации:</p>
           <ul class="conf-step__selectors-box tabs__caption">
           @foreach($halls as $hall)
-          <li><input type="radio" class="conf-step__radio hide" name="chairs-hall" value="{{ $hall->name }}" ><span class="conf-step__selector">{{ $hall->name }}</span></li>
+          <li><input type="radio" class="conf-step__radio hide" name="chairs-hall" value="{{ $hall->id }}" ><span class="conf-step__selector">{{ $hall->name }}</span></li>
           @endforeach
         </ul>
         

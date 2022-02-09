@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\HallRequest;
 use App\Models\Hall;
+use App\Models\HallConf;
+use App\Models\Seat;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Orchid\Screen\Actions\ModalToggle;
-use App\Models\HallConf;
+
 
 class HallController extends Controller
 {
@@ -35,9 +37,8 @@ class HallController extends Controller
      */
     public function store(HallRequest $request)
     {
-         Hall::create($request->validated());
-         
-         return redirect()->route('hall_conf');
+        Hall::create($request->validated());
+        return redirect()->route('hall_conf');
     }
 
     
@@ -84,6 +85,7 @@ class HallController extends Controller
     {
         Hall::find($id)->delete();
         HallConf::find($id)->delete();
+        Seat::where('hall_id', $id)->delete();
         return redirect()->route('admin');
     }
 

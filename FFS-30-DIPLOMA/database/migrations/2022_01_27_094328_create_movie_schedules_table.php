@@ -16,7 +16,7 @@ class CreateMovieSchedulesTable extends Migration
         Schema::create('movie_schedules', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('hall_id');
-            $table->foreign('hall_id')->references('id')->on('halls');
+            $table->foreign('hall_id')->references('id')->on('halls')->onUpdate('cascade')->onDelete('cascade');
             $table->integer('movie_id');
             $table->time('start_time');
         });

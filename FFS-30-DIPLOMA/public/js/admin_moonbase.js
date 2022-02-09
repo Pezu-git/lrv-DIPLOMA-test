@@ -41,7 +41,8 @@ var vipPriceInput = document.getElementById('vipPrice');
 var savePriceBtn = document.getElementById('savePrice')
 var hallConfSaveBtn = document.getElementById('hallConfSaveBtn');
 var hallsSeats = Array.from(document.querySelectorAll('.conf-step__hall'));
-console.log(hallsSeats)
+
+var hallConfRadio = [...document.querySelectorAll('.conf-step__radio.hide')];
 
 
 
@@ -94,6 +95,48 @@ for (let i = 0; i<chairsHallConfInput.length; i++) {
 }
 
 
+// Обновление категории места !и колличества рядов в зале
+hallConfSaveBtn.addEventListener('click', () => {
+  if (inputRowsCount.value > 20) {inputRowsCount.value = "20"};
+  if (inputPlacesCount.value > 20) {inputPlacesCount.value = "20"};
+  const rows = Number(inputRowsCount.value);
+  const places = Number(inputPlacesCount.value);
+  hallsSeats.forEach(tab => {
+    if(tab.style.display === 'block') {
+      var allHallChair = [...tab.querySelectorAll('.conf-step__chair')];
+      var chairRow = [...tab.querySelectorAll('.conf-step__row')];
+      
+        var col = [...chairRow[0].querySelectorAll('.conf-step__chair')];
+        let result = [];
+        
+        hallConfRadio.forEach(radio => {
+          if(radio.checked) {
+            for(let i = 0; i < chairRow.length; i++) {
+              for(let j = 0; j < col.length; j++) {
+                result.push({
+                  'hall_id': radio.value,
+                  'row_num': i,
+                  'seat_num': j,
+                  'status': 'standart'
+                })
+              }
+            }
+            for(let k = 0; k < allHallChair.length; k++) {
+              result[k].status = allHallChair[k].className.slice(34)
+            }
+            location = `/admin/hall_chair/${JSON.stringify(result)}`;
+          }
+        }) 
+    }
+  })
+  
+  // console.log(rows)
+  // console.log(places)
+})
+
+
+
+
 
 //Конфигурация цен
 
@@ -131,19 +174,6 @@ const inputPlacesCount = document.getElementById('input_places_count');
 // Кол-во мест в ряду не может быть больше 20
 
 
-// Получаем кол-во рядов и мест в ряду в числовом виде
-
-
-
-hallConfSaveBtn.addEventListener('click', () => {
-  if (inputRowsCount.value > 20) {inputRowsCount.value = "20"};
-  if (inputPlacesCount.value > 20) {inputPlacesCount.value = "20"};
-  const rows = Number(inputRowsCount.value);
-  const places = Number(inputPlacesCount.value);
-  
-  console.log(rows)
-  console.log(places)
-})
 
 
     
