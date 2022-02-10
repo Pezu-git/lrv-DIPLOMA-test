@@ -101,6 +101,11 @@ hallConfSaveBtn.addEventListener('click', () => {
   if (inputPlacesCount.value > 20) {inputPlacesCount.value = "20"};
   const rows = Number(inputRowsCount.value);
   const places = Number(inputPlacesCount.value);
+  let params = [];
+  const hallConf = {
+    'rows': rows,
+    'cols': places
+  }
   hallsSeats.forEach(tab => {
     if(tab.style.display === 'block') {
       var allHallChair = [...tab.querySelectorAll('.conf-step__chair')];
@@ -124,9 +129,14 @@ hallConfSaveBtn.addEventListener('click', () => {
             for(let k = 0; k < allHallChair.length; k++) {
               result[k].status = allHallChair[k].className.slice(34)
             }
-            location = `/admin/hall_chair/${JSON.stringify(result)}`;
+            
           }
         }) 
+        params.push(
+          hallConf,
+          result
+        )
+        location = `/admin/hall_chair/${JSON.stringify(params)}`;
     }
   })
   

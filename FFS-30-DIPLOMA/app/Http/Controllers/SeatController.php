@@ -61,19 +61,28 @@ class SeatController extends Controller
      * @param  Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function update($result)
+    public function update($params)
     {
-        foreach ((array)json_decode($result, true) as $key => $value) 
+        $arrayParams = (array)json_decode($params, true);
+        $hallConf = $arrayParams[0];
+        $result = $arrayParams[1];
+        if($hallConf['rows'] !== 0 && $hallConf['rows']) {
+            $hall = HallConf::where('id', $result[0]["hall_id"])->first();
+            $hall->rows = $hallConf['rows'];
+            $hall->cols = $hallConf['cols'];
+            $hall->save(); 
+        }
+        foreach ($result as $key => $value) 
         {
-                $seat = Seat::where('hall_id', $value["hall_id"])
-                ->where('row_num', $value["row_num"])
-                ->where('seat_num', $value["seat_num"])->first();
-                if($seat === null) {
-                    return $this->store((array)json_decode($result, true));    
-                } else {
-                    $seat->status = $value["status"];
-                    $seat->save(); 
-                }
+            $seat = Seat::where('hall_id', $value["hall_id"])
+            ->where('row_num', $value["row_num"])
+            ->where('seat_num', $value["seat_num"])->first();
+            if($seat === null) {
+                return $this->store($result);    
+            } else {
+                $seat->status = $value["status"];
+                $seat->save(); 
+            }
                           
         }
         return redirect('/admin');

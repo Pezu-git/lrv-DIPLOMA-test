@@ -38,10 +38,10 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     //...в таблицу с размерами зала(hall_confs)   
     Route::get('/hall_add/conf',  [HallConfController::class, 'store'])->name('hall_conf');
     //Добавление мест в зале(seats)
-    Route::get('/admin/hall_chair_create/{hall_id}',  [SeatController::class, 'store'])->name('hall_chair_create');
+    Route::post('/admin/hall_chair_create/{result}',  [SeatController::class, 'store'])->name('hall_chair_create');
     //Изменение категории мест в зале(seats)
-    Route::get('/admin/hall_chair/{result}',  [SeatController::class, 'update']);
-    //Удаление всех мест из зала
+    Route::get('/admin/hall_chair/{params}',  [SeatController::class, 'update']);
+    //Удаление всех мест из зала(seats)
     Route::get('/admin/hall_chair_delete/{id}',  [SeatController::class, 'destroy'])->name('hall_chair_delete');
 
 //Изменение цены(price_lists)    
