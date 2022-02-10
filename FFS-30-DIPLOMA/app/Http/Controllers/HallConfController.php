@@ -29,7 +29,7 @@ class HallConfController extends Controller
     {
         
         $hall_id = HallConf::insertGetId($request->validated());
-        return redirect()->route('hall_chair_create', $hall_id);
+        return redirect()->route('admin');
     }
 
     /**

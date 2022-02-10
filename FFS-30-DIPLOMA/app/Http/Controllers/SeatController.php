@@ -26,22 +26,20 @@ class SeatController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($hall_id)
+    public function store($result)
     {
+        $hall_id = $result[0]['hall_id'];
         Seat::where('hall_id', $hall_id)->delete();
 
-        $hall_row = HallConf::where('id', $hall_id)->first()->rows;
-        $hall_col = HallConf::where('id', $hall_id)->first()->cols;
-
-        for($i = 0; $i < $hall_row; $i++) {
-            for($j = 0; $j < $hall_col; $j++) {
-                 Seat::create([
-                'hall_id' => $hall_id,
-                'row_num' => $i,
-                'seat_num' => $j,
-                'status' => 'standart'
-             ]);   
-            }
+        foreach ($result as $key => $value) 
+        {
+            Seat::create([
+                'hall_id' => $value["hall_id"],
+                'row_num' => $value["row_num"],
+                'seat_num' => $value["seat_num"],
+                'status' => $value["status"]
+            ]);   
+                          
         }
         return redirect()->route('admin');
     }
@@ -71,7 +69,7 @@ class SeatController extends Controller
                 ->where('row_num', $value["row_num"])
                 ->where('seat_num', $value["seat_num"])->first();
                 if($seat === null) {
-                    $this->store($value["hall_id"]);    
+                    return $this->store((array)json_decode($result, true));    
                 } else {
                     $seat->status = $value["status"];
                     $seat->save(); 
