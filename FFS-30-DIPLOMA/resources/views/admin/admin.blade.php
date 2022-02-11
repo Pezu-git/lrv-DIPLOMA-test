@@ -140,6 +140,76 @@ function hallSeats($m, $i, $l) {
   </div>
 </div>
 
+<!--showtime_add-Popup-->
+<div class="popup" id="addShowtimePopup">
+  <div class="popup__container">
+    <div class="popup__content">
+      <div class="popup__header">
+        <h2 class="popup__title">
+          Добавление сеанса
+          <a class="popup__dismiss" href="#"><img src="i/close.png" alt="Закрыть" id="showtimeModalDissmis"></a>
+        </h2>
+
+      </div>
+      <div class="popup__wrapper">
+        <form action="add_movie_schedule" method="post" accept-charset="utf-8">
+        @csrf
+          <label class="conf-step__label conf-step__label-fullsize" for="hall_id">
+            Название зала
+            <select class="conf-step__input" name="hall_id" required>
+            @foreach($halls as $hall)
+              <option value="{{ $hall->id }}" selected>{{ $hall->name }}</option>
+            @endforeach
+            </select>
+          </label>
+          <label class="conf-step__label conf-step__label-fullsize" for="name">
+            Время начала
+            <input class="conf-step__input" type="time" value="00:00" name="start_time" required>
+          </label>
+
+          <label class="conf-step__label conf-step__label-fullsize" for="movie_id">
+            Название фильма
+            <input class="conf-step__input movie_name" type="text" placeholder="Например, &laquo;Зал 1&raquo;" name="movie_name" required>
+          </label>
+
+          <div class="conf-step__buttons text-center">
+            <input type="submit" value="Добавить" class="conf-step__button conf-step__button-accent">
+            <button class="conf-step__button conf-step__button-regular">Отменить</button>            
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--schedules-delete-popup-->
+<div class="popup" id="delShowtimePopup">
+  <div class="popup__container">
+    <div class="popup__content">
+      <div class="popup__header">
+        <h2 class="popup__title">
+          Снятие с сеанса
+          <a class="popup__dismiss" href="#"><img src="i/close.png" alt="Закрыть" id="delShowtimeModalDissmis"></a>
+        </h2>
+
+      </div>
+      <div class="popup__wrapper">
+        <form action="delete_hall_shedule" method="get" accept-charset="utf-8" id="delete_hall_shedule">
+        @csrf
+          <p class="conf-step__paragraph">Вы действительно хотите снять с сеанса фильм <span class="popupMovieName"></span>?</p>
+          <!-- В span будет подставляться название фильма -->
+          <div class="conf-step__buttons text-center">
+            <input type="submit" value="Удалить" class="conf-step__button conf-step__button-accent">
+            <button class="conf-step__button conf-step__button-regular">Отменить</button>            
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!--main-->
   <header class="page-header">
     <h1 class="page-header__title">Идём<span>в</span>кино</h1>
     <span class="page-header__subtitle">Администраторррская</span>
@@ -235,11 +305,11 @@ function hallSeats($m, $i, $l) {
           
         <p class="conf-step__paragraph">Установите цены для типов кресел:</p>
           <div class="conf-step__legend">
-            <label class="conf-step__label">Цена, рублей<input type="text" class="conf-step__input" placeholder="0" id="standartPrice"></label>
+            <label class="conf-step__label">Цена, рублей<input type="text" class="conf-step__input" placeholder="100" id="standartPrice"></label>
             за <span class="conf-step__chair conf-step__chair_standart"></span> обычные кресла
           </div>  
           <div class="conf-step__legend">
-            <label class="conf-step__label">Цена, рублей<input type="text" class="conf-step__input" placeholder="0" value="350" id="vipPrice"></label>
+            <label class="conf-step__label">Цена, рублей<input type="text" class="conf-step__input" placeholder="350" id="vipPrice"></label>
             за <span class="conf-step__chair conf-step__chair_vip"></span> VIP кресла
           </div>  
         
@@ -264,7 +334,7 @@ function hallSeats($m, $i, $l) {
           <div class="conf-step__movie">
             <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
             <h3 class="conf-step__movie-title">{{$movie->title}}</h3>
-            <p class="conf-step__movie-duration">130 минут</p>
+            <p class="conf-step__movie-duration">{{$movie->duration}}</p>
           </div>
           @endforeach
         </div>
@@ -275,7 +345,10 @@ function hallSeats($m, $i, $l) {
             <h3 class="conf-step__seances-title">{{$halls[$i]->name}}</h3>
             <div class="conf-step__seances-timeline">
               @for($j = 0; $j < $halls[$i]->seances->count(); $j++)
-              <div class="conf-step__seances-movie" style="width: {{movieDuration($halls[$i]->seances[$j])}}px; background-color: rgb(133, 255, 137); left: {{movieStyleLeft($halls[$i]->seances[$j])}}px;">
+              <div class="conf-step__seances-movie" style=
+              "width: {{movieDuration($halls[$i]->seances[$j])}}px; 
+              background-color: rgb(133, 255, 137); 
+              left: {{movieStyleLeft($halls[$i]->seances[$j])}}px;">
                 <p class="conf-step__seances-movie-title">{{movieTit($halls[$i]->seances[$j])}}</p>
                 <p class="conf-step__seances-movie-start">{{$halls[$i]->seances[$j]->start_time}}</p>
               </div>

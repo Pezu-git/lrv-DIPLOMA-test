@@ -6,6 +6,7 @@ use App\Http\Requests\PriceListRequest;
 use App\Models\PriceList;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
+use Mockery\Undefined;
 
 class PriceListController extends Controller
 {
@@ -25,25 +26,19 @@ class PriceListController extends Controller
      * @param  \Illuminate\Http\Request   $request
      * @return \Illuminate\Http\Response
      */
-    public function store(\Illuminate\Http\Request  $request)
+    public function store($result)
     {
-        // $this->destroy($request->json()->all()[0]["hall_id"]);
-
-        // foreach ($request->json() as $value) {
-        //     $newSeatRequest = new \Illuminate\Http\Request($value);
-        //     $validator = Validator::make($newSeatRequest->all(), [
-        //         'hall_id' => ['required', 'int'],
-        //         'price' => ['required', 'int'],
-        //         'status' => ['required', 'in:standard,vip'],
-        //     ]);
-        //     if ($validator->fails()) {
-        //         return redirect('/')
-        //             ->withErrors($validator)
-        //             ->withInput();
-        //     }
-        //     PriceList::create($validator->validated());
-        // }
-
+        $hall_id = $result[0]['hall_id'];
+        PriceList::where('hall_id', $hall_id)->delete();
+        foreach ($result as $key => $value) 
+        {
+            PriceList::create([
+                'hall_id' => $value["hall_id"],
+                'status' => $value["status"],
+                'price' => $value["price"]
+            ]);                    
+        }
+        return redirect()->route('admin');
     }
 
     /**
@@ -68,23 +63,28 @@ class PriceListController extends Controller
      * @param  \App\Models\PriceList  $priceList
      * @return \Illuminate\Http\Response
      */
-    public function update($hall_id, $st_price, $vip_price)
+    public function update($result)
     {
-        // return $st_price;
-        // foreach ($request->json() as $key => $value) {
-        //     try {
-            $seat = PriceList::where('hall_id', $hall_id)
-            ->where('status', 'standart' )->firstOrFail();
-            $seat->update(['price' => $st_price]);
-            $seat = PriceList::where('hall_id', $hall_id)
-            ->where('status', 'vip' )->firstOrFail();
-            $seat->update(['price' => $vip_price]);
-            return redirect('/admin');
-        //     } catch (\Exception $exception) {
-        //         $this->store(json_encode($value));
-        //     }
+        $params = (array)json_decode($result, true);
+        foreach($params as $key => $value ) {
+            $seat = PriceList::where('hall_id', $value['hall_id'])
+            ->where('status', '=', $value['status'])->first();
+            if($seat === null) {
+                return $this->store($params); 
+            }
+            $seat->price = $value["price"];
+            $seat->save();
+        }
+        return redirect('/admin');
 
-        // };
+
+        // $seatSdt = PriceList::where('hall_id', $hall_id)
+        // ->where('status', 'standart' )->firstOrFail();
+        // $seatVip = PriceList::where('hall_id', $hall_id)
+        // ->where('status', 'vip' )->firstOrFail();
+        // $seatSdt->update(['price' => $st_price]);
+        // $seatVip->update(['price' => $vip_price]);
+        // return redirect('/admin');
     }
 
     /**

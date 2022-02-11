@@ -18,17 +18,25 @@ var hallAddPopupShowBtn = document.getElementById('hallAddPopupShow');
 var delModal = document.getElementById('deletePopup');
 var addModal = document.getElementById('addPopup');
 var addMovieModal = document.getElementById('addMoviePopup');
+var addShowtimeModal = document.getElementById('addShowtimePopup');
+var scheduleMovieItems = [...document.querySelectorAll('.conf-step__seances-movie')];
+var delSheduleMovie = document.getElementById('delShowtimePopup');
 
 var deleteDismiss = document.getElementById('delModalDissmis');
 var addDismiss = document.getElementById('addModalDissmis');
 var movieDismiss = document.getElementById('movieModalDissmis');
+var showtimeDismiss = document.getElementById('showtimeModalDissmis');
+var delShowtimeDismiss = document.getElementById('delShowtimeModalDissmis');
+
 var cancelBtn = Array.from(document.querySelectorAll('.conf-step__button-regular'));
 var addMovieBtn = document.getElementById('addMovie');
 
 
 var ul = Array.from(document.querySelectorAll('.hallDeleteList'));
 var popupSpan = document.querySelector('.popupHallName');
+var popupMovieSpan = document.querySelector('.popupMovieName');
 var myForm = document.getElementById("deleteForm");
+var deleteSheduleForm = document.getElementById('delete_hall_shedule');
 var addMivieForm = document.getElementById("addMivieForm");
 
 var addMovieToDbBtn = document.getElementById('addMovieToDbBtn');
@@ -43,6 +51,11 @@ var hallConfSaveBtn = document.getElementById('hallConfSaveBtn');
 var hallsSeats = Array.from(document.querySelectorAll('.conf-step__hall'));
 
 var hallConfRadio = [...document.querySelectorAll('.conf-step__radio.hide')];
+
+var showtimeAdd = [...document.querySelectorAll('.conf-step__movie')];
+
+var movieNameInput = document.querySelector('.movie_name');
+
 
 
 
@@ -94,6 +107,9 @@ for (let i = 0; i<chairsHallConfInput.length; i++) {
   })
 }
 
+// Поля ввода кол-ва рядов и мест в ряду
+const inputRowsCount = document.getElementById('input_rows_count');
+const inputPlacesCount = document.getElementById('input_places_count');
 
 // Обновление категории места !и колличества рядов в зале
 hallConfSaveBtn.addEventListener('click', () => {
@@ -128,8 +144,7 @@ hallConfSaveBtn.addEventListener('click', () => {
             }
             for(let k = 0; k < allHallChair.length; k++) {
               result[k].status = allHallChair[k].className.slice(34)
-            }
-            
+            } 
           }
         }) 
         params.push(
@@ -139,26 +154,28 @@ hallConfSaveBtn.addEventListener('click', () => {
         location = `/admin/hall_chair/${JSON.stringify(params)}`;
     }
   })
-  
-  // console.log(rows)
-  // console.log(places)
 })
-
-
-
 
 
 //Конфигурация цен
 
   chairsPrice.forEach(hall => hall.addEventListener('click', function() {
     savePriceBtn.addEventListener('click', () => {
-      location = `/admin/save_price/${hall.value}/${standartPriceInput.value}/${vipPriceInput.value}`;
+      const result = [{
+        'hall_id': hall.value,
+        'status': 'standart',
+        'price': standartPriceInput.value,
+      },
+      {
+        'hall_id': hall.value,
+        'status': 'vip',
+        'price': vipPriceInput.value
+      },
+    ];
+    console.log(result)
+      location = `/admin/save_price/${JSON.stringify(result)}`;
     })
   }))
-
-
-
-
 
 
 const chairChecked = () => {
@@ -177,22 +194,38 @@ const chairChecked = () => {
       };
   }));
 }
-// Поля ввода кол-ва рядов и мест в ряду
-const inputRowsCount = document.getElementById('input_rows_count');
-const inputPlacesCount = document.getElementById('input_places_count');
-
-// Кол-во мест в ряду не может быть больше 20
-
-
-
-
-    
 
 
 chairChecked();
 
-// addMovieToDbBtn.addEventListener('click', function() {
-//   addMovieModal.classList.toggle('active');
-//   console.log(addMovieInput.value);
-//     addMivieForm.action = `/admin/add_movie/${addMovieInput.value}`
-//   })
+//Schedules-add-Popup
+showtimeAdd.forEach(movie => {
+  movie.addEventListener('click', () => {
+    let title = movie.querySelector('.conf-step__movie-title')
+    addShowtimeModal.classList.toggle('active');
+    movieNameInput.value = title.textContent
+  })
+})
+showtimeDismiss.addEventListener('click', function(e) {
+  e.preventDefault();
+  addShowtimeModal.classList.toggle('active');
+})
+
+//Schedule-delete-Popup
+scheduleMovieItems.forEach(movie => {
+  movie.addEventListener('click', () => {
+    delSheduleMovie.classList.toggle('active');
+    let movieName = movie.querySelector('.conf-step__seances-movie-title').textContent;
+    console.log(movieName)
+    popupMovieSpan.textContent = movieName;
+    console.log(movie.reviousSibling)
+    // deleteSheduleForm.action = `/delete_hall_shedule/${movieName}`
+  })
+})
+delShowtimeDismiss.addEventListener('click', function(e) {
+  e.preventDefault();
+  delSheduleMovie.classList.toggle('active');
+})
+//Delete-Popup show
+
+

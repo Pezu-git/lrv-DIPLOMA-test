@@ -66,7 +66,7 @@ class SeatController extends Controller
         $arrayParams = (array)json_decode($params, true);
         $hallConf = $arrayParams[0];
         $result = $arrayParams[1];
-        if($hallConf['rows'] !== 0 && $hallConf['rows']) {
+        if($hallConf['rows'] !== 0 && $hallConf['rows'] !==0) {
             $hall = HallConf::where('id', $result[0]["hall_id"])->first();
             $hall->rows = $hallConf['rows'];
             $hall->cols = $hallConf['cols'];

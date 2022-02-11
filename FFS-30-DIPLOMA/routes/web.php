@@ -6,7 +6,7 @@ use App\Http\Controllers\HallConfController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\PriceListController;
 use App\Http\Controllers\SeatController;
-
+use App\Http\Controllers\MovieScheduleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,19 +38,24 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     //...в таблицу с размерами зала(hall_confs)   
     Route::get('/hall_add/conf',  [HallConfController::class, 'store'])->name('hall_conf');
     //Добавление мест в зале(seats)
-    Route::post('/admin/hall_chair_create/{result}',  [SeatController::class, 'store'])->name('hall_chair_create');
+    Route::post('/admin/hall_chair_create/{result}',  [SeatController::class, 'store']);
     //Изменение категории мест в зале(seats)
     Route::get('/admin/hall_chair/{params}',  [SeatController::class, 'update']);
     //Удаление всех мест из зала(seats)
     Route::get('/admin/hall_chair_delete/{id}',  [SeatController::class, 'destroy'])->name('hall_chair_delete');
 
+//"Создание" цены
+    // Route::get('/admin/save_price/{hall_id}/{st_price}/{vip_price}',  [PriceListController::class, 'store']);
 //Изменение цены(price_lists)    
-    Route::get('/admin/save_price/{hall_id}/{st_price}/{vip_price}',  [PriceListController::class, 'update']);
+    Route::get('/admin/save_price/{result}',  [PriceListController::class, 'update']);
 
 //Добавление фильма(movies)
     Route::post('/add_movie',  [MovieController::class, 'store']);
 
-
+//Добавление сеанса
+    Route::post('/add_movie_schedule',  [MovieScheduleController::class, 'store']);
+//Удаление сеанса
+    Route::get('/delete_hall_shedule/{movieName}',  [MovieScheduleController::class, 'destroy']);
     
 
 

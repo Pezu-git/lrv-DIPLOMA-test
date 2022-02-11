@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\MovieScheduleRequest;
 use App\Models\MovieSchedule;
+use App\Models\Movie;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
+
 
 class MovieScheduleController extends Controller
 {
@@ -28,7 +30,13 @@ class MovieScheduleController extends Controller
      */
     public function store(MovieScheduleRequest $request)
     {
-        return MovieSchedule::create($request->validated());
+        $id = Movie::where('title', $request->movie_name)->first()->id;
+        MovieSchedule::create([
+            'hall_id' => $request->hall_id,
+            'movie_id' => $id,
+            'start_time' => $request->start_time
+        ]);
+        return redirect()->route('admin');
     }
 
     /**
@@ -58,11 +66,13 @@ class MovieScheduleController extends Controller
      * @param  \App\Models\MovieSchedule  $movieSchedule
      * @return Response
      */
-    public function destroy(MovieSchedule $movieSchedule)
+    public function destroy($movieName)
     {
-        if ($movieSchedule->delete()) {
-            return response(null, Response::HTTP_NO_CONTENT);
-        }
-        return null;
+        $id = Movie::where('title', $movieName)->first()->id;
+        return $id;
+        // if ($movieSchedule->delete()) {
+        //     return response(null, Response::HTTP_NO_CONTENT);
+        // }
+        // return null;
     }
 }

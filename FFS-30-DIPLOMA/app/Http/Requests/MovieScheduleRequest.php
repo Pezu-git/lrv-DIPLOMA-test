@@ -28,7 +28,7 @@ class MovieScheduleRequest extends FormRequest
     {
         return [
             'hall_id' => ['required', 'int'],
-            'movie_id' => ['required', 'int'],
+            'movie_name' => ['required', 'string'],
             'start_time' => ['required', 'date_format:H:i'],
         ];
     }
