@@ -55,7 +55,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
 //Добавление сеанса
     Route::post('/add_movie_schedule',  [MovieScheduleController::class, 'store']);
 //Удаление сеанса
-    Route::get('/delete_hall_shedule/{movieName}',  [MovieScheduleController::class, 'destroy']);
+    Route::get('/delete_hall_shedule/{movieName}/{movieTime}/{hall_id}',  [MovieScheduleController::class, 'destroy']);
     
 
 

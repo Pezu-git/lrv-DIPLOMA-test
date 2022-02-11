@@ -12,7 +12,7 @@ headers.forEach(function (header) {
 });
 /******/ })();
 
-var trashs = Array.from(document.querySelectorAll('.conf-step__button-trash'));
+var trashs = Array.from(document.querySelectorAll('[data-delHall-id]'));
 var hallAddPopupShowBtn = document.getElementById('hallAddPopupShow');
 
 var delModal = document.getElementById('deletePopup');
@@ -56,6 +56,7 @@ var showtimeAdd = [...document.querySelectorAll('.conf-step__movie')];
 
 var movieNameInput = document.querySelector('.movie_name');
 
+var dataEl = [...document.querySelectorAll('[data-movie-id]')];
 
 
 
@@ -63,8 +64,9 @@ var movieNameInput = document.querySelector('.movie_name');
 for (let i = 0; i < trashs.length; i++) {
   trashs[i].addEventListener('click', function() {
     delModal.classList.toggle('active');
+    let id = trashs[i].getAttribute('data-delHall-id');
     popupSpan.textContent = ul[i].textContent;
-    myForm.action = `/admin/delete_hall/${trashs[i].id}`
+    myForm.action = `/admin/delete_hall/${id}`
   })
 }
 //Delete-Popup close
@@ -216,10 +218,10 @@ scheduleMovieItems.forEach(movie => {
   movie.addEventListener('click', () => {
     delSheduleMovie.classList.toggle('active');
     let movieName = movie.querySelector('.conf-step__seances-movie-title').textContent;
-    console.log(movieName)
+    let movieTime = movie.querySelector('.conf-step__seances-movie-start').textContent;
+    let id = movie.getAttribute('data-hallSchedule-id');
     popupMovieSpan.textContent = movieName;
-    console.log(movie.reviousSibling)
-    // deleteSheduleForm.action = `/delete_hall_shedule/${movieName}`
+    deleteSheduleForm.action = `/delete_hall_shedule/${movieName}/${movieTime}/${id}`
   })
 })
 delShowtimeDismiss.addEventListener('click', function(e) {
@@ -229,3 +231,10 @@ delShowtimeDismiss.addEventListener('click', function(e) {
 //Delete-Popup show
 
 
+
+dataEl.forEach(movie => {
+  movie.addEventListener('click', function(e) {
+    e.preventDefault();
+    console.log('fsdf')
+  })
+})

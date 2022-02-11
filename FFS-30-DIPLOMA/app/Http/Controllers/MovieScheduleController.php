@@ -66,10 +66,12 @@ class MovieScheduleController extends Controller
      * @param  \App\Models\MovieSchedule  $movieSchedule
      * @return Response
      */
-    public function destroy($movieName)
+    public function destroy($movieName, $movieTime, $hall_id)
     {
-        $id = Movie::where('title', $movieName)->first()->id;
-        return $id;
+        // return $hall_id;
+        $movie_id = Movie::where('title', $movieName)->first()->id;
+        MovieSchedule::where('hall_id', $hall_id)->where('movie_id',$movie_id)->where('start_time', $movieTime)->first()->delete();
+        return redirect()->route('admin');
         // if ($movieSchedule->delete()) {
         //     return response(null, Response::HTTP_NO_CONTENT);
         // }

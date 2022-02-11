@@ -231,7 +231,7 @@ function hallSeats($m, $i, $l) {
         <ul class="conf-step__list">
         @foreach($halls as $hall)
           <li class="hallDeleteList">{{ $hall->name }}
-            <button class="conf-step__button conf-step__button-trash" type="button" id="{{ $hall->id }}"></button>
+            <button class="conf-step__button conf-step__button-trash" type="button" id="{{ $hall->id }}" data-delHall-id="{{ $hall->id }}"></button>
           </li>
           @endforeach
         </ul>
@@ -335,6 +335,10 @@ function hallSeats($m, $i, $l) {
             <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
             <h3 class="conf-step__movie-title">{{$movie->title}}</h3>
             <p class="conf-step__movie-duration">{{$movie->duration}}</p>
+            <a href draggable="false">
+            <button class="conf-step__button conf-step__button-trash movie-trash" type="button" data-movie-id="{{$movie->id}}" ></button>
+            </a>
+            
           </div>
           @endforeach
         </div>
@@ -345,7 +349,7 @@ function hallSeats($m, $i, $l) {
             <h3 class="conf-step__seances-title">{{$halls[$i]->name}}</h3>
             <div class="conf-step__seances-timeline">
               @for($j = 0; $j < $halls[$i]->seances->count(); $j++)
-              <div class="conf-step__seances-movie" style=
+              <div class="conf-step__seances-movie" data-hallSchedule-id="{{$halls[$i]->id}}" style=
               "width: {{movieDuration($halls[$i]->seances[$j])}}px; 
               background-color: rgb(133, 255, 137); 
               left: {{movieStyleLeft($halls[$i]->seances[$j])}}px;">
