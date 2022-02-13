@@ -6,6 +6,7 @@ use App\Models\Seat;
 use App\Models\Hall;
 use App\Models\HallConf;
 use Illuminate\Http\Response;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
 class SeatController extends Controller
@@ -31,15 +32,13 @@ class SeatController extends Controller
         $hall_id = $result[0]['hall_id'];
         Seat::where('hall_id', $hall_id)->delete();
 
-        foreach ($result as $key => $value) 
-        {
+        foreach ($result as $key => $value) {
             Seat::create([
                 'hall_id' => $value["hall_id"],
                 'row_num' => $value["row_num"],
                 'seat_num' => $value["seat_num"],
                 'status' => $value["status"]
-            ]);   
-                          
+            ]);
         }
         return redirect()->route('admin');
     }
@@ -52,7 +51,7 @@ class SeatController extends Controller
      */
     public function show(int $hall_id)
     {
-        return Seat::where('hall_id','=',$hall_id)->get();
+        return Seat::where('hall_id', '=', $hall_id)->get();
     }
 
     /**
@@ -61,31 +60,30 @@ class SeatController extends Controller
      * @param  Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
-    public function update($params)
+    public function update(Request $request)
     {
-        $arrayParams = (array)json_decode($params, true);
-        $hallConf = $arrayParams[0];
-        $result = $arrayParams[1];
-        if($hallConf['rows'] !== 0 && $hallConf['rows'] !==0) {
-            $hall = HallConf::where('id', $result[0]["hall_id"])->first();
-            $hall->rows = $hallConf['rows'];
-            $hall->cols = $hallConf['cols'];
-            $hall->save(); 
+        // return $request->hallConf['rows'];
+        // $arrayParams = (array)json_decode($params, true);
+        // $hallConf = $arrayParams[0];
+        // $result = $arrayParams[1];
+        if ($request->hallConf['rows'] !== 0 && $request->hallConf['rows'] !== 0) {
+            $hall = HallConf::where('id', $request->result[0]["hall_id"])->first();
+            $hall->rows = $request->hallConf['rows'];
+            $hall->cols = $request->hallConf['cols'];
+            $hall->save();
         }
-        foreach ($result as $key => $value) 
-        {
+        foreach ($request->result as $key => $value) {
             $seat = Seat::where('hall_id', $value["hall_id"])
-            ->where('row_num', $value["row_num"])
-            ->where('seat_num', $value["seat_num"])->first();
-            if($seat === null) {
-                return $this->store($result);    
+                ->where('row_num', $value["row_num"])
+                ->where('seat_num', $value["seat_num"])->first();
+            if ($seat === null) {
+                return $this->store($request->result);
             } else {
                 $seat->status = $value["status"];
-                $seat->save(); 
+                $seat->save();
             }
-                          
         }
-        return redirect('/admin');
+        return $request->hallConf;
     }
     /**
      * Remove the specified resource from storage.

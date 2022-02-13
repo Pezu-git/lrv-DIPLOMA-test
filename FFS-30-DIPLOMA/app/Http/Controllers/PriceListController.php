@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PriceListRequest;
 use App\Models\PriceList;
+use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
 use Mockery\Undefined;
@@ -26,19 +27,17 @@ class PriceListController extends Controller
      * @param  \Illuminate\Http\Request   $request
      * @return \Illuminate\Http\Response
      */
-    public function store($result)
+    public function store($request)
     {
-        $hall_id = $result[0]['hall_id'];
+        $hall_id = $request->result[0]['hall_id'];
         PriceList::where('hall_id', $hall_id)->delete();
-        foreach ($result as $key => $value) 
-        {
+        foreach ($request->result as $key) {
             PriceList::create([
-                'hall_id' => $value["hall_id"],
-                'status' => $value["status"],
-                'price' => $value["price"]
-            ]);                    
+                'hall_id' => $key["hall_id"],
+                'status' => $key["status"],
+                'price' => $key["price"]
+            ]);
         }
-        return redirect()->route('admin');
     }
 
     /**
@@ -49,7 +48,7 @@ class PriceListController extends Controller
      */
     public function show(int $hall_id)
     {
-        $data = PriceList::where('hall_id','=',$hall_id)->get();
+        $data = PriceList::where('hall_id', '=', $hall_id)->get();
         if (!count($data)) {
             return response(null, Response::HTTP_NO_CONTENT);
         }
@@ -63,28 +62,19 @@ class PriceListController extends Controller
      * @param  \App\Models\PriceList  $priceList
      * @return \Illuminate\Http\Response
      */
-    public function update($result)
+    public function update(Request $request)
     {
-        $params = (array)json_decode($result, true);
-        foreach($params as $key => $value ) {
-            $seat = PriceList::where('hall_id', $value['hall_id'])
-            ->where('status', '=', $value['status'])->first();
-            if($seat === null) {
-                return $this->store($params); 
+        // return $request->result;
+        // $params = (array)json_decode($result, true);
+        foreach ($request->result as $key) {
+            $seat = PriceList::where('hall_id', $key['hall_id'])
+                ->where('status', '=', $key['status'])->first();
+            if ($seat === null) {
+                return $this->store($request);
             }
-            $seat->price = $value["price"];
+            $seat->price = $key["price"];
             $seat->save();
         }
-        return redirect('/admin');
-
-
-        // $seatSdt = PriceList::where('hall_id', $hall_id)
-        // ->where('status', 'standart' )->firstOrFail();
-        // $seatVip = PriceList::where('hall_id', $hall_id)
-        // ->where('status', 'vip' )->firstOrFail();
-        // $seatSdt->update(['price' => $st_price]);
-        // $seatVip->update(['price' => $vip_price]);
-        // return redirect('/admin');
     }
 
     /**
@@ -95,7 +85,7 @@ class PriceListController extends Controller
      */
     public function destroy(int $hall_id)
     {
-        if (PriceList::where('hall_id','=',$hall_id)->delete()) {
+        if (PriceList::where('hall_id', '=', $hall_id)->delete()) {
             return response(null, Response::HTTP_NO_CONTENT);
         }
         return  null;

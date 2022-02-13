@@ -879,5 +879,8 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
         .tabs__content.active {
           display: block; /* по умолчанию показываем нужный блок */
         }
+        .conf-step__button:disabled {
+          background-color: #888888;
+        }
 
 /*# sourceMappingURL=styles.css.map */

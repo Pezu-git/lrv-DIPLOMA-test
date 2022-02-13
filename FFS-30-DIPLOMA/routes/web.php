@@ -23,45 +23,46 @@ Route::get('/', function () {
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-//Начальная страница(/index)
-    Route::get('/index', function () { return view('client.index');})->name('index');
+    //Начальная страница(/index)
+    Route::get('/index', function () {
+        return view('client.index');
+    })->name('index');
 
-//Адимн-панель(/admin)
+    //Адимн-панель(/admin)
     Route::get('/admin',  [HallController::class, 'index'])->name('admin');
 
-//Удаление зала(halls)    
-    Route::post('/admin/delete_hall/{id}',  [HallController::class, 'hallDelete'])->name('delete_hall');
+    //Удаление зала(halls)    
+    Route::post('/delete_hall',  [HallController::class, 'destroy'])->name('delete_hall');
 
-//Добавление зала
+    //Добавление зала
     //...в таблицу с названием зала(halls)
-    Route::get('/hall_add',  [HallController::class, 'store']);
+    Route::post('/hall_add',  [HallController::class, 'store']);
     //...в таблицу с размерами зала(hall_confs)   
     Route::get('/hall_add/conf',  [HallConfController::class, 'store'])->name('hall_conf');
     //Добавление мест в зале(seats)
     Route::post('/admin/hall_chair_create/{result}',  [SeatController::class, 'store']);
     //Изменение категории мест в зале(seats)
-    Route::get('/admin/hall_chair/{params}',  [SeatController::class, 'update']);
+    Route::get('/hall_chair',  [SeatController::class, 'update'])->name('hall_chair');
     //Удаление всех мест из зала(seats)
     Route::get('/admin/hall_chair_delete/{id}',  [SeatController::class, 'destroy'])->name('hall_chair_delete');
 
-//"Создание" цены
+    //"Создание" цены
     // Route::get('/admin/save_price/{hall_id}/{st_price}/{vip_price}',  [PriceListController::class, 'store']);
-//Изменение цены(price_lists)    
-    Route::get('/admin/save_price/{result}',  [PriceListController::class, 'update']);
+    //Изменение цены(price_lists)    
+    Route::post('/save_price',  [PriceListController::class, 'update']);
 
-//Добавление фильма(movies)
-    Route::post('/add_movie',  [MovieController::class, 'store']);
+    //Добавление фильма(movies)
+    Route::post('/add_movie',  [MovieController::class, 'store'])->name('filmAdd');
+    //Удаление фильма(movies)
+    Route::post('/delete_movie',  [MovieController::class, 'destroy'])->name('filmDelete');
 
-//Добавление сеанса
+    //Добавление сеанса
     Route::post('/add_movie_schedule',  [MovieScheduleController::class, 'store']);
-//Удаление сеанса
-    Route::get('/delete_hall_shedule/{movieName}/{movieTime}/{hall_id}',  [MovieScheduleController::class, 'destroy']);
-    
-
-
-
-    
+    //Удаление сеанса
+    Route::post('/delete_hall_shedule',  [MovieScheduleController::class, 'destroy']);
+    //Открытие-закрытие продаж
+    Route::post('/start_of_sales',  [HallController::class, 'setActive'])->name('start_of_sales');
 });
 
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

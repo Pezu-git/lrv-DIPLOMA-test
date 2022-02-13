@@ -6,6 +6,7 @@ use App\Http\Requests\HallRequest;
 use App\Models\Hall;
 use App\Models\HallConf;
 use App\Models\Seat;
+use App\Models\PriceList;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -22,10 +23,10 @@ class HallController extends Controller
     public function index()
     {
         $halls = Hall::all();
-        if(Auth::user()->is_admin !== '1') {
+        if (Auth::user()->is_admin !== '1') {
             return redirect('/index');
         }
-        
+
         return view('admin.admin', ['halls' => $halls]);
     }
 
@@ -38,10 +39,11 @@ class HallController extends Controller
     public function store(HallRequest $request)
     {
         Hall::create($request->validated());
-        return redirect()->route('hall_conf');
+        $hall_id = Hall::where('name', $request->name)->first()->id;
+        return redirect()->route('hall_conf', ['hall_id' => $hall_id, 'hall_name' => $request->name]);
     }
 
-    
+
 
     /**
      * Display the specified resource.
@@ -73,23 +75,16 @@ class HallController extends Controller
      * @param  \App\Models\Hall  $hall
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Hall $hall)
+
+    public function destroy(Request $request)
     {
-        if ($hall->delete()) {
-            return response(null, Response::HTTP_NO_CONTENT);
-        }
-        return null;
+        Hall::find($request->hall_id)->delete();
+        HallConf::find($request->hall_id)->delete();
+        Seat::where('hall_id', $request->hall_id)->delete();
+        PriceList::where('hall_id', $request->hall_id)->delete();
     }
 
-    public function hallDelete(int $id)
-    {
-        Hall::find($id)->delete();
-        HallConf::find($id)->delete();
-        Seat::where('hall_id', $id)->delete();
-        return redirect()->route('admin');
-    }
 
-  
 
     /**
      * Set hall active status
@@ -98,10 +93,20 @@ class HallController extends Controller
      * @param  bool  $is_active
      * @return \Illuminate\Http\Response
      */
-    public function setActive(int  $id, bool  $is_active)
+    public function setActive(Request $request)
     {
-        $hall = Hall::findOrFail($id);
-        $hall->is_active = $is_active;
-        return $hall->save();
+
+        $hall = Hall::findOrFail($request->id);
+        if ($hall->is_active == true) {
+            $hall->is_active = false;
+            $hall->save();
+            return ['Открыть продажу билетов', 'Зал готов к открытию:'];
+        } else {
+            $hall->is_active = true;
+            $hall->save();
+            return ['Закрыть продажу билетов', 'Продажа билетов открыта'];
+        }
+        // $hall->is_active = $request->is_active;
+        // return $hall->save();
     }
 }

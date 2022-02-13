@@ -16,12 +16,12 @@ class HallSeeder extends Seeder
     {
         DB::table('halls')->insert([
             'name' => 'Зал 1',
-            'is_active' => true
+            'is_active' => false
         ]);
 
         DB::table('halls')->insert([
             'name' => 'Зал 2',
-            'is_active' => true
+            'is_active' => false
         ]);
     }
 }
