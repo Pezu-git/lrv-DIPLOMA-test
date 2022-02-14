@@ -29,7 +29,6 @@ class MovieController extends Controller
     public function store(MovieRequest $request)
     {
         Movie::create($request->validated());
-        // return $this->index();
     }
 
     /**
@@ -51,15 +50,8 @@ class MovieController extends Controller
      */
     public function destroy(Request $request)
     {
-        // return $request;
         $movie_id = Movie::where('title', $request->title)->first()->id;
         Movie::where('id', $movie_id)->first()->delete();
         MovieSchedule::where('movie_id', $movie_id)->delete();
-        // return $movie_id;
-        // return redirect('/admin');
-        // if ($movie->delete()) {
-        //     return response(null, Response::HTTP_NO_CONTENT);
-        // }
-        // return null;
     }
 }

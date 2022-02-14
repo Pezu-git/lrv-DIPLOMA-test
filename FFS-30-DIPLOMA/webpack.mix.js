@@ -31,6 +31,15 @@ mix.styles([
 
 
 
-mix.js(
+mix.js([
     'resources/admin/js/accordeon.js',
+    'resources/admin/js/hallPrice.js',
+    'resources/admin/js/halls.js',
+    'resources/admin/js/hallScreen.js',
+    'resources/admin/js/movie.js',
+    'resources/admin/js/popupCancelBtn.js',
+    'resources/admin/js/startOfSales.js',
+    'resources/admin/js/schedule.js',
+],
+    
  'public/js/admin_moonbase.js');

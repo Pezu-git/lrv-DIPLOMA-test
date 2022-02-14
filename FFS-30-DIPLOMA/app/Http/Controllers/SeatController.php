@@ -62,10 +62,6 @@ class SeatController extends Controller
      */
     public function update(Request $request)
     {
-        // return $request->hallConf['rows'];
-        // $arrayParams = (array)json_decode($params, true);
-        // $hallConf = $arrayParams[0];
-        // $result = $arrayParams[1];
         if ($request->hallConf['rows'] !== 0 && $request->hallConf['rows'] !== 0) {
             $hall = HallConf::where('id', $request->result[0]["hall_id"])->first();
             $hall->rows = $request->hallConf['rows'];

@@ -365,7 +365,8 @@ return 0;
                       @for($j = 0; $j < $halls[$i]->seances->count(); $j++)
                         <div class="conf-step__seances-movie" data-hallSchedule-id="{{$halls[$i]->id}}" style="width: {{movieDuration($halls[$i]->seances[$j])}}px; 
               background-color: rgb(133, 255, 137); 
-              left: {{movieStyleLeft($halls[$i]->seances[$j])}}px;">
+              left: {{movieStyleLeft($halls[$i]->seances[$j])}}px;
+              cursor: pointer">
                           <p class="conf-step__seances-movie-title">{{movieTit($halls[$i]->seances[$j])}}</p>
                           <p class="conf-step__seances-movie-start">{{$halls[$i]->seances[$j]->start_time}}</p>
                         </div>

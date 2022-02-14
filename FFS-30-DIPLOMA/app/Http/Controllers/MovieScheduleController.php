@@ -31,14 +31,12 @@ class MovieScheduleController extends Controller
      */
     public function store(MovieScheduleRequest $request)
     {
-        // return $request;
         $id = Movie::where('title', $request->movie_name)->first()->id;
         MovieSchedule::create([
             'hall_id' => $request->hall_id,
             'movie_id' => $id,
             'start_time' => $request->start_time
         ]);
-        // return redirect()->route('admin');
     }
 
     /**

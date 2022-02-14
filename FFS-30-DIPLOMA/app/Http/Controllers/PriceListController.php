@@ -64,8 +64,6 @@ class PriceListController extends Controller
      */
     public function update(Request $request)
     {
-        // return $request->result;
-        // $params = (array)json_decode($result, true);
         foreach ($request->result as $key) {
             $seat = PriceList::where('hall_id', $key['hall_id'])
                 ->where('status', '=', $key['status'])->first();

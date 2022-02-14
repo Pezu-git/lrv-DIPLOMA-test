@@ -26,7 +26,6 @@ class HallController extends Controller
         if (Auth::user()->is_admin !== '1') {
             return redirect('/index');
         }
-
         return view('admin.admin', ['halls' => $halls]);
     }
 
@@ -84,8 +83,6 @@ class HallController extends Controller
         PriceList::where('hall_id', $request->hall_id)->delete();
     }
 
-
-
     /**
      * Set hall active status
      *
@@ -95,7 +92,6 @@ class HallController extends Controller
      */
     public function setActive(Request $request)
     {
-
         $hall = Hall::findOrFail($request->id);
         if ($hall->is_active == true) {
             $hall->is_active = false;
@@ -105,8 +101,6 @@ class HallController extends Controller
             $hall->is_active = true;
             $hall->save();
             return ['Закрыть продажу билетов', 'Продажа билетов открыта'];
-        }
-        // $hall->is_active = $request->is_active;
-        // return $hall->save();
+        };
     }
 }
