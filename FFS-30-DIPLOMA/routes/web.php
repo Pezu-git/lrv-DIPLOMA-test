@@ -18,13 +18,13 @@ use App\Http\Controllers\MovieScheduleController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     //Начальная страница(/index)
-    Route::get('/index', function () {
+    Route::get('/', function () {
         return view('client.index');
     })->name('index');
 
