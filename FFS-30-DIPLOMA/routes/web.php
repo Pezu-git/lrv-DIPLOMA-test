@@ -18,15 +18,16 @@ use App\Http\Controllers\MovieScheduleController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+//Начальная страница(/index)
+Route::get('/', function () {
+    return view('client.index');
+})->name('index');
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     //Начальная страница(/index)
-    Route::get('/', function () {
-        return view('client.index');
-    })->name('index');
+    // Route::get('/', function () {
+    //     return view('client.index');
+    // })->name('index');
 
     //Адимн-панель(/admin)
     Route::get('/admin',  [HallController::class, 'index'])->name('admin');

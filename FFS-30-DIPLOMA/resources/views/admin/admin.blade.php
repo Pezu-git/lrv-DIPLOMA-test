@@ -56,7 +56,7 @@ return 0;
 @endphp
 
 
-<x-app-layout>
+
   <!DOCTYPE html>
   <html lang="ru">
 
@@ -440,4 +440,3 @@ return 0;
   </body>
 
   </html>
-</x-app-layout>
