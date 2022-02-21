@@ -23,6 +23,10 @@ Route::get('/', function () {
     return view('client.index');
 })->name('index');
 
+Route::get('/hall', function() {
+    return view('client.hall');
+})->name('client_hall');
+
 Route::group(['middleware' => 'auth:sanctum'], function () {
     //Начальная страница(/index)
     // Route::get('/', function () {
@@ -63,6 +67,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/delete_hall_shedule',  [MovieScheduleController::class, 'destroy']);
     //Открытие-закрытие продаж
     Route::post('/start_of_sales',  [HallController::class, 'setActive'])->name('start_of_sales');
+
+
+   
 });
 
 
