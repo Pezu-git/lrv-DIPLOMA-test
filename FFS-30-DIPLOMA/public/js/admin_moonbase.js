@@ -152,6 +152,7 @@ $(document).ready(function () {
         $h = "<li class=\"hallDeleteList\">".concat(data.hall_name, "\n                      <button class=\"conf-step__button conf-step__button-trash\" type=\"button\" id=\"{{ $hall_name }}\" data-delHall-id=").concat(data.hall_id, "\"></button>\n                    </li>");
         $('.conf-step__list').append($h);
         addModal.classList.toggle('active');
+        location.reload();
       }
     });
   });

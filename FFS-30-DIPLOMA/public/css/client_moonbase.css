@@ -184,6 +184,7 @@ body {
   font-size: 1.4rem;
   background-color: #16A6AF;
   color: #FFFFFF;
+  cursor: pointer;
 }
 
 .buying {
@@ -262,6 +263,7 @@ body {
   border: 1px solid #525252;
   box-sizing: border-box;
   border-radius: 4px;
+  cursor: pointer;
 }
 .buying-scheme__chair:not(:first-of-type) {
   margin-left: 4px;

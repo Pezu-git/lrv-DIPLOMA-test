@@ -72,6 +72,7 @@ for (let i = 0; i < trashs.length; i++) {
                     </li>`
               $('.conf-step__list').append($h);
               addModal.classList.toggle('active');
+              location.reload();
             }
           });
         });

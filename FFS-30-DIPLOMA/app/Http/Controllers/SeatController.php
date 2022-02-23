@@ -37,7 +37,8 @@ class SeatController extends Controller
                 'hall_id' => $value["hall_id"],
                 'row_num' => $value["row_num"],
                 'seat_num' => $value["seat_num"],
-                'status' => $value["status"]
+                'status' => $value["status"],
+                'taken' => false
             ]);
         }
         return redirect()->route('admin');

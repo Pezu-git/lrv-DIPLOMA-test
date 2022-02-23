@@ -15,6 +15,7 @@ class Seat extends Model
         'hall_id',
         'row_num',
         'seat_num',
-        'status'
+        'status',
+        'taken'
     ];
 }

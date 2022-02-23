@@ -20,6 +20,7 @@ class CreateSeatsTable extends Migration
             $table->integer('row_num');
             $table->integer('seat_num');
             $table->enum('status', ['disabled', 'standart', 'vip'])->default('standart');
+            $table->boolean('taken')->default(0);
         });
     }
 

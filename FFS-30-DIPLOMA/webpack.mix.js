@@ -42,4 +42,10 @@ mix.js([
     'resources/admin/js/schedule.js',
 ],
     
- 'public/js/admin_moonbase.js');
+    'public/js/admin_moonbase.js');
+ 
+    mix.js([
+    'resources/client/js/choosingPlace.js',
+],
+    
+ 'public/js/client_moonbase.js');

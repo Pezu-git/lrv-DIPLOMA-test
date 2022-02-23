@@ -23,9 +23,17 @@ Route::get('/', function () {
     return view('client.index');
 })->name('index');
 
-Route::get('/hall', function() {
+Route::get('/hall', function () {
     return view('client.hall');
 })->name('client_hall');
+
+Route::get('/payment', function () {
+    return view('client.payment');
+})->name('payment');
+
+Route::get('/ticket', function () {
+    return view('client.ticket');
+})->name('ticket');
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     //Начальная страница(/index)
@@ -67,9 +75,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/delete_hall_shedule',  [MovieScheduleController::class, 'destroy']);
     //Открытие-закрытие продаж
     Route::post('/start_of_sales',  [HallController::class, 'setActive'])->name('start_of_sales');
-
-
-   
 });
 
 

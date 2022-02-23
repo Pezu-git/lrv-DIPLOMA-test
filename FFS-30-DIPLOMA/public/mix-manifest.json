@@ -1,6 +1,7 @@
 {
     "/js/app.js": "/js/app.js",
     "/js/admin_moonbase.js": "/js/admin_moonbase.js",
+    "/js/client_moonbase.js": "/js/client_moonbase.js",
     "/css/app.css": "/css/app.css",
     "/css/admin_moonbase.css": "/css/admin_moonbase.css",
     "/css/client_moonbase.css": "/css/client_moonbase.css",
