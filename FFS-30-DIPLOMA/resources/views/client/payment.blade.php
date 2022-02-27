@@ -16,6 +16,8 @@ $hall_name = $_GET['hall_name'];
 $hall = $halls->where('name', $hall_name)->first();
 $movie_title = $_GET['movie_title'];
 $start_time = $_GET['start_time'];
+$places = $_GET['taken_places'];
+$price = $_GET['total_price'];
 
 $hall_price_standart = PriceList::where('hall_id', $hall->id)->where('status', 'standart')->first()->price;
 $hall_price_vip = PriceList::where('hall_id', $hall->id)->where('status', 'vip')->first()->price;
@@ -89,13 +91,13 @@ return 0;
 
       <div class="ticket__info-wrapper">
         <p class="ticket__info">На фильм: <span class="ticket__details ticket__title">{{$movie_title}}</span></p>
-        <p class="ticket__info">Ряд/Место: <span class="ticket__details ticket__chairs">6/7</span></p>
+        <p class="ticket__info">Ряд/Место: <span class="ticket__details ticket__chairs">{{$places}}</span></p>
         <p class="ticket__info">Зал: <span class="ticket__details ticket__hall">{{$hall_name}}</span></p>
         <p class="ticket__info">Начало сеанса: <span class="ticket__details ticket__start">{{$start_time}}</span></p>
-        <p class="ticket__info">Стоимость: <span class="ticket__details ticket__cost">600</span> рублей</p>
+        <p class="ticket__info">Стоимость: <span class="ticket__details ticket__cost">{{$price}}</span> рублей</p>
 
 
-        <button class="acceptin-button" onclick="location.href=`{{route('ticket')}}`">Получить код бронирования</button>
+        <button class="acceptin-button" onclick="location.href=`{{route('ticket', ['movie_title' =>$movie_title, 'places'=> $places, 'hall_name' => $hall_name, 'start_time' => $start_time])}}`">Получить код бронирования</button>
 
         <p class="ticket__hint">После оплаты билет будет доступен в этом окне, а также придёт вам на почту. Покажите QR-код нашему контроллёру у входа в зал.</p>
         <p class="ticket__hint">Приятного просмотра!</p>

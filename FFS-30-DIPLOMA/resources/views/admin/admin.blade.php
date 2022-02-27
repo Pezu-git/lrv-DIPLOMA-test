@@ -407,33 +407,6 @@ return 0;
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="/js/admin_moonbase.js"></script>
 
-        <!-- <script>
-            $(document).ready(function() {
-              $('#addMivieForm').submit(function(e) {
-
-                let movieName = $('#addMovieInput').val();
-                let movieDur = $('#addMovieDurationInput').val()
-                console.log(movieName);
-                console.log(movieDur);
-
-                $.ajax({
-                  url: "{{route('filmAdd')}}",
-                  type: 'POST',
-                  data: {
-                    title: movieName,
-                    duration: movieDur
-                  },
-                  headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                  },
-                  success: function(data) {
-                    location.reload();
-                  }
-                });
-              })
-            })
-          </script> -->
-
 
 </body>
 

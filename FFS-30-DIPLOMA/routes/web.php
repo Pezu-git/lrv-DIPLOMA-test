@@ -7,6 +7,8 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\PriceListController;
 use App\Http\Controllers\SeatController;
 use App\Http\Controllers\MovieScheduleController;
+use App\Http\Controllers\TakenSeatsController;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,6 +29,8 @@ Route::get('/hall', function () {
     return view('client.hall');
 })->name('client_hall');
 
+Route::get('/client_hall', [TakenSeatsController::class, 'update']);
+
 Route::get('/payment', function () {
     return view('client.payment');
 })->name('payment');
@@ -34,6 +38,13 @@ Route::get('/payment', function () {
 Route::get('/ticket', function () {
     return view('client.ticket');
 })->name('ticket');
+
+Route::get('qr-code-g', function () {
+    QrCode::size(500)
+        ->format('png')
+        ->generate('www.google.com', public_path('images/qrcode.png'));
+    return view('qrCode');
+});
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     //Начальная страница(/index)

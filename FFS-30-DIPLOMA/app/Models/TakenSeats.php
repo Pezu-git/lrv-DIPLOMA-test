@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Seat extends Model
+class TakenSeats extends Model
 {
     use HasFactory;
 
@@ -13,8 +13,9 @@ class Seat extends Model
 
     protected $fillable = [
         'hall_id',
+        'seance_id',
         'row_num',
         'seat_num',
-        'status'
+        'taken'
     ];
 }

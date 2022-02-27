@@ -19,7 +19,6 @@ class SeatSeeder extends Seeder
             'row_num' => 0,
             'seat_num' => 0,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -27,7 +26,6 @@ class SeatSeeder extends Seeder
             'row_num' => 0,
             'seat_num' => 1,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -35,7 +33,6 @@ class SeatSeeder extends Seeder
             'row_num' => 0,
             'seat_num' => 2,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -43,7 +40,6 @@ class SeatSeeder extends Seeder
             'row_num' => 0,
             'seat_num' => 3,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -51,7 +47,6 @@ class SeatSeeder extends Seeder
             'row_num' => 0,
             'seat_num' => 4,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         //////////////////////1
@@ -61,7 +56,6 @@ class SeatSeeder extends Seeder
             'row_num' => 1,
             'seat_num' => 0,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -69,7 +63,6 @@ class SeatSeeder extends Seeder
             'row_num' => 1,
             'seat_num' => 1,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -77,7 +70,6 @@ class SeatSeeder extends Seeder
             'row_num' => 1,
             'seat_num' => 2,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -85,7 +77,6 @@ class SeatSeeder extends Seeder
             'row_num' => 1,
             'seat_num' => 3,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -93,7 +84,6 @@ class SeatSeeder extends Seeder
             'row_num' => 1,
             'seat_num' => 4,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         //////////////////////2
@@ -103,7 +93,6 @@ class SeatSeeder extends Seeder
             'row_num' => 2,
             'seat_num' => 0,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -111,7 +100,6 @@ class SeatSeeder extends Seeder
             'row_num' => 2,
             'seat_num' => 1,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -119,7 +107,6 @@ class SeatSeeder extends Seeder
             'row_num' => 2,
             'seat_num' => 2,
             'status' => 'vip',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -127,7 +114,6 @@ class SeatSeeder extends Seeder
             'row_num' => 2,
             'seat_num' => 3,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -135,7 +121,6 @@ class SeatSeeder extends Seeder
             'row_num' => 2,
             'seat_num' => 4,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         //////////////////////3
@@ -145,7 +130,6 @@ class SeatSeeder extends Seeder
             'row_num' => 3,
             'seat_num' => 0,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -153,7 +137,6 @@ class SeatSeeder extends Seeder
             'row_num' => 3,
             'seat_num' => 1,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -161,7 +144,6 @@ class SeatSeeder extends Seeder
             'row_num' => 3,
             'seat_num' => 2,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -169,7 +151,6 @@ class SeatSeeder extends Seeder
             'row_num' => 3,
             'seat_num' => 3,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -177,7 +158,6 @@ class SeatSeeder extends Seeder
             'row_num' => 3,
             'seat_num' => 4,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         //////////////////////4
@@ -187,7 +167,6 @@ class SeatSeeder extends Seeder
             'row_num' => 4,
             'seat_num' => 0,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -195,7 +174,6 @@ class SeatSeeder extends Seeder
             'row_num' => 4,
             'seat_num' => 1,
             'status' => 'standart',
-            'taken' => 0
 
 
         ]);
@@ -205,7 +183,6 @@ class SeatSeeder extends Seeder
             'row_num' => 4,
             'seat_num' => 2,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -213,7 +190,6 @@ class SeatSeeder extends Seeder
             'row_num' => 4,
             'seat_num' => 3,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -221,7 +197,6 @@ class SeatSeeder extends Seeder
             'row_num' => 4,
             'seat_num' => 4,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         //////////////////////5
@@ -232,7 +207,6 @@ class SeatSeeder extends Seeder
             'row_num' => 0,
             'seat_num' => 0,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -240,7 +214,6 @@ class SeatSeeder extends Seeder
             'row_num' => 0,
             'seat_num' => 1,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -248,7 +221,6 @@ class SeatSeeder extends Seeder
             'row_num' => 0,
             'seat_num' => 2,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -256,7 +228,6 @@ class SeatSeeder extends Seeder
             'row_num' => 0,
             'seat_num' => 3,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -264,7 +235,6 @@ class SeatSeeder extends Seeder
             'row_num' => 0,
             'seat_num' => 4,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -272,7 +242,6 @@ class SeatSeeder extends Seeder
             'row_num' => 0,
             'seat_num' => 5,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         //////////////////////1
@@ -282,7 +251,6 @@ class SeatSeeder extends Seeder
             'row_num' => 1,
             'seat_num' => 0,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -290,7 +258,6 @@ class SeatSeeder extends Seeder
             'row_num' => 1,
             'seat_num' => 1,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -298,7 +265,6 @@ class SeatSeeder extends Seeder
             'row_num' => 1,
             'seat_num' => 2,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -306,7 +272,6 @@ class SeatSeeder extends Seeder
             'row_num' => 1,
             'seat_num' => 3,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -314,7 +279,6 @@ class SeatSeeder extends Seeder
             'row_num' => 1,
             'seat_num' => 4,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -322,7 +286,6 @@ class SeatSeeder extends Seeder
             'row_num' => 1,
             'seat_num' => 5,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         //////////////////////2
@@ -332,7 +295,6 @@ class SeatSeeder extends Seeder
             'row_num' => 2,
             'seat_num' => 0,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -340,7 +302,6 @@ class SeatSeeder extends Seeder
             'row_num' => 2,
             'seat_num' => 1,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -348,7 +309,6 @@ class SeatSeeder extends Seeder
             'row_num' => 2,
             'seat_num' => 2,
             'status' => 'vip',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -356,7 +316,6 @@ class SeatSeeder extends Seeder
             'row_num' => 2,
             'seat_num' => 3,
             'status' => 'vip',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -364,7 +323,6 @@ class SeatSeeder extends Seeder
             'row_num' => 2,
             'seat_num' => 4,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -372,7 +330,6 @@ class SeatSeeder extends Seeder
             'row_num' => 2,
             'seat_num' => 5,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         //////////////////////3
@@ -382,7 +339,6 @@ class SeatSeeder extends Seeder
             'row_num' => 3,
             'seat_num' => 0,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -390,7 +346,6 @@ class SeatSeeder extends Seeder
             'row_num' => 3,
             'seat_num' => 1,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -398,7 +353,6 @@ class SeatSeeder extends Seeder
             'row_num' => 3,
             'seat_num' => 2,
             'status' => 'vip',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -406,7 +360,6 @@ class SeatSeeder extends Seeder
             'row_num' => 3,
             'seat_num' => 3,
             'status' => 'vip',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -414,7 +367,6 @@ class SeatSeeder extends Seeder
             'row_num' => 3,
             'seat_num' => 4,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -422,7 +374,6 @@ class SeatSeeder extends Seeder
             'row_num' => 3,
             'seat_num' => 5,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         //////////////////////4
@@ -432,7 +383,6 @@ class SeatSeeder extends Seeder
             'row_num' => 4,
             'seat_num' => 0,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -440,7 +390,6 @@ class SeatSeeder extends Seeder
             'row_num' => 4,
             'seat_num' => 1,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -448,7 +397,6 @@ class SeatSeeder extends Seeder
             'row_num' => 4,
             'seat_num' => 2,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -456,7 +404,6 @@ class SeatSeeder extends Seeder
             'row_num' => 4,
             'seat_num' => 3,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -464,7 +411,6 @@ class SeatSeeder extends Seeder
             'row_num' => 4,
             'seat_num' => 4,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -472,7 +418,6 @@ class SeatSeeder extends Seeder
             'row_num' => 4,
             'seat_num' => 5,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         ////////////////////5
@@ -483,7 +428,6 @@ class SeatSeeder extends Seeder
             'row_num' => 5,
             'seat_num' => 0,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -491,7 +435,6 @@ class SeatSeeder extends Seeder
             'row_num' => 5,
             'seat_num' => 1,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -499,7 +442,6 @@ class SeatSeeder extends Seeder
             'row_num' => 5,
             'seat_num' => 2,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -507,7 +449,6 @@ class SeatSeeder extends Seeder
             'row_num' => 5,
             'seat_num' => 3,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
@@ -515,15 +456,13 @@ class SeatSeeder extends Seeder
             'row_num' => 5,
             'seat_num' => 4,
             'status' => 'standart',
-            'taken' => 0
         ]);
 
         DB::table('seats')->insert([
             'hall_id' => 2,
             'row_num' => 5,
             'seat_num' => 5,
-            'status' => 'standart',
-            'taken' => 0
+            'status' => 'standart'
         ]);
     }
 }

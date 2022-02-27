@@ -17,10 +17,13 @@ $hall = $halls->where('name', $hall_name)->first();
 $movie_title = $_GET['movie'];
 $start_time = $_GET['start_time'];
 
+
 $hall_price_standart = PriceList::where('hall_id', $hall->id)->where('status', 'standart')->first()->price;
 $hall_price_vip = PriceList::where('hall_id', $hall->id)->where('status', 'vip')->first()->price;
 
+function taken() {
 
+}
 
 
 
@@ -32,30 +35,15 @@ return (int)HallConf::where('id', $hall->id)->first()->rows;
 function hallConfCol($hall) {
 return HallConf::where('id', $hall->id)->first()->cols;
 }
-function hallSeats($m, $i, $l) {
-try{
-return $m->seats->where('row_num', $i)->where('seat_num', $l)->first()->status;
-}
-catch(Exception $e) {
-return 'standart';
-}
-}
-function hallWhithSchedule($hall) {
-if(MovieSchedule::where('hall_id', $hall->id)->first()) {
-return 'is_active';
-}
-else {
-return null;
-}
-}
 
-function activeHall($hall) {
-if(Hall::where('id', $hall->id)->first()->is_active) {
-return 1;
+
+function hallSeats($m, $i, $l) {
+$start_time = $_GET['start_time'];
+$seance_id = MovieSchedule::where('hall_id', $m->id)->where('start_time', $start_time)->first()->id;
+if($m->takenSeats->where('hall_id', $m->id)->where('seance_id', $seance_id)->where('row_num', $i)->where('seat_num', $l)->first()->taken) {
+return 'taken';
 }
-else {
-return 0;
-}
+return $m->seats->where('row_num', $i)->where('seat_num', $l)->first()->status;
 }
 
 
@@ -119,6 +107,8 @@ return 0;
   </main>
 
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
 <script>
   const chairChecked = () => {
     const chairs = Array.from(document.querySelectorAll('.buying-scheme__row  .buying-scheme__chair'));
@@ -134,8 +124,13 @@ return 0;
 
 
   const buttonAcceptin = document.querySelector('.acceptin-button');
+  const hallName = document.querySelector('.buying__info-hall').textContent;
+  const seance = document.querySelector('.buying__info-start').textContent.substring(15);
+  const title = document.querySelector('.buying__info-title').textContent;
+
   // Вешаем событие onclick на кнопку
   buttonAcceptin.addEventListener("click", (event) => {
+    let chairsSelected = Array.from(document.querySelectorAll('.buying-scheme__row .buying-scheme__chair_selected'));
     event.preventDefault();
     // Формируем список выбранных мест
     const selectedPlaces = Array();
@@ -155,6 +150,30 @@ return 0;
       }
     }
     console.log(selectedPlaces)
+    chairsSelected.forEach(chair => {
+      if (chair.classList.contains("buying-scheme__chair_vip")) {
+        chair.classList.toggle("buying-scheme__chair_vip");
+      }
+      chair.classList.toggle("buying-scheme__chair_selected");
+      chair.classList.toggle("buying-scheme__chair_taken");
+
+    })
+    $.ajax({
+      url: "/client_hall",
+      type: 'GET',
+      data: {
+        movie: title,
+        hallName: hallName,
+        seance: seance,
+        takenPlaces: selectedPlaces
+      },
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      success: function(data) {
+        location.href = data;
+      }
+    });
   });
 </script>
 

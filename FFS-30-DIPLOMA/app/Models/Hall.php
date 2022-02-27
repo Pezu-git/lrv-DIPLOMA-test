@@ -27,4 +27,8 @@ class Hall extends Model
         return $this->hasMany(\App\Models\Seat::class);
     }
 
+    public function takenSeats()
+    {
+        return $this->hasMany(\App\Models\TakenSeats::class);
+    }
 }

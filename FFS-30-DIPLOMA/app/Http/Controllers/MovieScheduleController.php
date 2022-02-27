@@ -6,6 +6,8 @@ use App\Http\Requests\MovieScheduleRequest;
 use App\Models\MovieSchedule;
 use App\Models\Movie;
 use App\Models\Hall;
+use App\Models\TakenSeats;
+use App\Models\Seat;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Validator;
@@ -32,11 +34,26 @@ class MovieScheduleController extends Controller
     public function store(MovieScheduleRequest $request)
     {
         $id = Movie::where('title', $request->movie_name)->first()->id;
-        MovieSchedule::create([
-            'hall_id' => $request->hall_id,
-            'movie_id' => $id,
-            'start_time' => $request->start_time
-        ]);
+        if (!MovieSchedule::where('hall_id', $request->hall_id)->where('start_time', $request->start_time)->first()) {
+            MovieSchedule::create([
+                'hall_id' => $request->hall_id,
+                'movie_id' => $id,
+                'start_time' => $request->start_time
+            ]);
+        };
+
+
+        $seance_id = MovieSchedule::where('hall_id', $request->hall_id)->where('start_time', $request->start_time)->first()->id;
+        $seats = Seat::where('hall_id', $request->hall_id)->get();
+        foreach ($seats as $key => $value) {
+            TakenSeats::create([
+                'hall_id' => $request->hall_id,
+                'seance_id' => $seance_id,
+                'row_num' => $value['row_num'],
+                'seat_num' => $value['seat_num'],
+                'taken' => false
+            ]);
+        }
     }
 
     /**
@@ -49,9 +66,9 @@ class MovieScheduleController extends Controller
     {
         $movie_id = $_GET['movie_id'] ?? null;
         if ($movie_id) {
-            $data = MovieSchedule::where('hall_id', '=', $hall_id)->where('movie_id', '=', $movie_id)->get();
+            $data = MovieSchedule::where('hall_id', $hall_id)->where('movie_id', $movie_id)->get();
         } else {
-            $data = MovieSchedule::with('movie')->where('hall_id', '=', $hall_id)->whereHas('movie')->get();
+            $data = MovieSchedule::with('movie')->where('hall_id', $hall_id)->whereHas('movie')->get();
         }
 
         if (!count($data)) {
