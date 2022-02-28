@@ -42,7 +42,6 @@ class MovieScheduleController extends Controller
             ]);
         };
 
-
         $seance_id = MovieSchedule::where('hall_id', $request->hall_id)->where('start_time', $request->start_time)->first()->id;
         $seats = Seat::where('hall_id', $request->hall_id)->get();
         foreach ($seats as $key => $value) {

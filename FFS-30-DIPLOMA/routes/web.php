@@ -71,7 +71,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/admin/hall_chair_delete/{id}',  [SeatController::class, 'destroy'])->name('hall_chair_delete');
 
     //"Создание" цены
-    // Route::get('/admin/save_price/{hall_id}/{st_price}/{vip_price}',  [PriceListController::class, 'store']);
+    Route::get('/show_price',  [PriceListController::class, 'show']);
     //Изменение цены(price_lists)    
     Route::post('/save_price',  [PriceListController::class, 'update']);
 

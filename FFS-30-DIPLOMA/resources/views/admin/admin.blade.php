@@ -51,8 +51,6 @@ else {
 return 0;
 }
 }
-
-
 @endphp
 
 
@@ -91,40 +89,39 @@ return 0;
             <div class="conf-step__buttons text-center">
               <input type="submit" value="Удалить" class="conf-step__button conf-step__button-accent">
               <button class="conf-step__button conf-step__button-regular" ">Отменить</button>            
-          </div>
-        </form>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
 <!--HallAdd-popup-->
-<div class=" popup" id="addPopup">
-                <div class="popup__container">
-                  <div class="popup__content">
-                    <div class="popup__header">
-                      <h2 class="popup__title">
-                        Добавление зала
-                        <a class="popup__dismiss" href="#"><img src="i/close.png" alt="Закрыть" id="addModalDissmis"></a>
-                      </h2>
-
-                    </div>
-                    <div class="popup__wrapper">
-                      <form accept-charset="utf-8" name="hallAddForm" id="hallAddForm">
-                        @csrf
-                        <label class="conf-step__label conf-step__label-fullsize" for="name">
-                          Название зала
-                          <input class="conf-step__input" type="text" placeholder="Например, &laquo;Зал 1&raquo;" name="name" id="hallNameAdd" required>
-                        </label>
-                        <div class="conf-step__buttons text-center">
-                          <input type="submit" value="Добавить зал" class="conf-step__button conf-step__button-accent" name="addHall">
-                          <button class="conf-step__button conf-step__button-regular">Отменить</button>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
-                </div>
+  <div class=" popup" id="addPopup">
+    <div class="popup__container">
+      <div class="popup__content">
+        <div class="popup__header">
+          <h2 class="popup__title">
+            Добавление зала
+            <a class="popup__dismiss" href="#"><img src="i/close.png" alt="Закрыть" id="addModalDissmis"></a>
+          </h2>
+        </div>
+        <div class="popup__wrapper">
+          <form accept-charset="utf-8" name="hallAddForm" id="hallAddForm">
+          @csrf
+            <label class="conf-step__label conf-step__label-fullsize" for="name">
+              Название зала
+              <input class="conf-step__input" type="text" placeholder="Например, &laquo;Зал 1&raquo;" name="name" id="hallNameAdd" required>
+            </label>
+            <div class="conf-step__buttons text-center">
+              <input type="submit" value="Добавить зал" class="conf-step__button conf-step__button-accent" name="addHall">
+              <button class="conf-step__button conf-step__button-regular">Отменить</button>
             </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
             <!-- MovieAdd-Popup-->
             <div class="popup" id="addMoviePopup">
@@ -400,14 +397,9 @@ return 0;
             <button class="conf-step__button conf-step__button-accent startOfSalesBtn" id="startOfSalesBtn" disabled="true">Открыть продажу билетов</button>
           </div>
         </section>
-
         </main>
-
-
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="/js/admin_moonbase.js"></script>
-
-
-</body>
+  </body>
 
 </html>

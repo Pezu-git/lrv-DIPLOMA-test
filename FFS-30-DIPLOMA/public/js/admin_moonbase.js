@@ -25,15 +25,20 @@ var vipPriceInput = document.getElementById('vipPrice'); //Конфигурац�
 
 chairsPrice.forEach(function (hall) {
   return hall.addEventListener('click', function () {
-    var result = [{
-      'hall_id': hall.value,
-      'status': 'standart',
-      'price': standartPriceInput.value
-    }, {
-      'hall_id': hall.value,
-      'status': 'vip',
-      'price': vipPriceInput.value
-    }];
+    $.ajax({
+      url: "/show_price",
+      type: 'GET',
+      data: {
+        hall_id: hall.value
+      },
+      headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      },
+      success: function success(data) {
+        standartPriceInput.placeholder = data[0].price;
+        vipPriceInput.placeholder = data[1].price;
+      }
+    });
     $('#savePrice').click(function () {
       $.ajax({
         url: "/save_price",
@@ -370,10 +375,10 @@ $(document).ready(function () {
 }); //Удаление фильма
 
 $(document).ready(function () {
-  $('#movie_delete_btn').click(function (e) {
+  $('#movie_delete_btn').click(function () {
     var movieName = $('#seance_movieName').val();
     $.ajax({
-      url: "{{route('filmDelete')}}",
+      url: "/delete_movie",
       type: 'POST',
       data: {
         title: movieName
@@ -381,7 +386,7 @@ $(document).ready(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      success: function success(data) {
+      success: function success() {
         location.reload();
       }
     });
@@ -519,7 +524,7 @@ scheduleMovieItems.forEach(function (movie) {
         headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
-        success: function success(data) {
+        success: function success() {
           location.reload();
         }
       });
@@ -542,14 +547,14 @@ showtimeAdd.forEach(function (movie) {
 showtimeDismiss.addEventListener('click', function (e) {
   e.preventDefault();
   addShowtimeModal.classList.toggle('active');
-}); //Добавить фильм в расписание
+}); // Добавить фильм в расписание
 
 $(document).ready(function () {
+  console.log(scheduleMovieItems[1]);
   $('#seanceAddForm').submit(function (e) {
     var movieName = $('#seance_movieName').val();
     var hallId = $('#seance_hallName option:selected').val();
     var startTime = $('#seance_startTime').val();
-    e.preventDefault();
     $.ajax({
       url: "/add_movie_schedule",
       type: 'POST',
@@ -561,7 +566,8 @@ $(document).ready(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      success: function success() {
+      success: function success(data) {
+        // console.log(data)
         location.reload();
       }
     });

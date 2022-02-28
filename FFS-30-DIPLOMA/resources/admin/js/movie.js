@@ -39,11 +39,10 @@ $(document).ready(function() {
 
 //Удаление фильма
 $(document).ready(function() {
-  $('#movie_delete_btn').click(function(e) {
+  $('#movie_delete_btn').click(function() {
     let movieName = $('#seance_movieName').val();
-
     $.ajax({
-      url: "{{route('filmDelete')}}",
+      url: "/delete_movie",
       type: 'POST',
       data: {
         title: movieName,
@@ -51,7 +50,7 @@ $(document).ready(function() {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      success: function(data) {
+      success: function() {
         location.reload();
       }
     });

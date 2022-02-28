@@ -20,7 +20,26 @@ return null;
 }
 }
 
+function getWeekDayRus($add =0){
+        $days = array(
+            'Вс', 'Пн', 'Вт', 'Ср',
+            'Чт', 'Пт', 'Сб'
+        );
 
+        $date = date_create('now 00:00:00', new DateTimeZone('Europe/Moscow'));
+        $date->modify("+$add day");
+
+        $myDayWeek = $date->format('w');
+        $weekEnd = (($myDayWeek == 0) || ($myDayWeek == 6)) ? 'page-nav__day_weekend' : '';
+        $timeStamp = $date->getTimeStamp();
+
+        $result =  array('day' => $date->format('j'),
+                    'dayWeek' => $days[$myDayWeek],
+                    'weekEnd' => $weekEnd,
+                    'timeStamp' => $timeStamp);
+        return $result;
+    }
+    $chose = 'page-nav__day_today page-nav__day_chosen ';
 
 
 @endphp
@@ -46,26 +65,18 @@ return null;
   </header>
 
   <nav class="page-nav">
-    <a class="page-nav__day page-nav__day_today" href="#">
-      <span class="page-nav__day-week">Пн</span><span class="page-nav__day-number">31</span>
-    </a>
-    <a class="page-nav__day" href="#">
-      <span class="page-nav__day-week">Вт</span><span class="page-nav__day-number">1</span>
-    </a>
-    <a class="page-nav__day page-nav__day_chosen" href="#">
-      <span class="page-nav__day-week">Ср</span><span class="page-nav__day-number">2</span>
-    </a>
-    <a class="page-nav__day" href="#">
-      <span class="page-nav__day-week">Чт</span><span class="page-nav__day-number">3</span>
-    </a>
-    <a class="page-nav__day" href="#">
-      <span class="page-nav__day-week">Пт</span><span class="page-nav__day-number">4</span>
-    </a>
-    <a class="page-nav__day page-nav__day_weekend" href="#">
-      <span class="page-nav__day-week">Сб</span><span class="page-nav__day-number">5</span>
-    </a>
-    <a class="page-nav__day page-nav__day_next" href="#">
-    </a>
+  @php
+  $chose = 'page-nav__day_today page-nav__day_chosen ';
+  for($i = 0; $i < 7; $i++) {
+    $weekDayRus = getWeekDayRus((int) $i);
+  @endphp
+  <a class="page-nav__day {{$chose . $weekDayRus['weekEnd']}}" href="#" data-time-stamp=" {{$weekDayRus['timeStamp']}}">
+    <span class="page-nav__day-week"> {{$weekDayRus['dayWeek']}}</span><span class="page-nav__day-number">{{$weekDayRus['day']}}</span>
+  </a>
+  @php
+    $chose = '';
+  }
+  @endphp
   </nav>
 
   <main>

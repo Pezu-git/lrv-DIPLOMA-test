@@ -46,9 +46,9 @@ class PriceListController extends Controller
      * @param  int $hall_id
      * @return \Illuminate\Http\Response
      */
-    public function show(int $hall_id)
+    public function show(Request $request)
     {
-        $data = PriceList::where('hall_id', '=', $hall_id)->get();
+        $data = PriceList::where('hall_id', '=', $request->hall_id)->get();
         if (!count($data)) {
             return response(null, Response::HTTP_NO_CONTENT);
         }
