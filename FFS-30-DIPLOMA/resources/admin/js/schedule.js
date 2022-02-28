@@ -45,6 +45,7 @@ scheduleMovieItems.forEach(movie => {
   //Schedules-add-Popup
 showtimeAdd.forEach(movie => {
     movie.addEventListener('click', () => {
+      console.log(movie)
       let title = movie.querySelector('.conf-step__movie-title')
       addShowtimeModal.classList.toggle('active');
       movieNameInput.value = title.textContent
@@ -60,12 +61,12 @@ showtimeDismiss.addEventListener('click', function(e) {
 
   // Добавить фильм в расписание
 $(document).ready(function() {
-  console.log(scheduleMovieItems[1])
     $('#seanceAddForm').submit(function(e) {
       let movieName = $('#seance_movieName').val();
       let hallId = $('#seance_hallName option:selected').val();
       let startTime = $('#seance_startTime').val();
-
+      
+// e.preventDefault()
   
       $.ajax({
         url: "/add_movie_schedule",
@@ -79,8 +80,11 @@ $(document).ready(function() {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function (data) {
-          // console.log(data)
           location.reload();
+          if(data) {
+            alert(data)
+          }
+          
         }
       });
     });
