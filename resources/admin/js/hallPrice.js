@@ -4,7 +4,8 @@ let vipPriceInput = document.getElementById('vipPrice');
 
 
 //Конфигурация цен
-chairsPrice.forEach(hall => hall.addEventListener('click', function() {
+chairsPrice.forEach(hall => hall.addEventListener('click', function(e) {
+  
   $.ajax({
     url: "/show_price",
     type: 'GET',
@@ -15,13 +16,23 @@ chairsPrice.forEach(hall => hall.addEventListener('click', function() {
       'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     },
   success: function (data) {
-    standartPriceInput.placeholder = data[0].price
-    vipPriceInput.placeholder = data[1].price
+    if(data) {
+      standartPriceInput.placeholder = data[0].price
+      vipPriceInput.placeholder = data[1].price
+    }
+    else {
+      standartPriceInput.placeholder = 0
+      vipPriceInput.placeholder = 0
+    }
+    
+    
     }
   });
 
   $('#savePrice').click(function () {
-    $.ajax({
+    if(hall.checked) {
+      
+      $.ajax({
         url: "/save_price",
         type: 'POST',
         data: {
@@ -42,8 +53,12 @@ chairsPrice.forEach(hall => hall.addEventListener('click', function() {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
       success: function (data) {
-        location.reload();
+        console.log(data)
+        // location.reload();
         }
       });
+    }
+    
+   
     })
 }))

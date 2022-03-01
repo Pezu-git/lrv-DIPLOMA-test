@@ -66,12 +66,13 @@ class PriceListController extends Controller
     {
         foreach ($request->result as $key) {
             $seat = PriceList::where('hall_id', $key['hall_id'])
-                ->where('status', '=', $key['status'])->first();
+                ->where('status',  $key['status'])->first();
             if ($seat === null) {
                 return $this->store($request);
             }
             $seat->price = $key["price"];
             $seat->save();
+        
         }
     }
 
