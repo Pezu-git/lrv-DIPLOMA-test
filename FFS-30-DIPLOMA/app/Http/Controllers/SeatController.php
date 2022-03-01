@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Seat;
-use App\Models\Hall;
+use App\Models\TakenSeats;
 use App\Models\HallConf;
+use App\Models\Hall;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -67,7 +68,26 @@ class SeatController extends Controller
             $hall->rows = $request->hallConf['rows'];
             $hall->cols = $request->hallConf['cols'];
             $hall->save();
+
+            $h = Hall::where('id', $request->result[0]["hall_id"])->first();
+            TakenSeats::where('hall_id', $hall->id)->delete();
+
+            for($s = 0; $s < $h->seances->count(); $s++) {
+                for($r = 0; $r < (int)$request->hallConf['rows']; $r++) {
+                    for($c = 0; $c < (int)$request->hallConf['cols']; $c++) {
+                        TakenSeats::create([
+                            'hall_id' => $hall->id,
+                            'seance_id' => $s + 1,
+                            'row_num' => $r,
+                            'seat_num' => $c,
+                            'taken' => false,
+                        ]);
+                    }
+                }
+            }
+            
         }
+
         foreach ($request->result as $key => $value) {
             $seat = Seat::where('hall_id', $value["hall_id"])
                 ->where('row_num', $value["row_num"])
