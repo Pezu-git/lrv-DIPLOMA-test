@@ -24,7 +24,7 @@ var standartPriceInput = document.getElementById('standartPrice');
 var vipPriceInput = document.getElementById('vipPrice'); //Конфигурация цен
 
 chairsPrice.forEach(function (hall) {
-  return hall.addEventListener('click', function () {
+  return hall.addEventListener('click', function (e) {
     $.ajax({
       url: "/show_price",
       type: 'GET',
@@ -35,32 +35,39 @@ chairsPrice.forEach(function (hall) {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       success: function success(data) {
-        standartPriceInput.placeholder = data[0].price;
-        vipPriceInput.placeholder = data[1].price;
+        if (data) {
+          standartPriceInput.placeholder = data[0].price;
+          vipPriceInput.placeholder = data[1].price;
+        } else {
+          standartPriceInput.placeholder = 0;
+          vipPriceInput.placeholder = 0;
+        }
       }
     });
     $('#savePrice').click(function () {
-      $.ajax({
-        url: "/save_price",
-        type: 'POST',
-        data: {
-          result: [{
-            'hall_id': hall.value,
-            'status': 'standart',
-            'price': standartPriceInput.value
-          }, {
-            'hall_id': hall.value,
-            'status': 'vip',
-            'price': vipPriceInput.value
-          }]
-        },
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function success(data) {
-          location.reload();
-        }
-      });
+      if (hall.checked) {
+        $.ajax({
+          url: "/save_price",
+          type: 'POST',
+          data: {
+            result: [{
+              'hall_id': hall.value,
+              'status': 'standart',
+              'price': standartPriceInput.value
+            }, {
+              'hall_id': hall.value,
+              'status': 'vip',
+              'price': vipPriceInput.value
+            }]
+          },
+          headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+          },
+          success: function success(data) {
+            console.log(data); // location.reload();
+          }
+        });
+      }
     });
   });
 });
@@ -325,7 +332,9 @@ $(document).ready(function () {
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
-          success: function success(data) {}
+          success: function success(data) {
+            console.log(data);
+          }
         });
       }
     });
