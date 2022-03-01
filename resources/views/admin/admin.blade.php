@@ -66,7 +66,7 @@ return 0;
   <link rel="stylesheet" href="/css/admin_normalizemoonbase.css">
   <link rel="stylesheet" href="/css/admin_moonbase.css">
   <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900&amp;subset=cyrillic,cyrillic-ext,latin-ext" rel="stylesheet">
-  <meta name="csrf-token" content="{{ csrf_token() }}">
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
 </head>
 
 <body>
