@@ -47,10 +47,6 @@ Route::get('qr-code-g', function () {
 });
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    //Начальная страница(/index)
-    // Route::get('/', function () {
-    //     return view('client.index');
-    // })->name('index');
 
     //Адимн-панель(/admin)
     Route::get('/admin',  [HallController::class, 'index'])->name('admin');
