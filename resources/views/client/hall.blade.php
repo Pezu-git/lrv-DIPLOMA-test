@@ -21,12 +21,6 @@ $start_time = $_GET['start_time'];
 $hall_price_standart = PriceList::where('hall_id', $hall->id)->where('status', 'standart')->first()->price;
 $hall_price_vip = PriceList::where('hall_id', $hall->id)->where('status', 'vip')->first()->price;
 
-function taken() {
-
-}
-
-
-
 
 
 function hallConfRow($hall) {
@@ -102,7 +96,6 @@ return $m->seats->where('row_num', $i)->where('seat_num', $l)->first()->status;
       </div>
       </div>
       <button class="acceptin-button">Забронировать</button>
-      <!-- <button class="acceptin-button" onclick="location.href=`{{route('payment', ['movie_title'=>$movie_title, 'start_time'=>$start_time, 'hall_name'=>$hall_name])}}`">Забронировать</button> -->
     </section>
   </main>
 
@@ -149,7 +142,6 @@ return $m->seats->where('row_num', $i)->where('seat_num', $l)->first()->status;
         }
       }
     }
-    console.log(selectedPlaces)
     chairsSelected.forEach(chair => {
       if (chair.classList.contains("buying-scheme__chair_vip")) {
         chair.classList.toggle("buying-scheme__chair_vip");

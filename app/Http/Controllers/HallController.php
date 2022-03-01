@@ -39,7 +39,8 @@ class HallController extends Controller
     {
         Hall::create($request->validated());
         $hall_id = Hall::where('name', $request->name)->first()->id;
-        return redirect()->route('hall_conf', ['hall_id' => $hall_id, 'hall_name' => $request->name]);
+        return ['hall_id' => $hall_id, 'hall_name' => $request->name];
+        // return redirect()->route('hall_conf', ['hall_id' => $hall_id, 'hall_name' => $request->name]);
     }
 
 
