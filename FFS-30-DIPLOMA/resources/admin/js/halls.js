@@ -67,13 +67,27 @@ for (let i = 0; i < trashs.length; i++) {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function (data) {
-              $h = `<li class="hallDeleteList">${data.hall_name}
-                      <button class="conf-step__button conf-step__button-trash" type="button" id="{{ $hall_name }}" data-delHall-id=${data.hall_id}"></button>
-                    </li>`
-              $('.conf-step__list').append($h);
-              addModal.classList.toggle('active');
+              $.ajax({
+                url: "/hall_conf",
+                type: 'POST',
+                data: {
+                hall_id: data.hall_id 
+                },
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function () {
+                }
+              });
+              // $h = `<li class="hallDeleteList">${data.hall_name}
+              //         <button class="conf-step__button conf-step__button-trash" type="button" id="{{ $hall_name }}" data-delHall-id=${data.hall_id}"></button>
+              //       </li>`
+              // $('.conf-step__list').append($h);
+              // addModal.classList.toggle('active');
               location.reload();
             }
           });
+          
+         
         });
       })

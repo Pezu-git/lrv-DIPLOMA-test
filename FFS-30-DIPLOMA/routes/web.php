@@ -58,7 +58,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     //...в таблицу с названием зала(halls)
     Route::post('/hall_add',  [HallController::class, 'store']);
     //...в таблицу с размерами зала(hall_confs)   
-    Route::get('/hall_add/conf',  [HallConfController::class, 'store'])->name('hall_conf');
+    Route::post('/hall_conf',  [HallConfController::class, 'store'])->name('hall_conf');
     //Добавление мест в зале(seats)
     Route::post('/admin/hall_chair_create/{result}',  [SeatController::class, 'store']);
     //Изменение категории мест в зале(seats)
