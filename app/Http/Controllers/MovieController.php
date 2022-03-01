@@ -50,7 +50,8 @@ class MovieController extends Controller
      */
     public function destroy(Request $request)
     {
-        $movie_id = Movie::where('title', $request->title)->delete();
+        $movie_id = Movie::where('title', $request->title)->first()->id;
+        Movie::where('id', $movie_id)->first()->delete();
         MovieSchedule::where('movie_id', $movie_id)->delete();
     }
 }
