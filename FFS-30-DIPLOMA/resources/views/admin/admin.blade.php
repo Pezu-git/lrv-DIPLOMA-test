@@ -6,11 +6,9 @@ use App\Models\Seat;
 use App\Models\HallConf;
 use App\Models\MovieSchedule;
 
-$movies = Movie::all();
 
-function movieTit($m) {
-return Movie::where('id', $m->movie_id)->first()->title;
-}
+
+
 function movieDuration($m) {
 return (int)(Movie::where('id', $m->movie_id)->first()->duration)/2;
 }
@@ -18,7 +16,7 @@ function movieStyleLeft($m) {
 return (int)($m->start_time)*30;
 }
 
-$hallConf = HallConf::all();
+
 
 function hallConfRow($hall) {
 return (int)HallConf::where('id', $hall->id)->first()->rows;
@@ -98,30 +96,30 @@ return 0;
 
 <!--HallAdd-popup-->
   <div class=" popup" id="addPopup">
-    <div class="popup__container">
-      <div class="popup__content">
-        <div class="popup__header">
-          <h2 class="popup__title">
-            Добавление зала
-            <a class="popup__dismiss" href="#"><img src="i/close.png" alt="Закрыть" id="addModalDissmis"></a>
-          </h2>
-        </div>
-        <div class="popup__wrapper">
-          <form accept-charset="utf-8" name="hallAddForm" id="hallAddForm">
-          @csrf
-            <label class="conf-step__label conf-step__label-fullsize" for="name">
-              Название зала
-              <input class="conf-step__input" type="text" placeholder="Например, &laquo;Зал 1&raquo;" name="name" id="hallNameAdd" required>
-            </label>
-            <div class="conf-step__buttons text-center">
-              <input type="submit" value="Добавить зал" class="conf-step__button conf-step__button-accent" name="addHall">
-              <button class="conf-step__button conf-step__button-regular">Отменить</button>
+                <div class="popup__container">
+                  <div class="popup__content">
+                    <div class="popup__header">
+                      <h2 class="popup__title">
+                        Добавление зала
+                        <a class="popup__dismiss" href="#"><img src="i/close.png" alt="Закрыть" id="addModalDissmis"></a>
+                      </h2>
+                    </div>
+                    <div class="popup__wrapper">
+                      <form accept-charset="utf-8" name="hallAddForm" id="hallAddForm">
+                        @csrf
+                        <label class="conf-step__label conf-step__label-fullsize" for="name">
+                          Название зала
+                          <input class="conf-step__input" type="text" placeholder="Например, &laquo;Зал 1&raquo;" name="name" id="hallNameAdd" required>
+                        </label>
+                        <div class="conf-step__buttons text-center">
+                          <input type="submit" value="Добавить зал" class="conf-step__button conf-step__button-accent" name="addHall">
+                          <button class="conf-step__button conf-step__button-regular">Отменить</button>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
             </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
 
             <!-- MovieAdd-Popup-->
             <div class="popup" id="addMoviePopup">
@@ -362,8 +360,8 @@ return 0;
                     @for($j = 0; $j < $halls[$i]->seances->count(); $j++)
                       <div class="conf-step__seances-movie" data-hallSchedule-id="{{$halls[$i]->id}}" style="width: {{movieDuration($halls[$i]->seances[$j])}}px; 
                         background-color: rgb(133, 255, 137); left: {{movieStyleLeft($halls[$i]->seances[$j])}}px; cursor: pointer">
-                        <p class="conf-step__seances-movie-title">{{movieTit($halls[$i]->seances[$j])}}</p>
-                        <p class="conf-step__seances-movie-start">{{$halls[$i]->seances[$j]->start_time}}</p>
+                        <p class="conf-step__seances-movie-title" data-hallSchedule-title="{{$halls[$i]->name}}"></p>
+                        <p class=" conf-step__seances-movie-start">{{$halls[$i]->seances[$j]->start_time}}</p>
                       </div>
                       @endfor
                   </div>
@@ -400,6 +398,40 @@ return 0;
         </main>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="/js/admin_moonbase.js"></script>
-  </body>
+</body>
+<script>
+  $(function() {
+    let hallNameArr = [...document.querySelectorAll('.conf-step__seances-title')]
+    let movieTitle = [...document.querySelectorAll('.conf-step__seances-movie-title')]
+
+    hallNameArr.forEach(hall => {
+      let hallName = hall.textContent
+      $.ajax({
+        url: "/hall_name",
+        type: 'GET',
+        data: {
+          hallName: hallName
+        },
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(data) {
+          let arr = [];
+          movieTitle.forEach(f => {
+            if (f.getAttribute('data-hallSchedule-title') === hallName) {
+              arr.push(f)
+            }
+            for (let i = 0; i < arr.length; i++) {
+              arr[i].textContent = data[hallName][i]
+            }
+
+          })
+        }
+      });
+
+    })
+
+  })
+</script>
 
 </html>

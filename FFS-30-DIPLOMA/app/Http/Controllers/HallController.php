@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\HallRequest;
 use App\Models\Hall;
 use App\Models\HallConf;
+use App\Models\Movie;
 use App\Models\Seat;
 use App\Models\PriceList;
 use Illuminate\Http\Request;
@@ -23,6 +24,7 @@ class HallController extends Controller
     public function index()
     {
         $halls = Hall::all();
+
         if (Auth::user()->is_admin !== '1') {
             return redirect('/index');
         }
@@ -103,5 +105,18 @@ class HallController extends Controller
             $hall->save();
             return ['Закрыть продажу билетов', 'Продажа билетов открыта'];
         };
+    }
+
+
+    public function hallName(Request $request)
+    {
+
+        $a[$request->hallName] = [];
+        $s = Hall::where('name', $request->hallName)->first()->seances;
+        foreach ($s as $key => $value) {
+            Movie::where('id', $value->movie_id)->first()->title;
+            array_push($a[$request->hallName], Movie::where('id', $value->movie_id)->first()->title);
+        }
+        return $a;
     }
 }
