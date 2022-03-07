@@ -361,7 +361,7 @@ return 0;
                       <div class="conf-step__seances-movie" data-hallSchedule-id="{{$halls[$i]->id}}" style="width: {{movieDuration($halls[$i]->seances[$j])}}px; 
                         background-color: rgb(133, 255, 137); left: {{movieStyleLeft($halls[$i]->seances[$j])}}px; cursor: pointer">
                         <p class="conf-step__seances-movie-title" data-hallSchedule-title="{{$halls[$i]->name}}"></p>
-                        <p class=" conf-step__seances-movie-start">{{$halls[$i]->seances[$j]->start_time}}</p>
+                        <p class="conf-step__seances-movie-start" data-hallSchedule-start_time="{{$halls[$i]->name}}">{{$halls[$i]->seances[$j]->start_time}}</p>
                       </div>
                       @endfor
                   </div>
@@ -396,42 +396,51 @@ return 0;
           </div>
         </section>
         </main>
+
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="/js/admin_moonbase.js"></script>
-</body>
-<script>
-  $(function() {
-    let hallNameArr = [...document.querySelectorAll('.conf-step__seances-title')]
-    let movieTitle = [...document.querySelectorAll('.conf-step__seances-movie-title')]
+        <script>
 
-    hallNameArr.forEach(hall => {
-      let hallName = hall.textContent
-      $.ajax({
-        url: "/hall_name",
-        type: 'GET',
-        data: {
-          hallName: hallName
-        },
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function(data) {
-          let arr = [];
-          movieTitle.forEach(f => {
-            if (f.getAttribute('data-hallSchedule-title') === hallName) {
-              arr.push(f)
-            }
-            for (let i = 0; i < arr.length; i++) {
-              arr[i].textContent = data[hallName][i]
-            }
+          $(function() {
+            let hallNameArr = [...document.querySelectorAll('.conf-step__seances-title')];
+            let movieTitle = [...document.querySelectorAll('.conf-step__seances-movie-title')];
+
+            hallNameArr.forEach(hall => {
+              let hallName = hall.textContent
+              $.ajax({
+                url: "/hall_name",
+                type: 'GET',
+                data: {
+                  hallName: hallName
+                },
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function(data) {
+                  let arr = [];
+                  movieTitle.forEach(f => {
+                    if (f.getAttribute('data-hallSchedule-title') === hallName) {
+                      arr.push(f)
+                    }
+                    for (let i = 0; i < arr.length; i++) {
+                      arr[i].textContent = data[hallName][i].title
+                    }
+                  })
+                }
+              });
+
+            })
 
           })
-        }
-      });
+        </script>
+        <script>
+        //   function movieDuration($m) {
+        // return (int)(Movie::where('id', $m->movie_id)->first()->duration)/2;
+        // }
+         
+        </script>
+</body>
 
-    })
-
-  })
-</script>
 
 </html>

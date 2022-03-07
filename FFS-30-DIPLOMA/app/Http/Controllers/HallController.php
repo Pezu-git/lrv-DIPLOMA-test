@@ -114,8 +114,11 @@ class HallController extends Controller
         $a[$request->hallName] = [];
         $s = Hall::where('name', $request->hallName)->first()->seances;
         foreach ($s as $key => $value) {
-            Movie::where('id', $value->movie_id)->first()->title;
-            array_push($a[$request->hallName], Movie::where('id', $value->movie_id)->first()->title);
+            Movie::where('id', $value->movie_id)->first()->start_time;
+            $m = Movie::where('id', $value->movie_id)->first();
+            $m['start_time'] = $value->start_time;
+            array_push($a[$request->hallName], $m);
+            // array_push($a[$request->hallName], $value->start_time);
         }
         return $a;
     }
