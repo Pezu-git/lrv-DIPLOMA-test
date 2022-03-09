@@ -771,13 +771,13 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
   position: relative;
   outline: 1px solid #848484;
   padding: 10px 0;
-  height: 40px;
+  height: 60px;
   box-sizing: content-box;
   width: calc(1440px * 0.5); }
 
 .conf-step__seances-movie {
   position: absolute;
-  height: 40px;
+  height: 60px;
   border: 1px solid rgba(0, 0, 0, 0.3);
   box-sizing: border-box;
   padding: 10px 2px 10px 10px; }
