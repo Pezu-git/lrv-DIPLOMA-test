@@ -6,8 +6,7 @@ use App\Models\Seat;
 use App\Models\HallConf;
 use App\Models\MovieSchedule;
 
-$movies = Movie::all();
-$halls = Hall::all();
+
 
 
 function movieShedule($h, $movie_id) {
@@ -21,25 +20,25 @@ return null;
 }
 
 function getWeekDayRus($add =0){
-        $days = array(
-            'Вс', 'Пн', 'Вт', 'Ср',
-            'Чт', 'Пт', 'Сб'
-        );
+$days = array(
+'Вс', 'Пн', 'Вт', 'Ср',
+'Чт', 'Пт', 'Сб'
+);
 
-        $date = date_create('now 00:00:00', new DateTimeZone('Europe/Moscow'));
-        $date->modify("+$add day");
+$date = date_create('now 00:00:00', new DateTimeZone('Europe/Moscow'));
+$date->modify("+$add day");
 
-        $myDayWeek = $date->format('w');
-        $weekEnd = (($myDayWeek == 0) || ($myDayWeek == 6)) ? 'page-nav__day_weekend' : '';
-        $timeStamp = $date->getTimeStamp();
+$myDayWeek = $date->format('w');
+$weekEnd = (($myDayWeek == 0) || ($myDayWeek == 6)) ? 'page-nav__day_weekend' : '';
+$timeStamp = $date->getTimeStamp();
 
-        $result =  array('day' => $date->format('j'),
-                    'dayWeek' => $days[$myDayWeek],
-                    'weekEnd' => $weekEnd,
-                    'timeStamp' => $timeStamp);
-        return $result;
-    }
-    $chose = 'page-nav__day_today page-nav__day_chosen ';
+$result = array('day' => $date->format('j'),
+'dayWeek' => $days[$myDayWeek],
+'weekEnd' => $weekEnd,
+'timeStamp' => $timeStamp);
+return $result;
+}
+$chose = 'page-nav__day_today page-nav__day_chosen ';
 
 
 @endphp
@@ -65,18 +64,15 @@ function getWeekDayRus($add =0){
   </header>
 
   <nav class="page-nav">
-  @php
-  $chose = 'page-nav__day_today page-nav__day_chosen ';
-  for($i = 0; $i < 7; $i++) {
-    $weekDayRus = getWeekDayRus((int) $i);
-  @endphp
-  <a class="page-nav__day {{$chose . $weekDayRus['weekEnd']}}" href="#" data-time-stamp=" {{$weekDayRus['timeStamp']}}">
-    <span class="page-nav__day-week"> {{$weekDayRus['dayWeek']}}</span><span class="page-nav__day-number">{{$weekDayRus['day']}}</span>
-  </a>
-  @php
-    $chose = '';
-  }
-  @endphp
+    @php
+    $chose = 'page-nav__day_today page-nav__day_chosen ';
+    for($i = 0; $i < 7; $i++) { $weekDayRus=getWeekDayRus((int) $i); @endphp <a class="page-nav__day {{$chose . $weekDayRus['weekEnd']}}" href="#" data-time-stamp=" {{$weekDayRus['timeStamp']}}">
+      <span class="page-nav__day-week"> {{$weekDayRus['dayWeek']}}</span><span class="page-nav__day-number">{{$weekDayRus['day']}}</span>
+      </a>
+      @php
+      $chose = '';
+      }
+      @endphp
   </nav>
 
   <main>

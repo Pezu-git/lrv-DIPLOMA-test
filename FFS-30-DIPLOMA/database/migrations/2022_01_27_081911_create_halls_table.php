@@ -16,7 +16,7 @@ class CreateHallsTable extends Migration
         Schema::create('halls', function (Blueprint $table) {
             $table->id();
             $table->string('name', 255);
-            $table->boolean('is_active')->default(0);
+            $table->integer('is_active')->default(0);
         });
     }
 

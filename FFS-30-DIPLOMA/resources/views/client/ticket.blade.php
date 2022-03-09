@@ -2,9 +2,6 @@
 
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
-
-
-
 $hall_name = $_GET['hall_name'];
 $movie_title = $_GET['movie_title'];
 $start_time = $_GET['start_time'];
