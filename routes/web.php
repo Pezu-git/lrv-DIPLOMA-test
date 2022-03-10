@@ -26,9 +26,14 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 //Начальная страница(/index)
 Route::get('/',  [ClientMainPageController::class, 'index'])->name('main');
+//!
+Route::get('/main',  [ClientMainPageController::class, 'getWeekDayRus']);
+//!
 
 //Страница выбора места(/hall)
 Route::get('/hall',  [ClientHallPageController::class, 'index'])->name('client_hall');
+
+
 
 //Обновление зала бронирования
 Route::get('/client_hall', [TakenSeatsController::class, 'update']);
