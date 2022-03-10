@@ -8,10 +8,10 @@ use App\Models\HallConf;
 use App\Models\Movie;
 use App\Models\Seat;
 use App\Models\PriceList;
+use App\Models\MovieSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Orchid\Screen\Actions\ModalToggle;
 
 
 class HallController extends Controller
@@ -28,7 +28,9 @@ class HallController extends Controller
         if (Auth::user()->is_admin !== '1') {
             return redirect('/index');
         }
-        return view('admin.admin', ['halls' => $halls]);
+        return view('admin.admin', [
+            'seats' => $this->seats(), 'hallSeances' => $this->hallSeances(), 'hallIsActive' => $this->activeHall()
+        ]);
     }
 
     /**
@@ -42,7 +44,6 @@ class HallController extends Controller
         Hall::create($request->validated());
         $hall_id = Hall::where('name', $request->name)->first()->id;
         return ['hall_id' => $hall_id, 'hall_name' => $request->name];
-        // return redirect()->route('hall_conf', ['hall_id' => $hall_id, 'hall_name' => $request->name]);
     }
 
 
@@ -108,15 +109,63 @@ class HallController extends Controller
     }
 
 
-    public function hallName(Request $request)
+    public function hallSeances()
     {
+        $halls = Hall::all();
+        // $arr = [];
 
-        $a[$request->hallName] = [];
-        $s = Hall::where('name', $request->hallName)->first()->seances;
-        foreach ($s as $key => $value) {
-            Movie::where('id', $value->movie_id)->first()->title;
-            array_push($a[$request->hallName], Movie::where('id', $value->movie_id)->first()->title);
+        for ($i = 0; $i < $halls->count(); $i++) {
+            for ($j = 0; $j < $halls[$i]->seances->count(); $j++) {
+                $arr[$halls[$i]->id][$j] = [];
+                try {
+                    $d = (int)(Movie::where('id', $halls[$i]->seances[$j]->movie_id)->first()->duration) / 2;
+                    $st = (int)($halls[$i]->seances[$j]->start_time) * 30;
+                    $mn = Movie::where('id', $halls[$i]->seances[$j]->movie_id)->first()->title;
+                    array_push($arr[$halls[$i]->id][$j], $d);
+                    array_push($arr[$halls[$i]->id][$j], $st);
+                    array_push($arr[$halls[$i]->id][$j], $mn);
+                } catch (\Exception $e) {
+                    array_push($arr, null);
+                }
+            }
         }
-        return $a;
+        return $arr;
+    }
+
+    public function seats()
+    {
+        $hc = HallConf::all();
+        // $arr = [];
+        foreach ($hc as $key => $value) {
+            $hall = Hall::where('id', $value->id)->first();
+            for ($i = 0; $i < $value->rows; $i++) {
+                for ($j = 0; $j < $value->cols; $j++) {
+                    $arr[$value->id][$i][$j] = [];
+                    try {
+                        $s = $hall->seats->where('row_num', $i)->where('seat_num', $j)->first()->status;
+                        array_push($arr[$value->id][$i][$j], $s);
+                    } catch (\Exception $e) {
+                        array_push($arr[$value->id][$i][$j], 'standart');
+                    }
+                }
+            }
+        }
+        return $arr;
+    }
+
+    public function activeHall()
+    {
+        $halls = Hall::all();
+
+        foreach ($halls as $key => $value) {
+            $arr[$value->id] = [];
+            if (MovieSchedule::where('hall_id', $value->id)->first()) {
+
+                array_push($arr[$value->id], 'is_active');
+            } else {
+                array_push($arr[$value->id], null);
+            }
+        }
+        return $arr;
     }
 }

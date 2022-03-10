@@ -1,58 +1,3 @@
-@php
-
-use App\Models\Movie;
-use App\Models\Hall;
-use App\Models\Seat;
-use App\Models\HallConf;
-use App\Models\MovieSchedule;
-
-
-
-
-function movieDuration($m) {
-return (int)(Movie::where('id', $m->movie_id)->first()->duration)/2;
-}
-function movieStyleLeft($m) {
-return (int)($m->start_time)*30;
-}
-
-
-
-function hallConfRow($hall) {
-return (int)HallConf::where('id', $hall->id)->first()->rows;
-}
-function hallConfCol($hall) {
-return HallConf::where('id', $hall->id)->first()->cols;
-}
-function hallSeats($m, $i, $l) {
-try{
-return $m->seats->where('row_num', $i)->where('seat_num', $l)->first()->status;
-}
-catch(Exception $e) {
-return 'standart';
-}
-}
-function hallWhithSchedule($hall) {
-if(MovieSchedule::where('hall_id', $hall->id)->first()) {
-return 'is_active';
-}
-else {
-return null;
-}
-}
-
-function activeHall($hall) {
-if(Hall::where('id', $hall->id)->first()->is_active) {
-return 1;
-}
-else {
-return 0;
-}
-}
-@endphp
-
-
-
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -284,11 +229,14 @@ return 0;
                   </div>
 
 
+
+
                   @for($i = 0; $i < $halls->count(); $i++)
+
                     <div class="conf-step__hall" style="display: none">
                       <div class="conf-step__hall-wrapper">
-                        @for($j = 0; $j < hallConfRow($halls[$i]); $j++) <div class="conf-step__row">
-                          @for($k = 0; $k < hallConfCol($halls[$i]); $k++) <span class="conf-step__chair conf-step__chair_{{hallSeats($halls[$i], $j, $k)}}"></span>
+                        @for($j = 0; $j < $hallConf[$i]['rows']; $j++) <div class="conf-step__row">
+                          @for($k = 0; $k < $hallConf[$i]['cols']; $k++) <span class="conf-step__chair conf-step__chair_{{$seats[$halls[$i]->id][$j][$k][0]}}"></span>
                             @endfor
                       </div>
                       @endfor
@@ -358,9 +306,9 @@ return 0;
                   <h3 class="conf-step__seances-title">{{$halls[$i]->name}}</h3>
                   <div class="conf-step__seances-timeline">
                     @for($j = 0; $j < $halls[$i]->seances->count(); $j++)
-                      <div class="conf-step__seances-movie" data-hallSchedule-id="{{$halls[$i]->id}}" style="width: {{movieDuration($halls[$i]->seances[$j])}}px; 
-                        background-color: rgb(133, 255, 137); left: {{movieStyleLeft($halls[$i]->seances[$j])}}px; cursor: pointer">
-                        <p class="conf-step__seances-movie-title" data-hallSchedule-title="{{$halls[$i]->name}}"></p>
+                      <div class="conf-step__seances-movie" data-hallSchedule-id="{{$halls[$i]->id}}" style="width: {{$hallSeances[$halls[$i]->id][$j][0]}}px; 
+                        background-color: rgb(133, 255, 137); left: {{$hallSeances[$halls[$i]->id][$j][1]}}px; cursor: pointer">
+                        <p class="conf-step__seances-movie-title" data-hallSchedule-title="{{$halls[$i]->name}}">{{$hallSeances[$halls[$i]->id][$j][2]}}</p>
                         <p class=" conf-step__seances-movie-start">{{$halls[$i]->seances[$j]->start_time}}</p>
                       </div>
                       @endfor
@@ -375,18 +323,15 @@ return 0;
             </div>
         </section>
 
-
-
-
         <section class="conf-step">
           <header class="conf-step__header conf-step__header_opened">
-            <h2 class="conf-step__title">Открыть продажи</h2>
+            <h2 class="conf-step__title">Открыть продажи </h2>
           </header>
           <div class="conf-step__wrapper">
 
             <ul class="conf-step__selectors-box">
               @foreach($halls as $hall)
-              <li><input type="radio" class="conf-step__radio {{hallWhithSchedule($hall)}}" name="startOfSales-hall" value="{{ $hall->id }}" id="startHallRadio" data-active="{{activeHall($hall)}}"><span class="conf-step__selector">{{ $hall->name }}</span></li>
+              <li><input type="radio" class="conf-step__radio {{$hallIsActive[$hall->id][0]}}" name="startOfSales-hall" value="{{ $hall->id }}" id="startHallRadio" data-active="{{$hall->is_active}}"><span class="conf-step__selector">{{ $hall->name }}</span></li>
               @endforeach
             </ul>
           </div>
@@ -396,42 +341,9 @@ return 0;
           </div>
         </section>
         </main>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="/js/admin_moonbase.js"></script>
 </body>
-<script>
-  $(function() {
-    let hallNameArr = [...document.querySelectorAll('.conf-step__seances-title')]
-    let movieTitle = [...document.querySelectorAll('.conf-step__seances-movie-title')]
-
-    hallNameArr.forEach(hall => {
-      let hallName = hall.textContent
-      $.ajax({
-        url: "/hall_name",
-        type: 'GET',
-        data: {
-          hallName: hallName
-        },
-        headers: {
-          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        success: function(data) {
-          let arr = [];
-          movieTitle.forEach(f => {
-            if (f.getAttribute('data-hallSchedule-title') === hallName) {
-              arr.push(f)
-            }
-            for (let i = 0; i < arr.length; i++) {
-              arr[i].textContent = data[hallName][i]
-            }
-
-          })
-        }
-      });
-
-    })
-
-  })
-</script>
 
 </html>

@@ -32,7 +32,8 @@ class AppServiceProvider extends ServiceProvider
         $halls = Hall::all();
         $movies = Movie::all();
         $hallConf = HallConf::all();
+        View::share('halls', $halls);
         View::share('movies', $movies);
-        View::share('hallCon', $hallConf);
+        View::share('hallConf', $hallConf);
     }
 }

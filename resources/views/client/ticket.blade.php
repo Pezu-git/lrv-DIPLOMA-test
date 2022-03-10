@@ -1,19 +1,3 @@
-<?php
-
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
-
-
-
-
-$hall_name = $_GET['hall_name'];
-$movie_title = $_GET['movie_title'];
-$start_time = $_GET['start_time'];
-$places = $_GET['places'];
-$QRtext = "Фильм: " . $movie_title . PHP_EOL . "Зал: "  . $hall_name . PHP_EOL . "Ряд/Место: " . $places . PHP_EOL . PHP_EOL . "Начало сеанса: " . $start_time . PHP_EOL . "Билет действителен строго на свой сеанс";
-$q = QrCode::encoding('UTF-8')->size(200)->generate($QRtext)
-?>
-
-
 <!DOCTYPE html>
 <html lang="ru">
 
@@ -45,7 +29,7 @@ $q = QrCode::encoding('UTF-8')->size(200)->generate($QRtext)
         <p class="ticket__info">В зале: <span class="ticket__details ticket__hall">{{$hall_name}}</span></p>
         <p class="ticket__info">Начало сеанса: <span class="ticket__details ticket__start">{{$start_time}}</span></p>
 
-        <p class="ticket__info-qr">{{$q}}</p>
+        <p class="ticket__info-qr">{{$qr}}</p>
 
         <p class="ticket__hint">Покажите QR-код нашему контроллеру для подтверждения бронирования.</p>
         <p class="ticket__hint">Приятного просмотра!</p>
