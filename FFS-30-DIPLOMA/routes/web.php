@@ -82,10 +82,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/delete_hall_shedule',  [MovieScheduleController::class, 'destroy']);
     //Открытие-закрытие продаж
     Route::post('/start_of_sales',  [HallController::class, 'setActive'])->name('start_of_sales');
-
-
-
-    Route::get('/hall_name',  [HallController::class, 'hallName'])->name('start_of_sales');
 });
 
 
