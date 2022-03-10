@@ -7,19 +7,6 @@ use App\Models\HallConf;
 use App\Models\MovieSchedule;
 use App\Models\PriceList;
 
-$movies = Movie::all();
-$halls = Hall::all();
-$hallConf = HallConf::all();
-
-
-$hall_name = $_GET['hall_name'];
-$hall = $halls->where('name', $hall_name)->first();
-$movie_title = $_GET['movie'];
-$start_time = $_GET['start_time'];
-
-
-$hall_price_standart = PriceList::where('hall_id', $hall->id)->where('status', 'standart')->first()->price;
-$hall_price_vip = PriceList::where('hall_id', $hall->id)->where('status', 'vip')->first()->price;
 
 
 
@@ -74,10 +61,11 @@ return $m->seats->where('row_num', $i)->where('seat_num', $l)->first()->status;
           <p>Тапните дважды,<br>чтобы увеличить</p>
         </div>
       </div>
+      
       <div class="buying-scheme">
         <div class="buying-scheme__wrapper">
-          @for($j = 0; $j < hallConfRow($hall); $j++) <div class="buying-scheme__row">
-            @for($k = 0; $k < hallConfCol($hall); $k++) <span class="buying-scheme__chair buying-scheme__chair_{{hallSeats($hall, $j, $k)}}"></span>
+          @for($j = 0; $j < $rows; $j++) <div class="buying-scheme__row">
+            @for($k = 0; $k < $cols; $k++) <span class="buying-scheme__chair buying-scheme__chair_{{$seats[$hall->id][$j][$k][0]}}"></span>
               @endfor
         </div>
         @endfor
@@ -100,7 +88,22 @@ return $m->seats->where('row_num', $i)->where('seat_num', $l)->first()->status;
   </main>
 
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+<!-- <script>
+    $.ajax({
+                url: "/main",
+                type: 'GET',
+                data: {
+                },
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data) {
+                  console.log(data)
+                }
+              });
+  </script> -->
 
 <script>
   const chairChecked = () => {

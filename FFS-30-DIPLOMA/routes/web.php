@@ -8,6 +8,8 @@ use App\Http\Controllers\PriceListController;
 use App\Http\Controllers\SeatController;
 use App\Http\Controllers\MovieScheduleController;
 use App\Http\Controllers\TakenSeatsController;
+use App\Http\Controllers\ClientMainPageController;
+use App\Http\Controllers\ClientHallPageController;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 /*
 |--------------------------------------------------------------------------
@@ -21,13 +23,16 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 */
 
 //Начальная страница(/index)
-Route::get('/', function () {
-    return view('client.index');
-})->name('index');
+Route::get('/',  [ClientMainPageController::class, 'index'])->name('main');
 
-Route::get('/hall', function () {
-    return view('client.hall');
-})->name('client_hall');
+// //!
+// Route::get('/main',  [ClientHallPageController::class, 'seats']);
+// //!
+//Страница выбора места(/hall)
+Route::get('/hall',  [ClientHallPageController::class, 'index'])->name('client_hall');
+// Route::get('/hall', function () {
+//     return view('client.hall');
+// })->name('client_hall');
 
 Route::get('/client_hall', [TakenSeatsController::class, 'update']);
 

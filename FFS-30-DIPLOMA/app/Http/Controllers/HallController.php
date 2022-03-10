@@ -12,7 +12,6 @@ use App\Models\MovieSchedule;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
 
 
 class HallController extends Controller
@@ -162,21 +161,10 @@ class HallController extends Controller
             $arr[$value->id] = [];
             if (MovieSchedule::where('hall_id', $value->id)->first()) {
 
-<<<<<<< HEAD
-        $a[$request->hallName] = [];
-        $s = Hall::where('name', $request->hallName)->first()->seances;
-        foreach ($s as $key => $value) {
-            Movie::where('id', $value->movie_id)->first()->start_time;
-            $m = Movie::where('id', $value->movie_id)->first();
-            $m['start_time'] = $value->start_time;
-            array_push($a[$request->hallName], $m);
-            // array_push($a[$request->hallName], $value->start_time);
-=======
                 array_push($arr[$value->id], 'is_active');
             } else {
                 array_push($arr[$value->id], null);
             }
->>>>>>> 6e0f52b2e5814e979f9e05e59309b2083c11926d
         }
         return $arr;
     }

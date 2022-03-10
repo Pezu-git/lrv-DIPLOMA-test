@@ -1,16 +1,4 @@
-@php
-
-use App\Models\Movie;
-use App\Models\Hall;
-use App\Models\Seat;
-use App\Models\HallConf;
-use App\Models\MovieSchedule;
-use App\Models\PriceList;
-
-$movies = Movie::all();
-$halls = Hall::all();
-$hallConf = HallConf::all();
-
+<?php
 
 $hall_name = $_GET['hall_name'];
 $hall = $halls->where('name', $hall_name)->first();
@@ -19,49 +7,7 @@ $start_time = $_GET['start_time'];
 $places = $_GET['taken_places'];
 $price = $_GET['total_price'];
 
-$hall_price_standart = PriceList::where('hall_id', $hall->id)->where('status', 'standart')->first()->price;
-$hall_price_vip = PriceList::where('hall_id', $hall->id)->where('status', 'vip')->first()->price;
-
-
-
-
-
-
-
-function hallConfRow($hall) {
-return (int)HallConf::where('id', $hall->id)->first()->rows;
-}
-function hallConfCol($hall) {
-return HallConf::where('id', $hall->id)->first()->cols;
-}
-function hallSeats($m, $i, $l) {
-try{
-return $m->seats->where('row_num', $i)->where('seat_num', $l)->first()->status;
-}
-catch(Exception $e) {
-return 'standart';
-}
-}
-function hallWhithSchedule($hall) {
-if(MovieSchedule::where('hall_id', $hall->id)->first()) {
-return 'is_active';
-}
-else {
-return null;
-}
-}
-
-function activeHall($hall) {
-if(Hall::where('id', $hall->id)->first()->is_active) {
-return 1;
-}
-else {
-return 0;
-}
-}
-
-
-@endphp
+?>
 
 
 <!DOCTYPE html>
