@@ -22,13 +22,6 @@ class ClientMainPageController extends Controller
         for($i = 0; $i < $movies->count(); $i++) {
             for($j = 0; $j < count($halls); $j++) {
                 $arr[$i][$j] = [];
-                // if($halls[$j]->is_active ) {
-                //     $hallId = $halls[$j]->seances->where('movie_id', $movies[$i]->id)->first()->hall_id;
-                //     $hallName = Hall::where('id', $hallId)->first()->name;
-                //     array_push($arr[$i][$j], $hallName);
-                // } else {
-                //     array_push($arr[$i][$j], null);
-                // }
                 try {
                     $hallId = $halls[$j]->seances->where('movie_id', $movies[$i]->id)->first()->hall_id;
                     $hallName = Hall::where('id', $hallId)->first()->name;
@@ -47,22 +40,16 @@ class ClientMainPageController extends Controller
     }
 
     public function getWeekDayRus(){
-        $chose = 'page-nav__day_today page-nav__day_chosen ';
-        $add = 0;
         $days = array(
         'Вс', 'Пн', 'Вт', 'Ср',
         'Чт', 'Пт', 'Сб'
         );
         
-        $date = Carbon::now();
         $arr = [];
-        
-
         for($i = 0; $i < 7; $i++) {
+            $date = Carbon::now();
             $arr[$i] = [];
-            $add = $i;
-
-            $date->addDays($add);
+            $date->addDays($i);
             $myDayWeek = $date->format('w');
             $weekEnd = (($myDayWeek == 0) || ($myDayWeek == 6)) ? 'page-nav__day_weekend' : '';
             $timeStamp = $date->getTimeStamp();

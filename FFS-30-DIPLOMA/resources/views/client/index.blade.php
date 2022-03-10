@@ -72,6 +72,21 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="/js/client_moonbase.js"></script>
 
+
+    <script>
+       $.ajax({
+                url: "/main",
+                type: 'GET',
+                data: { 
+                },
+                headers: {
+                  'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                success: function (data) {
+                  console.log(data)
+                }
+              });
+    </script>
   
 
 </body>
