@@ -134,16 +134,15 @@ class HallController extends Controller
 
     public function seats()
     {
-        $hc = HallConf::all();
-        // $arr = [];
-        foreach ($hc as $key => $value) {
+        $hallConf = HallConf::all();
+        foreach ($hallConf as $key => $value) {
             $hall = Hall::where('id', $value->id)->first();
             for ($i = 0; $i < $value->rows; $i++) {
                 for ($j = 0; $j < $value->cols; $j++) {
                     $arr[$value->id][$i][$j] = [];
                     try {
-                        $s = $hall->seats->where('row_num', $i)->where('seat_num', $j)->first()->status;
-                        array_push($arr[$value->id][$i][$j], $s);
+                        $seatStatus = $hall->seats->where('row_num', $i)->where('seat_num', $j)->first()->status;
+                        array_push($arr[$value->id][$i][$j], $seatStatus);
                     } catch (\Exception $e) {
                         array_push($arr[$value->id][$i][$j], 'standart');
                     }

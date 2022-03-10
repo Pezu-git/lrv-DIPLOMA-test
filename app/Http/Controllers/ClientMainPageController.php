@@ -22,10 +22,22 @@ class ClientMainPageController extends Controller
         for($i = 0; $i < $movies->count(); $i++) {
             for($j = 0; $j < count($halls); $j++) {
                 $arr[$i][$j] = [];
+                // if($halls[$j]->is_active ) {
+                //     $hallId = $halls[$j]->seances->where('movie_id', $movies[$i]->id)->first()->hall_id;
+                //     $hallName = Hall::where('id', $hallId)->first()->name;
+                //     array_push($arr[$i][$j], $hallName);
+                // } else {
+                //     array_push($arr[$i][$j], null);
+                // }
                 try {
                     $hallId = $halls[$j]->seances->where('movie_id', $movies[$i]->id)->first()->hall_id;
                     $hallName = Hall::where('id', $hallId)->first()->name;
-                    array_push($arr[$i][$j], $hallName);
+                    $isActive = Hall::where('id', $hallId)->first()->is_active;
+                    if($isActive ) {
+                        array_push($arr[$i][$j], $hallName);
+                    } else {
+                        array_push($arr[$i][$j], null);
+                    }
                 }  catch(\Exception $e) {
                     array_push($arr[$i][$j], null);
                 }    
