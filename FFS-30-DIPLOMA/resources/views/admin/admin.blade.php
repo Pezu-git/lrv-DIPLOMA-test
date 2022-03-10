@@ -82,11 +82,19 @@
                       @csrf
                       <label class="conf-step__label conf-step__label-fullsize" for="name">
                         Название фильма
-                        <input class="conf-step__input" type="text" placeholder="Например, &laquo;Гражданин Кейн&raquo;" name="title" id="addMovieInput" required>
+                        <input class="conf-step__input" type="text" name="title" id="addMovieInput" required>
                       </label>
                       <label class="conf-step__label conf-step__label-fullsize" for="name">
                         Продолжительность
-                        <input class="conf-step__input" type="text" placeholder="Например, &laquo;120&raquo;" name="duration" id="addMovieDurationInput" required>
+                        <input class="conf-step__input" type="text" name="duration" id="addMovieDurationInput" required>
+                      </label>
+                      <label class="conf-step__label conf-step__label-fullsize" for="name">
+                        Описание фильма
+                        <textarea class="conf-step__input" type="text" name="description" id="addMovieTextarea" required></textarea>
+                      </label>
+                      <label class="conf-step__label conf-step__label-fullsize" for="name">
+                        Страна
+                        <input class="conf-step__input" type="text" name="country" id="addMovieCountryInput" required>
                       </label>
                       <div class="conf-step__buttons text-center">
                         <input type="submit" value="Добавить фильм" class="conf-step__button conf-step__button-accent" id="addMovieToDbBtn">
