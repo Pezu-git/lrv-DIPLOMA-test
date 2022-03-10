@@ -10,6 +10,8 @@ use App\Http\Controllers\MovieScheduleController;
 use App\Http\Controllers\TakenSeatsController;
 use App\Http\Controllers\ClientMainPageController;
 use App\Http\Controllers\ClientHallPageController;
+use App\Http\Controllers\ClientPaymentPageController;
+use App\Http\Controllers\ClientTicketPageController;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 /*
 |--------------------------------------------------------------------------
@@ -25,25 +27,19 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 //Начальная страница(/index)
 Route::get('/',  [ClientMainPageController::class, 'index'])->name('main');
 
-// //!
-// Route::get('/main',  [ClientHallPageController::class, 'seats']);
-// //!
 //Страница выбора места(/hall)
 Route::get('/hall',  [ClientHallPageController::class, 'index'])->name('client_hall');
-// Route::get('/hall', function () {
-//     return view('client.hall');
-// })->name('client_hall');
 
+//Обновление зала бронирования
 Route::get('/client_hall', [TakenSeatsController::class, 'update']);
 
-Route::get('/payment', function () {
-    return view('client.payment');
-})->name('payment');
+//Страница с данными бронирования
+Route::get('/payment',  [ClientPaymentPageController::class, 'index'])->name('payment');
 
-Route::get('/ticket', function () {
-    return view('client.ticket');
-})->name('ticket');
+//Электронный билет
+Route::get('/ticket',  [ClientTicketPageController::class, 'index'])->name('ticket');
 
+//QR-code
 Route::get('qr-code-g', function () {
     QrCode::size(500)
         ->format('png')
@@ -51,6 +47,7 @@ Route::get('qr-code-g', function () {
     return view('qrCode');
 });
 
+//Администратор
 Route::group(['middleware' => 'auth:sanctum'], function () {
 
     //Адимн-панель(/admin)

@@ -1,15 +1,3 @@
-<?php
-
-$hall_name = $_GET['hall_name'];
-$hall = $halls->where('name', $hall_name)->first();
-$movie_title = $_GET['movie_title'];
-$start_time = $_GET['start_time'];
-$places = $_GET['taken_places'];
-$price = $_GET['total_price'];
-
-?>
-
-
 <!DOCTYPE html>
 <html lang="ru">
 

@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use Session;
 use App\Models\Hall;
 use App\Models\PriceList;
 use App\Models\HallConf;
