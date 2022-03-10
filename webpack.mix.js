@@ -44,8 +44,12 @@ mix.js([
     
     'public/js/admin_moonbase.js');
  
-    mix.js([
+mix.js([
     'resources/client/js/choosingPlace.js',
-],
-    
- 'public/js/client_moonbase.js');
+],  
+    'public/js/client_choosingPlace.js');
+
+mix.js([
+    'resources/client/js/choosingDay.js',
+],  
+    'public/js/client_choosingDay.js');
