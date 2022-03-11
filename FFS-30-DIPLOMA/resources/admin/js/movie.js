@@ -14,28 +14,32 @@ addMovieBtn.addEventListener('click', function() {
   })
 
   //Добавить фильм 
-$(document).ready(function() {
-  $('#addMivieForm').submit(function(e) {
-    let movieName = $('#addMovieInput').val();
-    let movieDur = $('#addMovieDurationInput').val()
-    e.preventDefault();
-
-    $.ajax({
-      url: "/add_movie",
-      type: 'POST',
-      data: {
-      title: movieName,
-      duration: movieDur
-      },
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-      },
-      success: function () {
-        location.reload();
-      }
+  $(document).ready(function() {
+    $('#addMovieForm').submit(function(e) {
+      let movieName = $('#addMovieInput').val();
+      let movieDur = $('#addMovieDurationInput').val()
+      let movieDesc = $('#addMovieTextarea').val()
+      let movieCountry = $('#addMovieCountryInput').val()
+      e.preventDefault();
+  
+      $.ajax({
+        url: "/add_movie",
+        type: 'POST',
+        data: {
+          title: movieName,
+          duration: movieDur,
+          description: movieDesc,
+          country: movieCountry
+        },
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function () {
+          location.reload();
+        }
+      });
     });
-  });
-})
+  })
 
 //Удаление фильма
 $(document).ready(function() {
