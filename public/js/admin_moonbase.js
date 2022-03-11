@@ -375,22 +375,27 @@ movieDismiss.addEventListener('click', function (e) {
 }); //Добавить фильм 
 
 $(document).ready(function () {
-  $('#addMivieForm').submit(function (e) {
+  $('#addMovieForm').submit(function (e) {
     var movieName = $('#addMovieInput').val();
     var movieDur = $('#addMovieDurationInput').val();
+    var movieDesc = $('#addMovieTextarea').val();
+    var movieCountry = $('#addMovieCountryInput').val();
+    console.log(movieCountry);
     e.preventDefault();
     $.ajax({
       url: "/add_movie",
       type: 'POST',
       data: {
         title: movieName,
-        duration: movieDur
+        duration: movieDur,
+        description: movieDesc,
+        country: movieCountry
       },
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      success: function success() {
-        location.reload();
+      success: function success(data) {
+        console.log(data); // location.reload();
       }
     });
   });

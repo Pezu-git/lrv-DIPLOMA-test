@@ -28,7 +28,7 @@ class MovieController extends Controller
      */
     public function store(MovieRequest $request)
     {
-        Movie::create($request->validated());
+       Movie::create($request->validated());
     }
 
     /**

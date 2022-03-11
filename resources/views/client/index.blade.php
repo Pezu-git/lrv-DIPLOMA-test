@@ -41,10 +41,10 @@
           </div>
           <div class="movie__description">
             <h2 class="movie__title">{{$movies[$i]->title}}</h2>
-            <p class="movie__synopsis">Две сотни лет назад малороссийские хутора разоряла шайка нехристей-ляхов во главе с могущественным колдуном.</p>
+            <p class="movie__synopsis">{{$movies[$i]->description}}</p>
             <p class="movie__data">
               <span class="movie__data-duration">{{$movies[$i]->duration}}</span>
-              <span class="movie__data-origin">США</span>
+              <span class="movie__data-origin">{{$movies[$i]->country}}</span>
             </p>
           </div>
         </div>

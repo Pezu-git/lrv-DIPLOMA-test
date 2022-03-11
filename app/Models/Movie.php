@@ -12,7 +12,7 @@ class Movie extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'title', 'duration'
+        'title', 'duration', 'description', 'country'
     ];
 
     

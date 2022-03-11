@@ -29,6 +29,8 @@ class MovieRequest extends FormRequest
         return [
             'title' => ['required', 'string'],
             'duration' => ['required', 'int'],
+            'description' => ['required', 'string'],
+            'country' => ['required', 'string'],
         ];
     }
 

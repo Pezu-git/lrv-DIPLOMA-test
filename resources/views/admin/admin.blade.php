@@ -78,7 +78,7 @@
 
                   </div>
                   <div class="popup__wrapper">
-                    <form accept-charset="utf-8" id="addMivieForm">
+                    <form accept-charset="utf-8" id="addMovieForm">
                       @csrf
                       <label class="conf-step__label conf-step__label-fullsize" for="name">
                         Название фильма
@@ -352,6 +352,8 @@
 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="/js/admin_moonbase.js"></script>
+
+        
 </body>
 
 </html>
