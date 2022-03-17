@@ -19,8 +19,8 @@ chairsPrice.forEach(hall => hall.addEventListener('click', function(e) {
   success: function (data) {
     if(data) {
       // console.log(data.find(el => el.status === 'vip').price)
-      standartPriceInput.placeholder = data.find(el => el.status === 'standart').price
-      vipPriceInput.placeholder = data.find(el => el.status === 'vip').price
+      standartPriceInput.value = data.find(el => el.status === 'standart').price
+      vipPriceInput.value = data.find(el => el.status === 'vip').price
     }
     else {
       $.ajax({
@@ -44,8 +44,8 @@ chairsPrice.forEach(hall => hall.addEventListener('click', function(e) {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
       success: function (data) {
-        standartPriceInput.placeholder = 100
-        vipPriceInput.placeholder = 200
+        standartPriceInput.value = 100
+        vipPriceInput.value = 200
         }, 
       });
       

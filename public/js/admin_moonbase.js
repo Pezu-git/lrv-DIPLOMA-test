@@ -39,10 +39,10 @@ chairsPrice.forEach(function (hall) {
       success: function success(data) {
         if (data) {
           // console.log(data.find(el => el.status === 'vip').price)
-          standartPriceInput.placeholder = data.find(function (el) {
+          standartPriceInput.value = data.find(function (el) {
             return el.status === 'standart';
           }).price;
-          vipPriceInput.placeholder = data.find(function (el) {
+          vipPriceInput.value = data.find(function (el) {
             return el.status === 'vip';
           }).price;
         } else {
@@ -64,8 +64,8 @@ chairsPrice.forEach(function (hall) {
               'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             },
             success: function success(data) {
-              standartPriceInput.placeholder = 100;
-              vipPriceInput.placeholder = 200;
+              standartPriceInput.value = 100;
+              vipPriceInput.value = 200;
             }
           });
         }
