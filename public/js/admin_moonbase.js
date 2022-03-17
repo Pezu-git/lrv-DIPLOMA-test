@@ -38,6 +38,7 @@ chairsPrice.forEach(function (hall) {
       },
       success: function success(data) {
         if (data) {
+          console.log(data);
           standartPriceInput.placeholder = data[0].price;
           vipPriceInput.placeholder = data[1].price;
         } else {
@@ -86,7 +87,7 @@ chairsPrice.forEach(function (hall) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
           success: function success(data) {
-            location.reload();
+            console.log(data); // location.reload();
           }
         });
       }

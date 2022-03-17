@@ -18,6 +18,7 @@ chairsPrice.forEach(hall => hall.addEventListener('click', function(e) {
     },
   success: function (data) {
     if(data) {
+      console.log(data)
       standartPriceInput.placeholder = data[0].price
       vipPriceInput.placeholder = data[1].price
     }
@@ -75,7 +76,8 @@ chairsPrice.forEach(hall => hall.addEventListener('click', function(e) {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
       success: function (data) {
-        location.reload();
+        console.log(data)
+        // location.reload();
         }, 
       });
     }

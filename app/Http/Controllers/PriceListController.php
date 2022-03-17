@@ -51,7 +51,7 @@ class PriceListController extends Controller
      */
     public function show(Request $request)
     {
-        $data = PriceList::where('hall_id', '=', $request->hall_id)->get();
+        $data = PriceList::where('hall_id', $request->hall_id)->get();
         if (!count($data)) {
             return response(null, Response::HTTP_NO_CONTENT);
         }
@@ -73,7 +73,10 @@ class PriceListController extends Controller
             if ($seat === null) {
                 return $this->store($request);
             }
-            if($key["price"]  !== null) {
+            
+            if($key["price"] !== null) {
+                return $seat;
+                
                 $seat->price = $key["price"];
             }
             $seat->save();
