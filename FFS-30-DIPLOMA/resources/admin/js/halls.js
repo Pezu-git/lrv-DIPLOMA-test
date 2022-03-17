@@ -79,11 +79,7 @@ for (let i = 0; i < trashs.length; i++) {
                 success: function () {
                 }
               });
-              // $h = `<li class="hallDeleteList">${data.hall_name}
-              //         <button class="conf-step__button conf-step__button-trash" type="button" id="{{ $hall_name }}" data-delHall-id=${data.hall_id}"></button>
-              //       </li>`
-              // $('.conf-step__list').append($h);
-              // addModal.classList.toggle('active');
+              
               location.reload();
             }
           });

@@ -29,7 +29,6 @@ class HallConfController extends Controller
     {
         HallConf::insertGetId($request->validated());
         return $request;
-        // return $request;
     }
 
     /**

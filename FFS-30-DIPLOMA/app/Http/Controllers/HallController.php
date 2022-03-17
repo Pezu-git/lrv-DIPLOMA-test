@@ -112,7 +112,7 @@ class HallController extends Controller
     public function hallSeances()
     {
         $halls = Hall::all();
-        // $arr = [];
+        $arr = [];
 
         for ($i = 0; $i < $halls->count(); $i++) {
             for ($j = 0; $j < $halls[$i]->seances->count(); $j++) {
@@ -129,11 +129,14 @@ class HallController extends Controller
                 }
             }
         }
+        
         return $arr;
+        
     }
 
     public function seats()
     {
+        $arr = [];
         $hallConf = HallConf::all();
         foreach ($hallConf as $key => $value) {
             $hall = Hall::where('id', $value->id)->first();
@@ -155,7 +158,7 @@ class HallController extends Controller
     public function activeHall()
     {
         $halls = Hall::all();
-
+        $arr = [];
         foreach ($halls as $key => $value) {
             $arr[$value->id] = [];
             if (MovieSchedule::where('hall_id', $value->id)->first()) {

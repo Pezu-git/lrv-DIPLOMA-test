@@ -30,14 +30,13 @@ class PriceListController extends Controller
     public function store($request)
     {
         $hall_id = $request->result[0]['hall_id'];
-        PriceList::where('hall_id', $hall_id)->delete();
-        foreach ($request->result as $key) {
-            PriceList::create([
-                'hall_id' => $key["hall_id"],
-                'status' => $key["status"],
-                'price' => $key["price"]
-            ]);
-        }
+            foreach ($request->result as $key) {
+                PriceList::create([
+                    'hall_id' => $key["hall_id"],
+                    'status' => $key["status"],
+                    'price' => $key["price"]
+                ]);
+            }
     }
 
     /**
@@ -48,7 +47,7 @@ class PriceListController extends Controller
      */
     public function show(Request $request)
     {
-        $data = PriceList::where('hall_id', '=', $request->hall_id)->get();
+        $data = PriceList::where('hall_id', $request->hall_id)->get();
         if (!count($data)) {
             return response(null, Response::HTTP_NO_CONTENT);
         }
@@ -70,7 +69,11 @@ class PriceListController extends Controller
             if ($seat === null) {
                 return $this->store($request);
             }
-            $seat->price = $key["price"];
+            
+            if($key["price"] !== null) {
+                
+                $seat->price = $key["price"];
+            }
             $seat->save();
         
         }

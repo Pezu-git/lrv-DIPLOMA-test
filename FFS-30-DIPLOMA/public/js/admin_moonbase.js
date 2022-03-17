@@ -25,6 +25,8 @@ var vipPriceInput = document.getElementById('vipPrice'); //Конфигурац�
 
 chairsPrice.forEach(function (hall) {
   return hall.addEventListener('click', function (e) {
+    standartPriceInput.value = '';
+    vipPriceInput.value = '';
     $.ajax({
       url: "/show_price",
       type: 'GET',
@@ -36,11 +38,35 @@ chairsPrice.forEach(function (hall) {
       },
       success: function success(data) {
         if (data) {
-          standartPriceInput.placeholder = data[0].price;
-          vipPriceInput.placeholder = data[1].price;
+          standartPriceInput.value = data.find(function (el) {
+            return el.status === 'standart';
+          }).price;
+          vipPriceInput.value = data.find(function (el) {
+            return el.status === 'vip';
+          }).price;
         } else {
-          standartPriceInput.placeholder = 0;
-          vipPriceInput.placeholder = 0;
+          $.ajax({
+            url: "/save_price",
+            type: 'POST',
+            data: {
+              result: [{
+                'hall_id': hall.value,
+                'status': 'standart',
+                'price': 100
+              }, {
+                'hall_id': hall.value,
+                'status': 'vip',
+                'price': 200
+              }]
+            },
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function success(data) {
+              standartPriceInput.value = 100;
+              vipPriceInput.value = 200;
+            }
+          });
         }
       }
     });
@@ -64,7 +90,7 @@ chairsPrice.forEach(function (hall) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
           success: function success(data) {
-            console.log(data); // location.reload();
+            location.reload();
           }
         });
       }
@@ -171,12 +197,7 @@ $(document).ready(function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
           success: function success() {}
-        }); // $h = `<li class="hallDeleteList">${data.hall_name}
-        //         <button class="conf-step__button conf-step__button-trash" type="button" id="{{ $hall_name }}" data-delHall-id=${data.hall_id}"></button>
-        //       </li>`
-        // $('.conf-step__list').append($h);
-        // addModal.classList.toggle('active');
-
+        });
         location.reload();
       }
     });
@@ -337,7 +358,7 @@ $(document).ready(function () {
         });
         $.ajax({
           url: "/hall_chair",
-          type: 'GET',
+          type: 'POST',
           data: {
             result: result,
             hallConf: hallConf
@@ -345,9 +366,7 @@ $(document).ready(function () {
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
-          success: function success(data) {
-            console.log(data);
-          }
+          success: function success(data) {}
         });
       }
     });
@@ -380,7 +399,6 @@ $(document).ready(function () {
     var movieDur = $('#addMovieDurationInput').val();
     var movieDesc = $('#addMovieTextarea').val();
     var movieCountry = $('#addMovieCountryInput').val();
-    console.log(movieCountry);
     e.preventDefault();
     $.ajax({
       url: "/add_movie",
@@ -394,8 +412,9 @@ $(document).ready(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      success: function success(data) {
-        console.log(data); // location.reload();
+      success: function success() {
+        addMovieModal.classList.toggle('active');
+        location.reload();
       }
     });
   });

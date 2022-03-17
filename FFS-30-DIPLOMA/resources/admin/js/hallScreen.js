@@ -112,7 +112,7 @@ $(document).ready(function () {
         
         $.ajax({
           url: "/hall_chair",
-          type: 'GET',
+          type: 'POST',
           data: {
           result: result,
           hallConf: hallConf
@@ -121,7 +121,7 @@ $(document).ready(function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
           success(data) {
-            console.log(data)
+
           }
         });
       }
