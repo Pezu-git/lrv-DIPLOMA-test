@@ -112,7 +112,7 @@ class HallController extends Controller
     public function hallSeances()
     {
         $halls = Hall::all();
-        // $arr = [];
+        $arr = [];
 
         for ($i = 0; $i < $halls->count(); $i++) {
             for ($j = 0; $j < $halls[$i]->seances->count(); $j++) {
@@ -129,7 +129,9 @@ class HallController extends Controller
                 }
             }
         }
+        
         return $arr;
+        
     }
 
     public function seats()
