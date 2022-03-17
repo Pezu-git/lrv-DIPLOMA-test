@@ -112,7 +112,7 @@ $(document).ready(function () {
         
         $.ajax({
           url: "/hall_chair",
-          type: 'GET',
+          type: 'POST',
           data: {
           result: result,
           hallConf: hallConf

@@ -38,7 +38,6 @@ chairsPrice.forEach(function (hall) {
       },
       success: function success(data) {
         if (data) {
-          // console.log(data.find(el => el.status === 'vip').price)
           standartPriceInput.value = data.find(function (el) {
             return el.status === 'standart';
           }).price;
@@ -91,7 +90,6 @@ chairsPrice.forEach(function (hall) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
           success: function success(data) {
-            console.log(data);
             location.reload();
           }
         });
@@ -360,7 +358,7 @@ $(document).ready(function () {
         });
         $.ajax({
           url: "/hall_chair",
-          type: 'GET',
+          type: 'POST',
           data: {
             result: result,
             hallConf: hallConf

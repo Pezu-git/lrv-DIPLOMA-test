@@ -64,7 +64,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     //Добавление мест в зале(seats)
     Route::post('/admin/hall_chair_create/{result}',  [SeatController::class, 'store']);
     //Изменение категории мест в зале(seats)
-    Route::get('/hall_chair',  [SeatController::class, 'update'])->name('hall_chair');
+    Route::post('/hall_chair',  [SeatController::class, 'update'])->name('hall_chair');
     //Удаление всех мест из зала(seats)
     Route::get('/admin/hall_chair_delete/{id}',  [SeatController::class, 'destroy'])->name('hall_chair_delete');
 
