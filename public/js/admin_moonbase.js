@@ -65,6 +65,7 @@ chairsPrice.forEach(function (hall) {
           },
           success: function success(data) {
             location.reload();
+
             if (data) {
               alert(data);
             }
@@ -397,6 +398,7 @@ $(document).ready(function () {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
       success: function success() {
+        addMovieModal.classList.toggle('active');
         location.reload();
       }
     });

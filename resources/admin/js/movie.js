@@ -35,6 +35,7 @@ addMovieBtn.addEventListener('click', function() {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
         success: function () {
+          addMovieModal.classList.toggle('active');
           location.reload();
         }
       });
