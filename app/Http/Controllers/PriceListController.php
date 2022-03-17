@@ -64,13 +64,19 @@ class PriceListController extends Controller
      */
     public function update(Request $request)
     {
+        
         foreach ($request->result as $key) {
             $seat = PriceList::where('hall_id', $key['hall_id'])
                 ->where('status',  $key['status'])->first();
             if ($seat === null) {
+                if($key["price"]  === null) {
+                    return  'Установите цены!';
+                }
                 return $this->store($request);
             }
-            $seat->price = $key["price"];
+            if($key["price"]  !== null) {
+                $seat->price = $key["price"];
+            }
             $seat->save();
         
         }

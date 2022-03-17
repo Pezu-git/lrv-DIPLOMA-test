@@ -64,7 +64,11 @@ chairsPrice.forEach(function (hall) {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
           success: function success(data) {
-            console.log(data); // location.reload();
+            location.reload();
+
+            if (data) {
+              alert(data);
+            }
           }
         });
       }
@@ -380,7 +384,6 @@ $(document).ready(function () {
     var movieDur = $('#addMovieDurationInput').val();
     var movieDesc = $('#addMovieTextarea').val();
     var movieCountry = $('#addMovieCountryInput').val();
-    console.log(movieCountry);
     e.preventDefault();
     $.ajax({
       url: "/add_movie",
@@ -394,8 +397,8 @@ $(document).ready(function () {
       headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       },
-      success: function success(data) {
-        console.log(data); // location.reload();
+      success: function success() {
+        location.reload();
       }
     });
   });

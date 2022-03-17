@@ -53,9 +53,12 @@ chairsPrice.forEach(hall => hall.addEventListener('click', function(e) {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
         },
       success: function (data) {
-        console.log(data)
-        // location.reload();
+        location.reload();
+        if(data) {
+          alert(data)
         }
+        },
+        
       });
     }
     
