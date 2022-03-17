@@ -39,14 +39,6 @@ const buttonAcceptin = document.querySelector('.acceptin-button');
         }
       }
     }
-    // chairsSelected.forEach(chair => {
-    //   if (chair.classList.contains("buying-scheme__chair_vip")) {
-    //     chair.classList.toggle("buying-scheme__chair_vip");
-    //   }
-    //   chair.classList.toggle("buying-scheme__chair_selected");
-    //   chair.classList.toggle("buying-scheme__chair_taken");
-
-    // })
     $.ajax({
       url: "/client_hall",
       type: 'GET',
