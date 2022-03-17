@@ -22,8 +22,32 @@ chairsPrice.forEach(hall => hall.addEventListener('click', function(e) {
       vipPriceInput.placeholder = data[1].price
     }
     else {
-      standartPriceInput.placeholder = 0
-      vipPriceInput.placeholder = 0
+      $.ajax({
+        url: "/save_price",
+        type: 'POST',
+        data: {
+          result: [
+            {
+              'hall_id': hall.value,
+              'status': 'standart',
+              'price': 100,
+            },
+            {
+              'hall_id': hall.value,
+              'status': 'vip',
+              'price': 200,
+            }
+          ]
+        },
+        headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+      success: function (data) {
+        standartPriceInput.placeholder = 100
+        vipPriceInput.placeholder = 200
+        }, 
+      });
+      
     }
     }
   });
@@ -52,9 +76,6 @@ chairsPrice.forEach(hall => hall.addEventListener('click', function(e) {
         },
       success: function (data) {
         location.reload();
-        if(data) {
-          alert(data)
-        }
         }, 
       });
     }

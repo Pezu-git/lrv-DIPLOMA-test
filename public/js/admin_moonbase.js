@@ -41,8 +41,28 @@ chairsPrice.forEach(function (hall) {
           standartPriceInput.placeholder = data[0].price;
           vipPriceInput.placeholder = data[1].price;
         } else {
-          standartPriceInput.placeholder = 0;
-          vipPriceInput.placeholder = 0;
+          $.ajax({
+            url: "/save_price",
+            type: 'POST',
+            data: {
+              result: [{
+                'hall_id': hall.value,
+                'status': 'standart',
+                'price': 100
+              }, {
+                'hall_id': hall.value,
+                'status': 'vip',
+                'price': 200
+              }]
+            },
+            headers: {
+              'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            success: function success(data) {
+              standartPriceInput.placeholder = 100;
+              vipPriceInput.placeholder = 200;
+            }
+          });
         }
       }
     });
@@ -67,10 +87,6 @@ chairsPrice.forEach(function (hall) {
           },
           success: function success(data) {
             location.reload();
-
-            if (data) {
-              alert(data);
-            }
           }
         });
       }
@@ -177,12 +193,7 @@ $(document).ready(function () {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
           success: function success() {}
-        }); // $h = `<li class="hallDeleteList">${data.hall_name}
-        //         <button class="conf-step__button conf-step__button-trash" type="button" id="{{ $hall_name }}" data-delHall-id=${data.hall_id}"></button>
-        //       </li>`
-        // $('.conf-step__list').append($h);
-        // addModal.classList.toggle('active');
-
+        });
         location.reload();
       }
     });
@@ -351,9 +362,7 @@ $(document).ready(function () {
           headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
           },
-          success: function success(data) {
-            console.log(data);
-          }
+          success: function success(data) {}
         });
       }
     });
