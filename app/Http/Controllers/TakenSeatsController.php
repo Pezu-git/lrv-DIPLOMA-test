@@ -18,18 +18,22 @@ class TakenSeatsController extends Controller
 
     public function update(Request $request)
     {
-
         $hall_id = Hall::where('name', $request->hallName)->first()->id;
-        $seance_id = MovieSchedule::where('hall_id', $hall_id)->where('start_time', $request->seance)->first()->id;
 
         $placesArray = [];
         $totalPrice = 0;
+        $standartPrice = PriceList::where('hall_id', $hall_id)->where('status', 'standart')->first()->price;
+        $standartVip = PriceList::where('hall_id', $hall_id)->where('status', 'vip')->first()->price;
         for ($i = 0; $i < count($request->takenPlaces); $i++) {
             $row = (string)$request->takenPlaces[$i]['row'];
             $place = (string)$request->takenPlaces[$i]['place'];
-
             $status = $request->takenPlaces[$i]['type'];
-            $price = PriceList::where('hall_id', $hall_id)->where('status', $status)->first()->price;
+            if($status === 'standart') {
+                $price = $standartPrice;
+            }
+            if($status === 'vip') {
+                $price = $standartVip;
+            }
             $str = $row . '/' . $place;
             array_push($placesArray, $str);
             $totalPrice += $price;
