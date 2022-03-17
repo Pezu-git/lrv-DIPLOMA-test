@@ -18,9 +18,9 @@ chairsPrice.forEach(hall => hall.addEventListener('click', function(e) {
     },
   success: function (data) {
     if(data) {
-      console.log(data)
-      standartPriceInput.placeholder = data[0].price
-      vipPriceInput.placeholder = data[1].price
+      // console.log(data.find(el => el.status === 'vip').price)
+      standartPriceInput.placeholder = data.find(el => el.status === 'standart').price
+      vipPriceInput.placeholder = data.find(el => el.status === 'vip').price
     }
     else {
       $.ajax({
@@ -77,7 +77,7 @@ chairsPrice.forEach(hall => hall.addEventListener('click', function(e) {
         },
       success: function (data) {
         console.log(data)
-        // location.reload();
+        location.reload();
         }, 
       });
     }
