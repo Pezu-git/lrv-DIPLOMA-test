@@ -65,7 +65,6 @@ chairsPrice.forEach(function (hall) {
           },
           success: function success(data) {
             location.reload();
-
             if (data) {
               alert(data);
             }
