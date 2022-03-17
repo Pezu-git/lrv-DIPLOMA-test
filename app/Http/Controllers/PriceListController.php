@@ -30,9 +30,6 @@ class PriceListController extends Controller
     public function store($request)
     {
         $hall_id = $request->result[0]['hall_id'];
-        // $priceList = PriceList::where('hall_id', $hall_id);
-        // if($priceList) {
-        //     $priceList->delete();
             foreach ($request->result as $key) {
                 PriceList::create([
                     'hall_id' => $key["hall_id"],
@@ -40,7 +37,6 @@ class PriceListController extends Controller
                     'price' => $key["price"]
                 ]);
             }
-        
     }
 
     /**

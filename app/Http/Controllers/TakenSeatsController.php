@@ -36,13 +36,6 @@ class TakenSeatsController extends Controller
         }
         $takenPlacesStr = join(', ', $placesArray);
 
-        // foreach ($request->takenPlaces as $key) {
-        //     $seat = TakenSeats::where('hall_id', $hall_id)->where('seance_id', $seance_id)->where('row_num', $key["row"] - 1)
-        //         ->where('seat_num', $key["place"] - 1)->first();
-        //     $seat->taken = 1;
-        //     $seat->save();
-        // }
-
         return route('payment', ['movie_title' => $request->movie, 'start_time' => $request->seance, 'hall_name' => $request->hallName, 'taken_places' => $takenPlacesStr, 'total_price' => $totalPrice, 'takenPlacesArr' => $request->takenPlaces]);
     }
 }
