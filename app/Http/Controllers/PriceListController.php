@@ -75,7 +75,6 @@ class PriceListController extends Controller
             }
             
             if($key["price"] !== null) {
-                return $seat;
                 
                 $seat->price = $key["price"];
             }
