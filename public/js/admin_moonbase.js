@@ -25,6 +25,8 @@ var vipPriceInput = document.getElementById('vipPrice'); //Конфигурац�
 
 chairsPrice.forEach(function (hall) {
   return hall.addEventListener('click', function (e) {
+    standartPriceInput.value = '';
+    vipPriceInput.value = '';
     $.ajax({
       url: "/show_price",
       type: 'GET',

@@ -5,7 +5,8 @@ let vipPriceInput = document.getElementById('vipPrice');
 
 //Конфигурация цен
 chairsPrice.forEach(hall => hall.addEventListener('click', function(e) {
-  
+  standartPriceInput.value = '';
+  vipPriceInput.value = '';
   $.ajax({
     url: "/show_price",
     type: 'GET',
@@ -24,14 +25,11 @@ chairsPrice.forEach(hall => hall.addEventListener('click', function(e) {
       standartPriceInput.placeholder = 0
       vipPriceInput.placeholder = 0
     }
-    
-    
     }
   });
 
   $('#savePrice').click(function () {
     if(hall.checked) {
-      
       $.ajax({
         url: "/save_price",
         type: 'POST',
@@ -57,11 +55,8 @@ chairsPrice.forEach(hall => hall.addEventListener('click', function(e) {
         if(data) {
           alert(data)
         }
-        },
-        
+        }, 
       });
     }
-    
-   
-    })
+  })
 }))
