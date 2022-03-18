@@ -179,7 +179,8 @@
 
             <!--main-->
             <header class="page-header">
-              <h1 class="page-header__title">Идём<span>в</span>кино</h1>
+              <a title="Переход в кинотеатр" href='/' style="text-decoration:none; color:rgb(255, 255, 255);"><h1 class="page-header__title">Идём<span>в</span>кино</h1></a>
+              
               <span class="page-header__subtitle">Администраторррская</span>
             </header>
 
