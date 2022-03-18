@@ -19,25 +19,24 @@
 
   <nav class="page-nav">
     @php
-      $chose = 'page-nav__day_today page-nav__day_chosen ';
+    $chose = 'page-nav__day_today page-nav__day_chosen ';
     @endphp
-    @for($i = 0; $i < 7; $i++)
-      <a class="page-nav__day {{$chose . $weekDayRus[$i][0]['weekEnd']}}" href="#" data-time-stamp=" {{$weekDayRus[$i][0]['timeStamp']}}">
+    @for($i = 0; $i < 7; $i++) <a class="page-nav__day {{$chose . $weekDayRus[$i][0]['weekEnd']}}" href="#" data-time-stamp=" {{$weekDayRus[$i][0]['timeStamp']}}">
       <span class="page-nav__day-week"> {{$weekDayRus[$i][0]['dayWeek']}}</span><span class="page-nav__day-number">{{$weekDayRus[$i][0]['day']}}</span>
       </a>
       @php
       $chose = '';
-    @endphp
-    @endfor
+      @endphp
+      @endfor
   </nav>
-  
+
 
   <main>
     @for($i = 0; $i < $movies->count(); $i++)
       <section class="movie">
         <div class="movie__info">
           <div class="movie__poster">
-            <img class="movie__poster-image" alt="Звёздные войны постер" src="{{asset('assets/i/client_img/poster1.jpg')}}">
+            <img class="movie__poster-image" alt="{{$movies[$i]->title}}" src="i/posters/{{$movies[$i]->title}}.png">
           </div>
           <div class="movie__description">
             <h2 class="movie__title">{{$movies[$i]->title}}</h2>
@@ -68,8 +67,8 @@
       </section>
       @endfor
   </main>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="/js/client_choosingDay.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="/js/client_choosingDay.js"></script>
 </body>
 
 </html>

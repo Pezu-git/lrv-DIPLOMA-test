@@ -274,11 +274,11 @@
 
             <p class="conf-step__paragraph">Установите цены для типов кресел:</p>
             <div class="conf-step__legend">
-              <label class="conf-step__label">Цена, рублей<input type="text" class="conf-step__input" placeholder="0" id="standartPrice"></label>
+              <label class="conf-step__label">Цена, рублей<input type="text" class="conf-step__input" id="standartPrice"></label>
               за <span class="conf-step__chair conf-step__chair_standart"></span> обычные кресла
             </div>
             <div class="conf-step__legend">
-              <label class="conf-step__label">Цена, рублей<input type="text" class="conf-step__input" placeholder="0" id="vipPrice"></label>
+              <label class="conf-step__label">Цена, рублей<input type="text" class="conf-step__input" id="vipPrice"></label>
               за <span class="conf-step__chair conf-step__chair_vip"></span> VIP кресла
             </div>
 
@@ -301,7 +301,7 @@
             <div class="conf-step__movies">
               @foreach($movies as $movie)
               <div class="conf-step__movie">
-                <img class="conf-step__movie-poster" alt="poster" src="i/poster.png">
+                <img class="conf-step__movie-poster" alt="poster" src="i/posters/{{$movie->title}}.png">
                 <h3 class="conf-step__movie-title" id="addForm-movie-title">{{$movie->title}}</h3>
                 <p class="conf-step__movie-duration">{{$movie->duration}}</p>
               </div>
@@ -353,7 +353,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
         <script src="/js/admin_moonbase.js"></script>
 
-        
+
 </body>
 
 </html>
