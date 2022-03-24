@@ -237,15 +237,13 @@
                     <p class="conf-step__hint">Чтобы изменить вид кресла, нажмите по нему левой кнопкой мыши</p>
                   </div>
 
-
-
-
+                  
                   @for($i = 0; $i < $halls->count(); $i++)
 
                     <div class="conf-step__hall" style="display: none">
                       <div class="conf-step__hall-wrapper">
-                        @for($j = 0; $j < $hallConf[$i]['rows']; $j++) <div class="conf-step__row">
-                          @for($k = 0; $k < $hallConf[$i]['cols']; $k++) <span class="conf-step__chair conf-step__chair_{{$seats[$halls[$i]->id][$j][$k][0]}}"></span>
+                        @for($j = 0; $j < count($seats[$halls[$i]->name]); $j++) <div class="conf-step__row">
+                          @for($k = 0; $k < count($seats[$halls[$i]->name][0]); $k++) <span class="conf-step__chair conf-step__chair_{{$seats[$halls[$i]->name][$j][$k][0]}}"></span>
                             @endfor
                       </div>
                       @endfor

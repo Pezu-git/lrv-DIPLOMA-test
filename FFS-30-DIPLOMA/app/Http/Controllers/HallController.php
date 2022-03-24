@@ -142,12 +142,12 @@ class HallController extends Controller
             $hall = Hall::where('id', $value->id)->first();
             for ($i = 0; $i < $value->rows; $i++) {
                 for ($j = 0; $j < $value->cols; $j++) {
-                    $arr[$value->id][$i][$j] = [];
+                    $arr[$hall->name][$i][$j] = [];
                     try {
                         $seatStatus = $hall->seats->where('row_num', $i)->where('seat_num', $j)->first()->status;
-                        array_push($arr[$value->id][$i][$j], $seatStatus);
+                        array_push($arr[$hall->name][$i][$j], $seatStatus);
                     } catch (\Exception $e) {
-                        array_push($arr[$value->id][$i][$j], 'standart');
+                        array_push($arr[$hall->name][$i][$j], 'standart');
                     }
                 }
             }
