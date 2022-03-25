@@ -38,7 +38,7 @@ for (let i = 0; i<chairsHallConfInput.length; i++) {
   
 //Перерисовка зала при вводе в input кол-ва рядов
     inputRowsCount.oninput = function() {
-      if (inputRowsCount.value > 20) {inputRowsCount.value = 20};
+      if (inputRowsCount.value > 15) {inputRowsCount.value = 15};
       hallWrapper[i].innerHTML = ''
       for(let k = 0; k < Number(inputRowsCount.value); k++) {
         hallWrapper[i].insertAdjacentHTML('afterBegin', `
@@ -56,7 +56,7 @@ for (let i = 0; i<chairsHallConfInput.length; i++) {
     };
     //Перерисовка зала при вводе в input кол-ва мест в ряду
     inputPlacesCount.oninput = function() {
-    if (inputPlacesCount.value > 20) {inputPlacesCount.value = 20};
+    if (inputPlacesCount.value > 15) {inputPlacesCount.value = 15};
     hallWrapper[i].innerHTML = ''
     for(let k = 0; k < Number(inputRowsCount.value); k++) {
       hallWrapper[i].insertAdjacentHTML('afterBegin', `

@@ -8,7 +8,9 @@ use App\Models\HallConf;
 use App\Models\Hall;
 use Illuminate\Http\Response;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+
 
 class SeatController extends Controller
 {

@@ -270,8 +270,8 @@ var _loop = function _loop(i) {
     inputPlacesCount.value = col.length; //Перерисовка зала при вводе в input кол-ва рядов
 
     inputRowsCount.oninput = function () {
-      if (inputRowsCount.value > 20) {
-        inputRowsCount.value = 20;
+      if (inputRowsCount.value > 15) {
+        inputRowsCount.value = 15;
       }
 
       ;
@@ -293,8 +293,8 @@ var _loop = function _loop(i) {
 
 
     inputPlacesCount.oninput = function () {
-      if (inputPlacesCount.value > 20) {
-        inputPlacesCount.value = 20;
+      if (inputPlacesCount.value > 15) {
+        inputPlacesCount.value = 15;
       }
 
       ;

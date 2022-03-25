@@ -98,10 +98,19 @@ class HallController extends Controller
     {
         $hall = Hall::findOrFail($request->id);
         if ($hall->is_active == true) {
+            
             $hall->is_active = false;
             $hall->save();
             return ['Открыть продажу билетов', 'Зал готов к открытию:'];
         } else {
+            if (!Seat::where('hall_id', $hall->id)->first()) {
+                $hall->is_active = false;
+                return ['Открыть продажу билетов', 'Установите конфигурацию зала!'];
+            }
+            if (!PriceList::where('hall_id', $hall->id)->first()) {
+                $hall->is_active = false;
+                return ['Открыть продажу билетов', 'Установите конфигурацию цен в зале!'];
+            }
             $hall->is_active = true;
             $hall->save();
             return ['Закрыть продажу билетов', 'Продажа билетов открыта'];
